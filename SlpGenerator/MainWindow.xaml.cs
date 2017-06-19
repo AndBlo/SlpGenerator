@@ -27,12 +27,18 @@ namespace SlpGenerator
         {
             InitializeComponent();
             Populate();
-            PopulateContextMenu(NameCM1, TextFields.MutantHumanName.Mutants);
-            PopulateContextMenu(TraitCM1, TextFields.Occupation.GetAllOptions(TextFields.Occupation.SpecialTrait));
-            PopulateContextMenu(GoalCM1, TextFields.Occupation.GetAllOptions(TextFields.Occupation.SpecialGoal));
+            PopulateContextMenu(NameCM1_1, TextFields.MutantHumanName.Mutants);
+            PopulateContextMenu(TraitCM1_1, TextFields.Occupation.GetAllOptions(TextFields.Occupation.SpecialTrait));
+            PopulateContextMenu(GoalCM1_1, TextFields.Occupation.GetAllOptions(TextFields.Occupation.SpecialGoal));
             PopulateContextMenu(MutationCM1_1, TextFields.Occupation.GetAllOptions(TextFields.Mutation.Mutations));
             PopulateContextMenu(MutationCM2_1, TextFields.Occupation.GetAllOptions(TextFields.Mutation.Mutations));
             PopulateContextMenu(MutationCM3_1, TextFields.Occupation.GetAllOptions(TextFields.Mutation.Mutations));
+            PopulateContextMenu(SkillCM1_1, TextFields.Skill.Skills);
+            PopulateContextMenu(SkillCM2_1, TextFields.Skill.Skills);
+            PopulateContextMenu(SkillCM3_1, TextFields.Occupation.SpecialSkills);
+            PopulateContextMenu(SkillCM4_1, TextFields.Skill.Skills);
+            PopulateContextMenu(SkillCM5_1, TextFields.Skill.Skills);
+            PopulateContextMenu(SkillCM6_1, TextFields.Skill.Skills);
         }
 
         enum OccupationEnum
@@ -48,7 +54,7 @@ namespace SlpGenerator
 
         }
 
-//----------------------------------------------POPULATE-------------------------------------------------------------------------------------------
+        //----------------------------------------------POPULATE-------------------------------------------------------------------------------------------
 
         private void Populate()
         {
@@ -135,20 +141,20 @@ namespace SlpGenerator
                 {
 
                     NameTxt1.Content =
-                        (string)mi.Header == "TÖM!" ? 
-                        mi.Uid.ToString() : 
+                        (string)mi.Header == "TÖM!" ?
+                        mi.Uid.ToString() :
                         mi.Header.ToString();
-                        
+
                 }
 
                 else if (mi.Name.Contains("trait"))
                 {
                     TraitTxt.Content =
-                        (string)mi.Header == "TÖM!" ? 
-                        mi.Uid.ToString() : 
+                        (string)mi.Header == "TÖM!" ?
+                        mi.Uid.ToString() :
                         mi.Header.ToString();
                 }
-                    
+
                 else if (mi.Name.Contains("goal"))
                 {
                     GoalTxt.Content =
@@ -156,7 +162,7 @@ namespace SlpGenerator
                         mi.Uid.ToString() :
                         mi.Header.ToString();
                 }
-                    
+
                 else if (mi.Name.Contains("mutation"))
                 {
                     if (mi.Name.Contains("_1"))
@@ -181,25 +187,60 @@ namespace SlpGenerator
                             mi.Header.ToString();
                     }
                 }
+
+                else if (mi.Name.Contains("skill"))
+                {
+                    if (mi.Name.Contains("_1"))
+                    {
+                        Skill1Txt1.Content =
+                            (string)mi.Header == "TÖM!" ?
+                            mi.Uid.ToString() :
+                            mi.Header.ToString();
+                    }
+                    else if (mi.Name.Contains("_2"))
+                    {
+                        Skill2Txt1.Content =
+                            (string)mi.Header == "TÖM!" ?
+                            mi.Uid.ToString() :
+                            mi.Header.ToString();
+                    }
+                    else if (mi.Name.Contains("_3"))
+                    {
+                        Skill3Txt1.Content =
+                            (string)mi.Header == "TÖM!" ?
+                            mi.Uid.ToString() :
+                            mi.Header.ToString();
+                    }
+                }
             }
 
         }
 
         public void PopulateContextMenu(ContextMenu cm, List<string> list)
         {
+            // Används för att namnge items med deras namn utan ändelser
+            string plainName = cm.Name.Contains("_") ?
+                (cm.Name.Substring((cm.Name.Count() - 2), 2)).ToLower() :
+                "";
+
+            //FIXA DETTA!
+            string endInteger = cm.Name.Contains("_") ?
+                cm.Name.Substring((cm.Name.Count() - 3), 2).ToLower() :
+                " ";
+
             // Skapar första menyvalet "SLUMPA!"
             MenuItem firstItem = new MenuItem();
             firstItem.Click += new RoutedEventHandler(RandomizeName_Click);
             firstItem.FontSize = 20;
-            firstItem.FontWeight = FontWeights.Bold;
+            //firstItem.FontWeight = FontWeights.Bold;
             firstItem.Header = "SLUMPA!";
-            firstItem.Name = cm.Name.ToLower();
+            firstItem.Name = plainName;
 
             // Skapar en separator
             Separator sep1 = new Separator();
             sep1.BorderThickness = new Thickness(1);
             sep1.BorderBrush = Brushes.Black;
-            
+
             //Skapar en andra separator
             Separator sep2 = new Separator();
             sep2.BorderThickness = new Thickness(1);
@@ -209,23 +250,23 @@ namespace SlpGenerator
             MenuItem secondItem = new MenuItem();
             secondItem.Click += new RoutedEventHandler(NameContextMenu1);
             secondItem.FontSize = 20;
-            secondItem.FontWeight = FontWeights.Bold;
+            //secondItem.FontWeight = FontWeights.Bold;
             secondItem.Header = "TÖM!";
-            secondItem.Name = cm.Name.ToLower();
+            secondItem.Name = plainName;
             secondItem.Uid = "";
 
             // Skapar id beroende på vilken kolumn som berörs
-            if (cm.Name.Contains("1"))
+            if (cm.Name.Contains("_1"))
             {
                 firstItem.Tag = 1;
                 secondItem.Tag = 1;
             }
-            else if (cm.Name.Contains("2"))
+            else if (cm.Name.Contains("_2"))
             {
                 firstItem.Tag = 2;
                 secondItem.Tag = 2;
             }
-            else if (cm.Name.Contains("3"))
+            else if (cm.Name.Contains("_3"))
             {
                 firstItem.Tag = 3;
                 secondItem.Tag = 3;
@@ -234,18 +275,18 @@ namespace SlpGenerator
             // Lägger till ändelse beroende på vilket fält som berörs
             if (cm.Name.Contains("1_1"))
             {
-                firstItem.Name = "mutation" + "_1";
-                secondItem.Name = "mutation" + "_1";
+                firstItem.Name = plainName + "_1";
+                secondItem.Name = plainName + "_1";
             }
             else if (cm.Name.Contains("2_1"))
             {
-                firstItem.Name = "mutation" + "_2";
-                secondItem.Name = "mutation" + "_2";
+                firstItem.Name = plainName + "_2";
+                secondItem.Name = plainName + "_2";
             }
             else if (cm.Name.Contains("3_1"))
             {
-                firstItem.Name = "mutation" + "_3";
-                secondItem.Name = "mutation" + "_3";
+                firstItem.Name = plainName + "_3";
+                secondItem.Name = plainName + "_3";
             }
 
             // Lägger till de första items i menyn
@@ -265,42 +306,29 @@ namespace SlpGenerator
                 mi.Header = list[i];
 
                 // Bestämmer vilken kolumn som påverkas
-                if (cm.Name.Contains("1"))
+                if (cm.Name.Contains("_1"))
                     mi.Tag = 1;
-                else if (cm.Name.Contains("2"))
+                else if (cm.Name.Contains("_2"))
                     mi.Tag = 2;
-                else if (cm.Name.Contains("3"))
+                else if (cm.Name.Contains("_3"))
                     mi.Tag = 3;
-                
+
                 // Får sitt namn satt beroende på vilket fält det ska påverka
-                if (cm.Name.Contains("Name"))
+                if (cm.Name.Contains("1_1"))
                 {
-                    mi.Name = "name" + i.ToString();
+                    mi.Name = plainName + i.ToString() + "_1";
                 }
-                else if (cm.Name.Contains("Trait"))
+                else if (cm.Name.Contains("2_1"))
                 {
-                    mi.Name = "trait" + i.ToString();
+                    mi.Name = plainName + i.ToString() + "_2";
                 }
-                else if (cm.Name.Contains("Goal"))
+                else if (cm.Name.Contains("3_1"))
                 {
-                    mi.Name = "goal" + i.ToString();
+                    mi.Name = plainName + i.ToString() + "_3";
                 }
-                else if (cm.Name.Contains("Mutation"))
+                else
                 {
-                    if (cm.Name.Contains("1_1"))
-                    {
-                        mi.Name = "mutation" + i.ToString() + "_1";
-                    }
-                    else if (cm.Name.Contains("2_1"))
-                    {
-                        mi.Name = "mutation" + i.ToString() + "_2";
-                    }
-                    else if (cm.Name.Contains("3_1"))
-                    {
-                        mi.Name = "mutation" + i.ToString() + "_3";
-                    }
-
-
+                    mi.Name = plainName + i.ToString();
                 }
 
                 cm.Items.Add(mi);
@@ -395,10 +423,10 @@ namespace SlpGenerator
             if (TextFields.BasicProperty.BP.Take(4).Sum() == 13)
             {
                 mutation1.Content = TextFields.Mutation.Mutations.GetRandomName();
-                
+
                 string secondMut = TextFields.Mutation.Mutations.GetRandomName();
 
-                while (mutation1.Content == secondMut)
+                while ((string)mutation1.Content == secondMut)
                 {
                     secondMut = TextFields.Mutation.Mutations.GetRandomName();
                 }
@@ -454,7 +482,7 @@ namespace SlpGenerator
 
             while (skillOne.Contains(skillTwo))
             {
-                    skillOne = TextFields.Skill.Skills.GetRandomName();
+                skillOne = TextFields.Skill.Skills.GetRandomName();
             }
 
             specSkill.Content = TextFields.Occupation.GetRandomMultiOption(2);
@@ -539,8 +567,8 @@ namespace SlpGenerator
             }
 
         }
-        
-//---------------------------------------------------KNAPPAR---------------------------------------------------
+
+        //---------------------------------------------------KNAPPAR---------------------------------------------------
 
         private void button_save_window_Click(object sender, RoutedEventArgs e)
         {
@@ -567,7 +595,7 @@ namespace SlpGenerator
 
         }
 
-//---------------------------------------------KNAPPAR OCH LABEL FÖR KOLUMN 1-----------------------------------------------------------------
+        //---------------------------------------------KNAPPAR OCH LABEL FÖR KOLUMN 1-----------------------------------------------------------------
 
         private void NameBtn1_Click(object sender, RoutedEventArgs e)
         {
@@ -656,6 +684,16 @@ namespace SlpGenerator
             //GetMutation(Mutation1Txt1, Mutation2Txt1);
         }
 
+        private void Skill1Btn1_Click(object sender, RoutedEventArgs e)
+        {
+            ContMenu(sender);
+        }
+
+        private void TalentsBtn1_Click(object sender, RoutedEventArgs e)
+        {
+            ContMenu(sender);
+        }
+
         private void EquipmentBtn1_Click(object sender, RoutedEventArgs e)
         {
             TextFields.Occupation.GetEquipment();
@@ -670,7 +708,7 @@ namespace SlpGenerator
             }
         }
 
-        //-------------------------------------------------KNAPPAR OCH LabelAR FÖR KOLUMN 1-----------------------------------------------------------------
+        //-------------------------------------------------KNAPPAR OCH LabelAR FÖR KOLUMN 2-----------------------------------------------------------------
 
         private void NameBtn2_Click(object sender, RoutedEventArgs e)
         {
