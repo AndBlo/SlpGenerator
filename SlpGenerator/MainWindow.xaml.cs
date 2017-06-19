@@ -234,14 +234,17 @@ namespace SlpGenerator
             // Lägger till ändelse beroende på vilket fält som berörs
             if (cm.Name.Contains("1_1"))
             {
+                firstItem.Name = "mutation" + "_1";
                 secondItem.Name = "mutation" + "_1";
             }
             else if (cm.Name.Contains("2_1"))
             {
+                firstItem.Name = "mutation" + "_2";
                 secondItem.Name = "mutation" + "_2";
             }
             else if (cm.Name.Contains("3_1"))
             {
+                firstItem.Name = "mutation" + "_3";
                 secondItem.Name = "mutation" + "_3";
             }
 

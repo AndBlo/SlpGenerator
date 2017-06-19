@@ -87,3 +87,6 @@ C:\Users\Andreas\Desktop\SlpGenerator\SlpGenerator\obj\Debug\SlpGenerator.Proper
 C:\Users\Andreas\Desktop\SlpGenerator\SlpGenerator\obj\Debug\SlpGenerator.csproj.GenerateResource.Cache
 C:\Users\Andreas\Desktop\SlpGenerator\SlpGenerator\obj\Debug\SlpGenerator.exe
 C:\Users\Andreas\Desktop\SlpGenerator\SlpGenerator\obj\Debug\SlpGenerator.pdb
+C:\Users\anten\Source\Repos\SlpGenerator\SlpGenerator\bin\Debug\SlpGenerator.exe.config
+C:\Users\anten\Source\Repos\SlpGenerator\SlpGenerator\obj\Debug\SlpGenerator.exe
+C:\Users\anten\Source\Repos\SlpGenerator\SlpGenerator\obj\Debug\SlpGenerator.pdb
