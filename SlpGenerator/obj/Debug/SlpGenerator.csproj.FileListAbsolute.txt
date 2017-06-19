@@ -1,0 +1,89 @@
+c:\users\anten\onedrive\dokument\visual studio 2015\Projects\SlpGenerator\SlpGenerator\bin\Debug\SlpGenerator.exe.config
+c:\users\anten\onedrive\dokument\visual studio 2015\Projects\SlpGenerator\SlpGenerator\bin\Debug\SlpGenerator.exe
+c:\users\anten\onedrive\dokument\visual studio 2015\Projects\SlpGenerator\SlpGenerator\bin\Debug\SlpGenerator.pdb
+c:\users\anten\onedrive\dokument\visual studio 2015\Projects\SlpGenerator\SlpGenerator\obj\Debug\SlpGenerator.csprojResolveAssemblyReference.cache
+c:\users\anten\onedrive\dokument\visual studio 2015\Projects\SlpGenerator\SlpGenerator\obj\Debug\MainWindow.g.cs
+c:\users\anten\onedrive\dokument\visual studio 2015\Projects\SlpGenerator\SlpGenerator\obj\Debug\App.g.cs
+c:\users\anten\onedrive\dokument\visual studio 2015\Projects\SlpGenerator\SlpGenerator\obj\Debug\SlpGenerator_MarkupCompile.cache
+c:\users\anten\onedrive\dokument\visual studio 2015\Projects\SlpGenerator\SlpGenerator\obj\Debug\SlpGenerator_MarkupCompile.lref
+c:\users\anten\onedrive\dokument\visual studio 2015\Projects\SlpGenerator\SlpGenerator\obj\Debug\MainWindow.baml
+c:\users\anten\onedrive\dokument\visual studio 2015\Projects\SlpGenerator\SlpGenerator\obj\Debug\SlpGenerator.g.resources
+c:\users\anten\onedrive\dokument\visual studio 2015\Projects\SlpGenerator\SlpGenerator\obj\Debug\SlpGenerator.Properties.Resources.resources
+c:\users\anten\onedrive\dokument\visual studio 2015\Projects\SlpGenerator\SlpGenerator\obj\Debug\SlpGenerator.csproj.GenerateResource.Cache
+c:\users\anten\onedrive\dokument\visual studio 2015\Projects\SlpGenerator\SlpGenerator\obj\Debug\SlpGenerator.exe
+c:\users\anten\onedrive\dokument\visual studio 2015\Projects\SlpGenerator\SlpGenerator\obj\Debug\SlpGenerator.pdb
+c:\users\anten\onedrive\dokument\visual studio 2015\Projects\SlpGenerator\SlpGenerator\bin\Debug\TextFiles\MUTANTER.txt
+c:\users\anten\onedrive\dokument\visual studio 2015\Projects\SlpGenerator\SlpGenerator\obj\Debug\SlpGenerator_Content.g.cs
+C:\Users\anten\onedrive\dokument\visual studio 2015\Projects\SlpGenerator\SlpGenerator\bin\Debug\TextFiles\SPEC_BP.txt
+C:\Users\anten\onedrive\dokument\visual studio 2015\Projects\SlpGenerator\SlpGenerator\bin\Debug\TextFiles\SYSSLA.txt
+C:\Users\anten\onedrive\dokument\visual studio 2015\Projects\SlpGenerator\SlpGenerator\bin\Debug\TextFiles\SPEC_TALANGER.txt
+C:\Users\anten\onedrive\dokument\visual studio 2015\Projects\SlpGenerator\SlpGenerator\bin\Debug\TextFiles\SPEC_UTRUSTNING.txt
+C:\Users\anten\onedrive\dokument\visual studio 2015\Projects\SlpGenerator\SlpGenerator\bin\Debug\TextFiles\SPEC_VAPEN.txt
+C:\Users\anten\onedrive\dokument\visual studio 2015\Projects\SlpGenerator\SlpGenerator\bin\Debug\TextFiles\SPEC_FARDIGHETER.txt
+C:\Users\anten\onedrive\dokument\visual studio 2015\Projects\SlpGenerator\SlpGenerator\bin\Debug\TextFiles\MUTATIONER.txt
+C:\Users\anten\onedrive\dokument\visual studio 2015\Projects\SlpGenerator\SlpGenerator\bin\Debug\TextFiles\SPEC_UTSEENDE_KROPP.txt
+C:\Users\anten\onedrive\dokument\visual studio 2015\Projects\SlpGenerator\SlpGenerator\bin\Debug\TextFiles\SPEC_UTSEENDE.txt
+C:\Users\anten\onedrive\dokument\visual studio 2015\Projects\SlpGenerator\SlpGenerator\bin\Debug\TextFiles\SPEC_UTSEENDE_ANSIKTE.txt
+C:\Users\anten\onedrive\dokument\visual studio 2015\Projects\SlpGenerator\SlpGenerator\bin\Debug\TextFiles\SPEC_UTSEENDE_KLÄDSEL.txt
+C:\Users\anten\onedrive\dokument\visual studio 2015\Projects\SlpGenerator\SlpGenerator\bin\Debug\TextFiles\SPEC_DROM.txt
+C:\Users\anten\onedrive\dokument\visual studio 2015\Projects\SlpGenerator\SlpGenerator\bin\Debug\TextFiles\SKILLS.txt
+C:\Users\anten\Desktop\SlpGenerator\SlpGenerator\bin\Debug\SlpGenerator.exe.config
+C:\Users\anten\Desktop\SlpGenerator\SlpGenerator\obj\Debug\SlpGenerator.exe
+C:\Users\anten\Desktop\SlpGenerator\SlpGenerator\obj\Debug\SlpGenerator.pdb
+C:\Users\anten\Desktop\SlpGenerator\SlpGenerator\bin\Debug\TextFiles\SPEC_UTSEENDE_KROPP.txt
+C:\Users\anten\Desktop\SlpGenerator\SlpGenerator\bin\Debug\TextFiles\MUTANTER.txt
+C:\Users\anten\Desktop\SlpGenerator\SlpGenerator\bin\Debug\TextFiles\SKILLS.txt
+C:\Users\anten\Desktop\SlpGenerator\SlpGenerator\bin\Debug\TextFiles\SPEC_DROM.txt
+C:\Users\anten\Desktop\SlpGenerator\SlpGenerator\bin\Debug\TextFiles\SPEC_FARDIGHETER.txt
+C:\Users\anten\Desktop\SlpGenerator\SlpGenerator\bin\Debug\TextFiles\SPEC_BP.txt
+C:\Users\anten\Desktop\SlpGenerator\SlpGenerator\bin\Debug\TextFiles\SPEC_UTSEENDE.txt
+C:\Users\anten\Desktop\SlpGenerator\SlpGenerator\bin\Debug\TextFiles\SPEC_UTSEENDE_ANSIKTE.txt
+C:\Users\anten\Desktop\SlpGenerator\SlpGenerator\bin\Debug\TextFiles\SPEC_UTSEENDE_KLÄDSEL.txt
+C:\Users\anten\Desktop\SlpGenerator\SlpGenerator\bin\Debug\TextFiles\SYSSLA.txt
+C:\Users\anten\Desktop\SlpGenerator\SlpGenerator\bin\Debug\TextFiles\SPEC_TALANGER.txt
+C:\Users\anten\Desktop\SlpGenerator\SlpGenerator\bin\Debug\TextFiles\SPEC_UTRUSTNING.txt
+C:\Users\anten\Desktop\SlpGenerator\SlpGenerator\bin\Debug\TextFiles\SPEC_VAPEN.txt
+C:\Users\anten\Desktop\SlpGenerator\SlpGenerator\bin\Debug\TextFiles\MUTATIONER.txt
+C:\Users\anten\Desktop\SlpGenerator\SlpGenerator\bin\Debug\SlpGenerator.exe
+C:\Users\anten\Desktop\SlpGenerator\SlpGenerator\bin\Debug\SlpGenerator.pdb
+C:\Users\anten\Desktop\SlpGenerator\SlpGenerator\obj\Debug\SlpGenerator.csprojResolveAssemblyReference.cache
+C:\Users\anten\Desktop\SlpGenerator\SlpGenerator\obj\Debug\MainWindow.g.cs
+C:\Users\anten\Desktop\SlpGenerator\SlpGenerator\obj\Debug\App.g.cs
+C:\Users\anten\Desktop\SlpGenerator\SlpGenerator\obj\Debug\SlpGenerator_Content.g.cs
+C:\Users\anten\Desktop\SlpGenerator\SlpGenerator\obj\Debug\SlpGenerator_MarkupCompile.cache
+C:\Users\anten\Desktop\SlpGenerator\SlpGenerator\obj\Debug\SlpGenerator_MarkupCompile.lref
+C:\Users\anten\Desktop\SlpGenerator\SlpGenerator\obj\Debug\MainWindow.baml
+C:\Users\anten\Desktop\SlpGenerator\SlpGenerator\obj\Debug\SlpGenerator.g.resources
+C:\Users\anten\Desktop\SlpGenerator\SlpGenerator\obj\Debug\SlpGenerator.Properties.Resources.resources
+C:\Users\anten\Desktop\SlpGenerator\SlpGenerator\obj\Debug\SlpGenerator.csproj.GenerateResource.Cache
+C:\Users\anten\Desktop\SlpGenerator\SlpGenerator\obj\Debug\App.baml
+C:\Users\Andreas\Desktop\SlpGenerator\SlpGenerator\bin\Debug\TextFiles\SPEC_UTSEENDE_KROPP.txt
+C:\Users\Andreas\Desktop\SlpGenerator\SlpGenerator\bin\Debug\TextFiles\MUTANTER.txt
+C:\Users\Andreas\Desktop\SlpGenerator\SlpGenerator\bin\Debug\TextFiles\SKILLS.txt
+C:\Users\Andreas\Desktop\SlpGenerator\SlpGenerator\bin\Debug\TextFiles\SPEC_DROM.txt
+C:\Users\Andreas\Desktop\SlpGenerator\SlpGenerator\bin\Debug\TextFiles\SPEC_FARDIGHETER.txt
+C:\Users\Andreas\Desktop\SlpGenerator\SlpGenerator\bin\Debug\TextFiles\SPEC_BP.txt
+C:\Users\Andreas\Desktop\SlpGenerator\SlpGenerator\bin\Debug\TextFiles\SPEC_UTSEENDE.txt
+C:\Users\Andreas\Desktop\SlpGenerator\SlpGenerator\bin\Debug\TextFiles\SPEC_UTSEENDE_ANSIKTE.txt
+C:\Users\Andreas\Desktop\SlpGenerator\SlpGenerator\bin\Debug\TextFiles\SPEC_UTSEENDE_KLÄDSEL.txt
+C:\Users\Andreas\Desktop\SlpGenerator\SlpGenerator\bin\Debug\TextFiles\SYSSLA.txt
+C:\Users\Andreas\Desktop\SlpGenerator\SlpGenerator\bin\Debug\TextFiles\SPEC_TALANGER.txt
+C:\Users\Andreas\Desktop\SlpGenerator\SlpGenerator\bin\Debug\TextFiles\SPEC_UTRUSTNING.txt
+C:\Users\Andreas\Desktop\SlpGenerator\SlpGenerator\bin\Debug\TextFiles\SPEC_VAPEN.txt
+C:\Users\Andreas\Desktop\SlpGenerator\SlpGenerator\bin\Debug\TextFiles\MUTATIONER.txt
+C:\Users\Andreas\Desktop\SlpGenerator\SlpGenerator\bin\Debug\SlpGenerator.exe.config
+C:\Users\Andreas\Desktop\SlpGenerator\SlpGenerator\bin\Debug\SlpGenerator.exe
+C:\Users\Andreas\Desktop\SlpGenerator\SlpGenerator\bin\Debug\SlpGenerator.pdb
+C:\Users\Andreas\Desktop\SlpGenerator\SlpGenerator\obj\Debug\SlpGenerator.csprojResolveAssemblyReference.cache
+C:\Users\Andreas\Desktop\SlpGenerator\SlpGenerator\obj\Debug\MainWindow.g.cs
+C:\Users\Andreas\Desktop\SlpGenerator\SlpGenerator\obj\Debug\App.g.cs
+C:\Users\Andreas\Desktop\SlpGenerator\SlpGenerator\obj\Debug\SlpGenerator_Content.g.cs
+C:\Users\Andreas\Desktop\SlpGenerator\SlpGenerator\obj\Debug\SlpGenerator_MarkupCompile.cache
+C:\Users\Andreas\Desktop\SlpGenerator\SlpGenerator\obj\Debug\SlpGenerator_MarkupCompile.lref
+C:\Users\Andreas\Desktop\SlpGenerator\SlpGenerator\obj\Debug\App.baml
+C:\Users\Andreas\Desktop\SlpGenerator\SlpGenerator\obj\Debug\MainWindow.baml
+C:\Users\Andreas\Desktop\SlpGenerator\SlpGenerator\obj\Debug\SlpGenerator.g.resources
+C:\Users\Andreas\Desktop\SlpGenerator\SlpGenerator\obj\Debug\SlpGenerator.Properties.Resources.resources
+C:\Users\Andreas\Desktop\SlpGenerator\SlpGenerator\obj\Debug\SlpGenerator.csproj.GenerateResource.Cache
+C:\Users\Andreas\Desktop\SlpGenerator\SlpGenerator\obj\Debug\SlpGenerator.exe
+C:\Users\Andreas\Desktop\SlpGenerator\SlpGenerator\obj\Debug\SlpGenerator.pdb
