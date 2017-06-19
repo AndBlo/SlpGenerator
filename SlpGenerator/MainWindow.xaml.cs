@@ -227,7 +227,7 @@ namespace SlpGenerator
             string endInteger = cm.Name.Contains("_") ?
                 cm.Name.Substring((cm.Name.Count() - 3), 2).ToLower() :
                 " ";
-
+            //dfdfr
             // Skapar första menyvalet "SLUMPA!"
             MenuItem firstItem = new MenuItem();
             firstItem.Click += new RoutedEventHandler(RandomizeName_Click);
