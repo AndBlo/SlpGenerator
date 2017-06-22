@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Xceed.Wpf;
 
 namespace SlpGenerator
 {
@@ -25,6 +26,7 @@ namespace SlpGenerator
 
         public MainWindow()
         {
+            
             InitializeComponent();
             Populate();
             PopulateContextMenu(NameCM1_1, TextFields.MutantHumanName.Mutants);
@@ -33,12 +35,38 @@ namespace SlpGenerator
             PopulateContextMenu(MutationCM1_1, TextFields.Occupation.GetAllOptions(TextFields.Mutation.Mutations));
             PopulateContextMenu(MutationCM2_1, TextFields.Occupation.GetAllOptions(TextFields.Mutation.Mutations));
             PopulateContextMenu(MutationCM3_1, TextFields.Occupation.GetAllOptions(TextFields.Mutation.Mutations));
-            PopulateContextMenu(SkillCM1_1, TextFields.Skill.Skills);
+            PopulateContextMenu(SkillCM1_1, TextFields.Occupation.SpecialSkills);
             PopulateContextMenu(SkillCM2_1, TextFields.Skill.Skills);
-            PopulateContextMenu(SkillCM3_1, TextFields.Occupation.SpecialSkills);
+            PopulateContextMenu(SkillCM3_1, TextFields.Skill.Skills);
             PopulateContextMenu(SkillCM4_1, TextFields.Skill.Skills);
             PopulateContextMenu(SkillCM5_1, TextFields.Skill.Skills);
             PopulateContextMenu(SkillCM6_1, TextFields.Skill.Skills);
+
+            SetInitialSpinnerValue(SkillPoint1Spinner1);
+            SetInitialSpinnerValue(SkillPoint2Spinner1);
+            SetInitialSpinnerValue(SkillPoint3Spinner1);
+            SetInitialSpinnerValue(SkillPoint4Spinner1);
+            SetInitialSpinnerValue(SkillPoint5Spinner1);
+            SetInitialSpinnerValue(SkillPoint6Spinner1);
+        }
+
+        private void IntUpDownDefaultValue(Xceed.Wpf.Toolkit.IntegerUpDown iud)
+        {
+            if(iud.Value == -1)
+            {
+                iud.Text = "";
+            }
+        }
+
+        private void SetInitialSpinnerValue(Xceed.Wpf.Toolkit.IntegerUpDown iud)
+        {
+            iud.Text = "";
+            iud.ShowButtonSpinner = false;
+        }
+
+        private void SkillPoint1Spinner1_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            IntUpDownDefaultValue(sender as Xceed.Wpf.Toolkit.IntegerUpDown);
         }
 
         enum OccupationEnum
@@ -76,45 +104,79 @@ namespace SlpGenerator
 
         private void RandomizeName_Click(object sender, RoutedEventArgs e)
         {
-
+            
             MenuItem mi = sender as MenuItem;
 
             // Kolumn 1
             if ((int)mi.Tag == 1)
             {
-                if (mi.Name.Contains("name"))
+                if (mi.Name.Contains("_1"))
                 {
-                    NameTxt1.Content = TextFields.MutantHumanName.Mutants.GetRandomName();
-                }
-
-                else if (mi.Name.Contains("trait"))
-                {
-                    TraitTxt.Content = TextFields.Occupation.GetAllOptions(TextFields.Occupation.SpecialTrait).GetRandomName();
-                }
-
-                else if (mi.Name.Contains("goal"))
-                {
-                    GoalTxt.Content = TextFields.Occupation.GetAllOptions(TextFields.Occupation.SpecialGoal).GetRandomName();
-                }
-
-                else if (mi.Name.Contains("mutation"))
-                {
-                    if (mi.Name.Contains("_1"))
+                    if (mi.Name.Contains("name"))
+                    {
+                        NameTxt1.Content = TextFields.MutantHumanName.Mutants.GetRandomName();
+                    }
+                    else if (mi.Name.Contains("trait"))
+                    {
+                        TraitTxt.Content = TextFields.Occupation.GetAllOptions(TextFields.Occupation.SpecialTrait).GetRandomName();
+                    }
+                    else if (mi.Name.Contains("goal"))
+                    {
+                        GoalTxt.Content = TextFields.Occupation.GetAllOptions(TextFields.Occupation.SpecialGoal).GetRandomName();
+                    }
+                    else if (mi.Name.Contains("mutation"))
                     {
                         Mutation1Txt1.Content = TextFields.Mutation.Mutations.GetRandomName();
                     }
-                    else if (mi.Name.Contains("_2"))
+                    else if (mi.Name.Contains("skill"))
+                    {
+                        Skill1Txt1.Content = TextFields.Occupation.SpecialSkills.GetRandomName();
+                    }
+                }
+                else if (mi.Name.Contains("_2"))
+                {
+                    if (mi.Name.Contains("mutation"))
                     {
                         Mutation2Txt1.Content = TextFields.Mutation.Mutations.GetRandomName();
                     }
-                    else if (mi.Name.Contains("_3"))
+                    else if (mi.Name.Contains("skill"))
+                    {
+                        Skill2Txt1.Content = TextFields.Skill.Skills.GetRandomName();
+                    }
+                }
+                else if (mi.Name.Contains("_3"))
+                {
+                    if (mi.Name.Contains("mutation"))
                     {
                         Mutation3Txt1.Content = TextFields.Mutation.Mutations.GetRandomName();
                     }
+                    else if (mi.Name.Contains("skill"))
+                    {
+                        Skill3Txt1.Content = TextFields.Skill.Skills.GetRandomName();
+                    }
+                }
+                else if (mi.Name.Contains("_4"))
+                {
+                    if (mi.Name.Contains("skill"))
+                    {
+                        Skill4Txt1.Content = TextFields.Skill.Skills.GetRandomName();
+                    }
+                }
+                else if (mi.Name.Contains("_5"))
+                {
+                    if (mi.Name.Contains("skill"))
+                    {
+                        Skill5Txt1.Content = TextFields.Skill.Skills.GetRandomName();
+                    }
+                }
+                else if (mi.Name.Contains("_6"))
+                {
+                    if (mi.Name.Contains("skill"))
+                    {
+                        Skill6Txt1.Content = TextFields.Skill.Skills.GetRandomName();
+                    }
                 }
             }
-
-
 
 
         }
@@ -130,6 +192,14 @@ namespace SlpGenerator
             btn.ContextMenu.IsOpen = true;
         }
 
+        private void SetTextField(MenuItem mi, Label field)
+        {
+            field.Content =
+                        (string)mi.Header == "TÖM!" ?
+                        mi.Uid.ToString() :
+                        mi.Header.ToString();
+        }
+
         public void NameContextMenu1(object sender, RoutedEventArgs e)
         {
             MenuItem mi = sender as MenuItem;
@@ -137,79 +207,70 @@ namespace SlpGenerator
             // Kolumn 1
             if ((int)mi.Tag == 1)
             {
-                if (mi.Name.Contains("name"))
+                if (mi.Name.Contains("_1"))
                 {
-
-                    NameTxt1.Content =
-                        (string)mi.Header == "TÖM!" ?
-                        mi.Uid.ToString() :
-                        mi.Header.ToString();
-
-                }
-
-                else if (mi.Name.Contains("trait"))
-                {
-                    TraitTxt.Content =
-                        (string)mi.Header == "TÖM!" ?
-                        mi.Uid.ToString() :
-                        mi.Header.ToString();
-                }
-
-                else if (mi.Name.Contains("goal"))
-                {
-                    GoalTxt.Content =
-                        (string)mi.Header == "TÖM!" ?
-                        mi.Uid.ToString() :
-                        mi.Header.ToString();
-                }
-
-                else if (mi.Name.Contains("mutation"))
-                {
-                    if (mi.Name.Contains("_1"))
+                    if (mi.Name.Contains("name"))
                     {
-                        Mutation1Txt1.Content =
-                            (string)mi.Header == "TÖM!" ?
-                            mi.Uid.ToString() :
-                            mi.Header.ToString();
+                        SetTextField(mi, NameTxt1);
                     }
-                    else if (mi.Name.Contains("_2"))
+                    else if (mi.Name.Contains("trait"))
                     {
-                        Mutation2Txt1.Content =
-                            (string)mi.Header == "TÖM!" ?
-                            mi.Uid.ToString() :
-                            mi.Header.ToString();
+                        SetTextField(mi, TraitTxt);
                     }
-                    else if (mi.Name.Contains("_3"))
+                    else if (mi.Name.Contains("goal"))
                     {
-                        Mutation3Txt1.Content =
-                            (string)mi.Header == "TÖM!" ?
-                            mi.Uid.ToString() :
-                            mi.Header.ToString();
+                        SetTextField(mi, GoalTxt);
+                    }
+                    else if (mi.Name.Contains("mutation"))
+                    {
+                        SetTextField(mi, Mutation1Txt1);
+                    }
+                    else if (mi.Name.Contains("skill"))
+                    {
+                        SetTextField(mi, Skill1Txt1);
                     }
                 }
-
-                else if (mi.Name.Contains("skill"))
+                else if (mi.Name.Contains("_2"))
                 {
-                    if (mi.Name.Contains("_1"))
+                    if (mi.Name.Contains("mutation"))
                     {
-                        Skill1Txt1.Content =
-                            (string)mi.Header == "TÖM!" ?
-                            mi.Uid.ToString() :
-                            mi.Header.ToString();
+                        SetTextField(mi, Mutation2Txt1);
                     }
-                    else if (mi.Name.Contains("_2"))
+                    else if (mi.Name.Contains("skill"))
                     {
-                        Skill2Txt1.Content =
-                            (string)mi.Header == "TÖM!" ?
-                            mi.Uid.ToString() :
-                            mi.Header.ToString();
+                        SetTextField(mi, Skill2Txt1);
                     }
-                    else if (mi.Name.Contains("_3"))
+                }
+                else if (mi.Name.Contains("_3"))
+                {
+                    if (mi.Name.Contains("mutation"))
                     {
-                        Skill3Txt1.Content =
-                            (string)mi.Header == "TÖM!" ?
-                            mi.Uid.ToString() :
-                            mi.Header.ToString();
+                        SetTextField(mi, Mutation3Txt1);
+                    }
+                    else if (mi.Name.Contains("skill"))
+                    {
+                        SetTextField(mi, Skill3Txt1);
+                    }
+                }
+                else if (mi.Name.Contains("_4"))
+                {
+                    if (mi.Name.Contains("skill"))
+                    {
+                        SetTextField(mi, Skill4Txt1);
+                    }
+                }
+                else if (mi.Name.Contains("_5"))
+                {
+                    if (mi.Name.Contains("skill"))
+                    {
+                        SetTextField(mi, Skill5Txt1);
+                    }
+                }
+                else if (mi.Name.Contains("_6"))
+                {
+                    if (mi.Name.Contains("skill"))
+                    {
+                        SetTextField(mi, Skill6Txt1);
                     }
                 }
             }
@@ -220,14 +281,14 @@ namespace SlpGenerator
         {
             // Används för att namnge items med deras namn utan ändelser
             string plainName = cm.Name.Contains("_") ?
-                (cm.Name.Substring((cm.Name.Count() - 2), 2)).ToLower() :
+                (cm.Name.Substring(0, (cm.Name.Count() - 5))).ToLower() :
+                (cm.Name.Substring(0, (cm.Name.Count() - 3))).ToLower();
+
+            // Lagrar ändelsen på context-menyns namn
+            string endInteger = cm.Name.Contains("_") ?
+                "_" + (cm.Name.Substring((cm.Name.Count() - 3), 1)).ToLower() :
                 "";
 
-            //FIXA DETTA!
-            string endInteger = cm.Name.Contains("_") ?
-                cm.Name.Substring((cm.Name.Count() - 3), 2).ToLower() :
-                " ";
-            //dfdfr
             // Skapar första menyvalet "SLUMPA!"
             MenuItem firstItem = new MenuItem();
             firstItem.Click += new RoutedEventHandler(RandomizeName_Click);
@@ -273,21 +334,24 @@ namespace SlpGenerator
             }
 
             // Lägger till ändelse beroende på vilket fält som berörs
-            if (cm.Name.Contains("1_1"))
-            {
-                firstItem.Name = plainName + "_1";
-                secondItem.Name = plainName + "_1";
-            }
-            else if (cm.Name.Contains("2_1"))
-            {
-                firstItem.Name = plainName + "_2";
-                secondItem.Name = plainName + "_2";
-            }
-            else if (cm.Name.Contains("3_1"))
-            {
-                firstItem.Name = plainName + "_3";
-                secondItem.Name = plainName + "_3";
-            }
+            //if (cm.Name.Contains("1_1"))
+            //{
+            //    firstItem.Name = plainName + "_1";
+            //    secondItem.Name = plainName + "_1";
+            //}
+            //else if (cm.Name.Contains("2_1"))
+            //{
+            //    firstItem.Name = plainName + "_2";
+            //    secondItem.Name = plainName + "_2";
+            //}
+            //else if (cm.Name.Contains("3_1"))
+            //{
+            //    firstItem.Name = plainName + "_3";
+            //    secondItem.Name = plainName + "_3";
+            //}
+
+            firstItem.Name = plainName + endInteger;
+            secondItem.Name = plainName + endInteger;
 
             // Lägger till de första items i menyn
             cm.Items.Add(firstItem);
@@ -313,23 +377,26 @@ namespace SlpGenerator
                 else if (cm.Name.Contains("_3"))
                     mi.Tag = 3;
 
+
                 // Får sitt namn satt beroende på vilket fält det ska påverka
-                if (cm.Name.Contains("1_1"))
-                {
-                    mi.Name = plainName + i.ToString() + "_1";
-                }
-                else if (cm.Name.Contains("2_1"))
-                {
-                    mi.Name = plainName + i.ToString() + "_2";
-                }
-                else if (cm.Name.Contains("3_1"))
-                {
-                    mi.Name = plainName + i.ToString() + "_3";
-                }
-                else
-                {
-                    mi.Name = plainName + i.ToString();
-                }
+                //if (cm.Name.Contains("1_1"))
+                //{
+                //    mi.Name = plainName + i.ToString() + "_1";
+                //}
+                //else if (cm.Name.Contains("2_1"))
+                //{
+                //    mi.Name = plainName + i.ToString() + "_2";
+                //}
+                //else if (cm.Name.Contains("3_1"))
+                //{
+                //    mi.Name = plainName + i.ToString() + "_3";
+                //}
+                //else
+                //{
+                //    mi.Name = plainName + i.ToString();
+                //}
+
+                mi.Name = plainName + i.ToString() + endInteger;
 
                 cm.Items.Add(mi);
             }
@@ -342,6 +409,17 @@ namespace SlpGenerator
         }
         //-----------------------------------------------HJÄLPMETODER--------------------------------------------------------------------------------------
 
+        private void IntegerUpDown_LostFocus(object sender, RoutedEventArgs e)
+        {
+            Xceed.Wpf.Toolkit.IntegerUpDown obj = sender as Xceed.Wpf.Toolkit.IntegerUpDown;
+            obj.ShowButtonSpinner = false;
+        }
+
+        private void IntegerUpDown_GotFocus(object sender, RoutedEventArgs e)
+        {
+            Xceed.Wpf.Toolkit.IntegerUpDown obj = sender as Xceed.Wpf.Toolkit.IntegerUpDown;
+            obj.ShowButtonSpinner = true;
+        }
         private void GetSpecialOccuBP(Label sty, Label kyl, Label skp, Label kns, Label mutation1, Label mutation2)
         {
 
@@ -440,15 +518,16 @@ namespace SlpGenerator
             }
         }
 
-        private void GetSkills(Label skill1, Label skillPoint1, Label skill2, Label skillPoint2, Label specSkill, Label specSkillPoint)
+        private void GetSkills(Label specSkill, Xceed.Wpf.Toolkit.IntegerUpDown specSkillPoint, Label skill2, Xceed.Wpf.Toolkit.IntegerUpDown skillPoint2, Label skill3, Xceed.Wpf.Toolkit.IntegerUpDown skillPoint3)
         {
             // värden rensas innan de får nya värden
-            skill1.ClearValue(Label.ContentProperty);
-            skillPoint1.ClearValue(Label.ContentProperty);
-            skill2.ClearValue(Label.ContentProperty);
-            skillPoint2.ClearValue(Label.ContentProperty);
             specSkill.ClearValue(Label.ContentProperty);
             specSkillPoint.ClearValue(Label.ContentProperty);
+            skill2.ClearValue(Label.ContentProperty);
+            skillPoint2.ClearValue(Label.ContentProperty);
+            skill3.ClearValue(Label.ContentProperty);
+            skillPoint3.ClearValue(Label.ContentProperty);
+            
 
             TextFields.Skill.SkillPoints.Clear();
             // initierar SkillPoints med 4 platser med 0 poäng vardera.
@@ -486,13 +565,13 @@ namespace SlpGenerator
             }
 
             specSkill.Content = TextFields.Occupation.GetRandomMultiOption(2);
-            specSkillPoint.Content = (TextFields.Skill.SkillPoints[0] + 1).ToString();
+            specSkillPoint.Value = (TextFields.Skill.SkillPoints[0] + 1);
 
-            skill1.Content = skillOne;
-            skillPoint1.Content = TextFields.Skill.SkillPoints[1].ToString();
+            skill2.Content = skillOne;
+            skillPoint2.Value = TextFields.Skill.SkillPoints[1];
 
-            skill2.Content = skillTwo;
-            skillPoint2.Content = TextFields.Skill.SkillPoints[2].ToString();
+            skill3.Content = skillTwo;
+            skillPoint3.Value = TextFields.Skill.SkillPoints[2];
 
         }
 
@@ -516,7 +595,7 @@ namespace SlpGenerator
                     GoalTxt.Content = TextFields.Occupation.GetRandomMultiOption(7);
                     GetSpecialOccuBP(StyTxt1, KylTxt1, SkpTxt1, KnsTxt1, Mutation1Txt1, Mutation2Txt1);
                     GetMutation(Mutation1Txt1, Mutation2Txt1);
-                    GetSkills(Skill1Txt1, SkillPoint1Txt1, Skill2Txt1, SkillPoint2Txt1, Skill3Txt1, SkillPoint3Txt1);
+                    GetSkills(Skill1Txt1, SkillPoint1Spinner1, Skill2Txt1, SkillPoint2Spinner1, Skill3Txt1, SkillPoint3Spinner1);
                     Equipment2Txt1.Content = string.Format("{0} {1} {2}",
                         TextFields.Occupation.CurrentEquip[0],
                         TextFields.Occupation.CurrentEquip[1],
@@ -534,7 +613,7 @@ namespace SlpGenerator
                     GoalTxt2.Content = TextFields.Occupation.GetRandomMultiOption(7);
                     GetSpecialOccuBP(StyTxt2, KylTxt2, SkpTxt2, KnsTxt2, Mutation1Txt2, Mutation2Txt2);
                     GetMutation(Mutation1Txt2, Mutation2Txt2);
-                    GetSkills(Skill1Txt2, SkillPoint1Txt2, Skill2Txt2, SkillPoint2Txt2, Skill3Txt2, SkillPoint3Txt2);
+                    GetSkills(Skill1Txt1, SkillPoint1Spinner1, Skill2Txt1, SkillPoint2Spinner1, Skill3Txt1, SkillPoint3Spinner1);
                     Equipment2Txt2.Content = string.Format("{0} {1} {2}",
                         TextFields.Occupation.CurrentEquip[0],
                         TextFields.Occupation.CurrentEquip[1],
@@ -675,7 +754,7 @@ namespace SlpGenerator
 
         private void SkillsBtn1_Click(object sender, RoutedEventArgs e)
         {
-            GetSkills(Skill1Txt1, SkillPoint1Txt1, Skill2Txt1, SkillPoint2Txt1, Skill3Txt1, SkillPoint3Txt1);
+            GetSkills(Skill1Txt1, SkillPoint1Spinner1, Skill2Txt1, SkillPoint2Spinner1, Skill3Txt1, SkillPoint3Spinner1);
         }
 
         private void MutationsBtn1_Click(object sender, RoutedEventArgs e)
@@ -790,7 +869,7 @@ namespace SlpGenerator
 
         private void SkillsBtn2_Click(object sender, RoutedEventArgs e)
         {
-            GetSkills(Skill1Txt2, SkillPoint1Txt2, Skill2Txt2, SkillPoint2Txt2, Skill3Txt2, SkillPoint3Txt2);
+            GetSkills(Skill1Txt1, SkillPoint1Spinner1, Skill2Txt1, SkillPoint2Spinner1, Skill3Txt1, SkillPoint3Spinner1);
         }
 
         private void MutationsBtn2_Click(object sender, RoutedEventArgs e)
@@ -811,5 +890,7 @@ namespace SlpGenerator
                 Equipment3Txt2.Content = "ARTIFAKT";
             }
         }
+
+
     }
 }

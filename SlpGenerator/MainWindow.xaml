@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SlpGenerator"
+        xmlns:wpfx="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="MainWindow" Height="1000" Width="750">
     <Window.Background>
@@ -198,7 +199,10 @@
             <Viewbox Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2">
                 <Label Name="Skill1Txt1" Background="Transparent" BorderBrush="Transparent" />
             </Viewbox>
-            <Viewbox Grid.Column="2" Grid.Row="10">
+            <Viewbox Grid.Column="2" Grid.Row="10" Panel.ZIndex="1">
+                <wpfx:IntegerUpDown Name="SkillPoint1Spinner1" TextAlignment="Center" ValueChanged="SkillPoint1Spinner1_ValueChanged" LostFocus="IntegerUpDown_LostFocus" GotFocus="IntegerUpDown_GotFocus" Background="Transparent" BorderBrush="Transparent" Grid.Column="2" Grid.Row="10" Grid.ColumnSpan="2" Height="30" Value="0" Maximum="5" Minimum="-1" Increment="1" FormatString="G" RenderTransformOrigin="0.914,0.586" />
+            </Viewbox>
+            <Viewbox Grid.Column="2" Grid.Row="10" Panel.ZIndex="0">
                 <Label Name="SkillPoint1Txt1" Background="Transparent" BorderBrush="Transparent" />
             </Viewbox>
 
@@ -213,10 +217,13 @@
                     </ContextMenu>
                 </Button.ContextMenu>
             </Button>
-            <Viewbox Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="2">
+            <Viewbox Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="2" >
                 <Label Name="Skill2Txt1" Background="Transparent" BorderBrush="Transparent" />
             </Viewbox>
-            <Viewbox Grid.Column="2" Grid.Row="11">
+            <Viewbox Grid.Column="2" Grid.Row="11" Panel.ZIndex="1">
+                <wpfx:IntegerUpDown Name="SkillPoint2Spinner1" TextAlignment="Center" ValueChanged="SkillPoint1Spinner1_ValueChanged" LostFocus="IntegerUpDown_LostFocus" GotFocus="IntegerUpDown_GotFocus" Background="Transparent" BorderBrush="Transparent" Grid.Column="2" Grid.Row="10" Grid.ColumnSpan="2" Height="30" Value="0" Maximum="5" Minimum="-1" Increment="1" FormatString="G" RenderTransformOrigin="0.914,0.586" />
+            </Viewbox>
+            <Viewbox Grid.Column="2" Grid.Row="11" Panel.ZIndex="0">
                 <Label Name="SkillPoint2Txt1" Background="Transparent" BorderBrush="Transparent" />
             </Viewbox>
 
@@ -234,7 +241,10 @@
             <Viewbox Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="2">
                 <Label Name="Skill3Txt1" Background="Transparent" BorderBrush="Transparent" />
             </Viewbox>
-            <Viewbox Grid.Column="2" Grid.Row="12">
+            <Viewbox Grid.Column="2" Grid.Row="12" Panel.ZIndex="1">
+                <wpfx:IntegerUpDown Name="SkillPoint3Spinner1" TextAlignment="Center" ValueChanged="SkillPoint1Spinner1_ValueChanged" LostFocus="IntegerUpDown_LostFocus" GotFocus="IntegerUpDown_GotFocus" Background="Transparent" BorderBrush="Transparent" Grid.Column="2" Grid.Row="10" Grid.ColumnSpan="2" Height="30" Value="0" Maximum="5" Minimum="-1" Increment="1" FormatString="G" RenderTransformOrigin="0.914,0.586" />
+            </Viewbox>
+            <Viewbox Grid.Column="2" Grid.Row="12" Panel.ZIndex="0">
                 <Label Name="SkillPoint3Txt1" Background="Transparent" BorderBrush="Transparent" />
             </Viewbox>
 
@@ -252,7 +262,10 @@
             <Viewbox Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="2">
                 <Label Name="Skill4Txt1" Background="Transparent" BorderBrush="Transparent" />
             </Viewbox>
-            <Viewbox Grid.Column="2" Grid.Row="13">
+            <Viewbox Grid.Column="2" Grid.Row="13" Panel.ZIndex="1">
+                <wpfx:IntegerUpDown Name="SkillPoint4Spinner1" TextAlignment="Center" ValueChanged="SkillPoint1Spinner1_ValueChanged" LostFocus="IntegerUpDown_LostFocus" GotFocus="IntegerUpDown_GotFocus" Background="Transparent" BorderBrush="Transparent" Grid.Column="2" Grid.Row="10" Grid.ColumnSpan="2" Height="30" Value="0" Maximum="5" Minimum="-1" Increment="1" FormatString="G" RenderTransformOrigin="0.914,0.586" />
+            </Viewbox>
+            <Viewbox Grid.Column="2" Grid.Row="13" Panel.ZIndex="0">
                 <Label Name="SkillPoint4Txt1" Background="Transparent" BorderBrush="Transparent" />
             </Viewbox>
 
@@ -270,7 +283,10 @@
             <Viewbox Grid.Column="0" Grid.Row="14" Grid.ColumnSpan="2">
                 <Label Name="Skill5Txt1" Background="Transparent" BorderBrush="Transparent" />
             </Viewbox>
-            <Viewbox Grid.Column="2" Grid.Row="14">
+            <Viewbox Grid.Column="2" Grid.Row="14" Panel.ZIndex="1">
+                <wpfx:IntegerUpDown Name="SkillPoint5Spinner1" TextAlignment="Center" ValueChanged="SkillPoint1Spinner1_ValueChanged" LostFocus="IntegerUpDown_LostFocus" GotFocus="IntegerUpDown_GotFocus" Background="Transparent" BorderBrush="Transparent" Grid.Column="2" Grid.Row="10" Grid.ColumnSpan="2" Height="30" Value="0" Maximum="5" Minimum="-1" Increment="1" FormatString="G" RenderTransformOrigin="0.914,0.586" />
+            </Viewbox>
+            <Viewbox Grid.Column="2" Grid.Row="14" Panel.ZIndex="0">
                 <Label Name="SkillPoint5Txt1" Background="Transparent" BorderBrush="Transparent" />
             </Viewbox>
 
@@ -288,7 +304,10 @@
             <Viewbox Grid.Column="0" Grid.Row="15" Grid.ColumnSpan="2">
                 <Label Name="Skill6Txt1" Background="Transparent" BorderBrush="Transparent" />
             </Viewbox>
-            <Viewbox Grid.Column="2" Grid.Row="15">
+            <Viewbox Grid.Column="2" Grid.Row="15" Panel.ZIndex="1">
+                <wpfx:IntegerUpDown Name="SkillPoint6Spinner1" TextAlignment="Center" ValueChanged="SkillPoint1Spinner1_ValueChanged" LostFocus="IntegerUpDown_LostFocus" GotFocus="IntegerUpDown_GotFocus" Background="Transparent" BorderBrush="Transparent" Grid.Column="2" Grid.Row="10" Grid.ColumnSpan="2" Height="30" Value="0" Maximum="5" Minimum="-1" Increment="1" FormatString="G" RenderTransformOrigin="0.914,0.586" />
+            </Viewbox>
+            <Viewbox Grid.Column="2" Grid.Row="15" Panel.ZIndex="0">
                 <Label Name="SkillPoint6Txt1" Background="Transparent" BorderBrush="Transparent" />
             </Viewbox>
 
