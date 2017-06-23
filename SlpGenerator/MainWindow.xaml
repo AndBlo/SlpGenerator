@@ -318,7 +318,7 @@
                     Grid.Column="0" Grid.Row="17" Grid.ColumnSpan="3"
                     ContextMenuService.IsEnabled="False" FontSize="18">
                 <Button.ContextMenu>
-                    <ContextMenu Name="TalentCM1">
+                    <ContextMenu Name="TalentCM1_1">
                     </ContextMenu>
                 </Button.ContextMenu>
             </Button>

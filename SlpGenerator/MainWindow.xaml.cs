@@ -32,15 +32,16 @@ namespace SlpGenerator
             PopulateContextMenu(NameCM1_1, TextFields.MutantHumanName.Mutants);
             PopulateContextMenu(TraitCM1_1, TextFields.Occupation.GetAllOptions(TextFields.Occupation.SpecialTrait));
             PopulateContextMenu(GoalCM1_1, TextFields.Occupation.GetAllOptions(TextFields.Occupation.SpecialGoal));
-            PopulateContextMenu(MutationCM1_1, TextFields.Occupation.GetAllOptions(TextFields.Mutation.Mutations));
-            PopulateContextMenu(MutationCM2_1, TextFields.Occupation.GetAllOptions(TextFields.Mutation.Mutations));
-            PopulateContextMenu(MutationCM3_1, TextFields.Occupation.GetAllOptions(TextFields.Mutation.Mutations));
             PopulateContextMenu(SkillCM1_1, TextFields.Occupation.SpecialSkills);
             PopulateContextMenu(SkillCM2_1, TextFields.Skill.Skills);
             PopulateContextMenu(SkillCM3_1, TextFields.Skill.Skills);
             PopulateContextMenu(SkillCM4_1, TextFields.Skill.Skills);
             PopulateContextMenu(SkillCM5_1, TextFields.Skill.Skills);
             PopulateContextMenu(SkillCM6_1, TextFields.Skill.Skills);
+            PopulateContextMenu(MutationCM1_1, TextFields.Occupation.GetAllOptions(TextFields.Mutation.Mutations));
+            PopulateContextMenu(MutationCM2_1, TextFields.Occupation.GetAllOptions(TextFields.Mutation.Mutations));
+            PopulateContextMenu(MutationCM3_1, TextFields.Occupation.GetAllOptions(TextFields.Mutation.Mutations));
+            PopulateContextMenu(TalentCM1_1, TextFields.Occupation.GetAllOptions(TextFields.Occupation.SpecialTalents));
 
             SetInitialSpinnerValue(SkillPoint1Spinner1);
             SetInitialSpinnerValue(SkillPoint2Spinner1);
@@ -132,6 +133,10 @@ namespace SlpGenerator
                     {
                         Skill1Txt1.Content = TextFields.Occupation.SpecialSkills.GetRandomName();
                     }
+                    else if (mi.Name.Contains("talent"))
+                    {
+                        TalentsTxt1.Content = TextFields.Occupation.GetAllOptions(TextFields.Occupation.SpecialTalents).GetRandomName();
+                    }
                 }
                 else if (mi.Name.Contains("_2"))
                 {
@@ -202,6 +207,8 @@ namespace SlpGenerator
 
         public void NameContextMenu1(object sender, RoutedEventArgs e)
         {
+            ContMenu(sender);
+
             MenuItem mi = sender as MenuItem;
 
             // Kolumn 1
@@ -228,6 +235,10 @@ namespace SlpGenerator
                     else if (mi.Name.Contains("skill"))
                     {
                         SetTextField(mi, Skill1Txt1);
+                    }
+                    else if (mi.Name.Contains("talent"))
+                    {
+                        SetTextField(mi, TalentsTxt1);
                     }
                 }
                 else if (mi.Name.Contains("_2"))
@@ -276,6 +287,96 @@ namespace SlpGenerator
             }
 
         }
+
+        //public void PopulateContextMenu(ContextMenu cm, List<string> list)
+        //{
+        //    // Används för att namnge items med deras namn utan ändelser
+        //    string plainName = cm.Name.Contains("_") ?
+        //        (cm.Name.Substring(0, (cm.Name.Count() - 5))).ToLower() :
+        //        (cm.Name.Substring(0, (cm.Name.Count() - 3))).ToLower();
+
+        //    // Lagrar ändelsen på context-menyns namn
+        //    string endInteger = cm.Name.Contains("_") ?
+        //        "_" + (cm.Name.Substring((cm.Name.Count() - 3), 1)).ToLower() :
+        //        "";
+
+        //    // Skapar första menyvalet "SLUMPA!"
+        //    MenuItem firstItem = new MenuItem();
+        //    firstItem.Click += new RoutedEventHandler(RandomizeName_Click);
+        //    firstItem.FontSize = 20;
+        //    //firstItem.FontWeight = FontWeights.Bold;
+        //    firstItem.Header = "SLUMPA!";
+        //    firstItem.Name = plainName;
+
+        //    // Skapar en separator
+        //    Separator sep1 = new Separator();
+        //    sep1.BorderThickness = new Thickness(1);
+        //    sep1.BorderBrush = Brushes.Black;
+
+        //    //Skapar en andra separator
+        //    Separator sep2 = new Separator();
+        //    sep2.BorderThickness = new Thickness(1);
+        //    sep2.BorderBrush = Brushes.Black;
+
+        //    // SKapar andra menyvalet som nollar textfältet
+        //    MenuItem secondItem = new MenuItem();
+        //    secondItem.Click += new RoutedEventHandler(NameContextMenu1);
+        //    secondItem.FontSize = 20;
+        //    //secondItem.FontWeight = FontWeights.Bold;
+        //    secondItem.Header = "TÖM!";
+        //    secondItem.Name = plainName;
+        //    secondItem.Uid = "";
+
+        //    // Skapar id beroende på vilken kolumn som berörs
+        //    if (cm.Name.Contains("_1"))
+        //    {
+        //        firstItem.Tag = 1;
+        //        secondItem.Tag = 1;
+        //    }
+        //    else if (cm.Name.Contains("_2"))
+        //    {
+        //        firstItem.Tag = 2;
+        //        secondItem.Tag = 2;
+        //    }
+        //    else if (cm.Name.Contains("_3"))
+        //    {
+        //        firstItem.Tag = 3;
+        //        secondItem.Tag = 3;
+        //    }
+
+        //    firstItem.Name = plainName + endInteger;
+        //    secondItem.Name = plainName + endInteger;
+
+        //    // Lägger till de första items i menyn
+        //    cm.Items.Add(firstItem);
+        //    cm.Items.Add(sep1);
+        //    cm.Items.Add(secondItem);
+        //    cm.Items.Add(sep2);
+
+
+
+        //    // Lägger till varje sträng i listan som listobjekt
+        //    for (int i = 0; i < list.Count; i++)
+        //    {
+
+        //        MenuItem mi = new MenuItem();
+        //        mi.Click += new RoutedEventHandler(NameContextMenu1);
+        //        mi.Header = list[i];
+
+        //        // Bestämmer vilken kolumn som påverkas
+        //        if (cm.Name.Contains("_1"))
+        //            mi.Tag = 1;
+        //        else if (cm.Name.Contains("_2"))
+        //            mi.Tag = 2;
+        //        else if (cm.Name.Contains("_3"))
+        //            mi.Tag = 3;
+
+        //        mi.Name = plainName + i.ToString() + endInteger;
+
+        //        cm.Items.Add(mi);
+        //    }
+        //}
+
 
         public void PopulateContextMenu(ContextMenu cm, List<string> list)
         {
@@ -333,23 +434,6 @@ namespace SlpGenerator
                 secondItem.Tag = 3;
             }
 
-            // Lägger till ändelse beroende på vilket fält som berörs
-            //if (cm.Name.Contains("1_1"))
-            //{
-            //    firstItem.Name = plainName + "_1";
-            //    secondItem.Name = plainName + "_1";
-            //}
-            //else if (cm.Name.Contains("2_1"))
-            //{
-            //    firstItem.Name = plainName + "_2";
-            //    secondItem.Name = plainName + "_2";
-            //}
-            //else if (cm.Name.Contains("3_1"))
-            //{
-            //    firstItem.Name = plainName + "_3";
-            //    secondItem.Name = plainName + "_3";
-            //}
-
             firstItem.Name = plainName + endInteger;
             secondItem.Name = plainName + endInteger;
 
@@ -359,46 +443,62 @@ namespace SlpGenerator
             cm.Items.Add(secondItem);
             cm.Items.Add(sep2);
 
-
+            string nameMenu = "";
+            List<MenuItem> head = new List<MenuItem>();
 
             // Lägger till varje sträng i listan som listobjekt
             for (int i = 0; i < list.Count; i++)
             {
+                if (list[i] == "KROSSARE" ||
+                    list[i] == "SKROTSKALLE" ||
+                    list[i] == "ZONSTRYKARE" ||
+                    list[i] == "FIXARE" ||
+                    list[i] == "MUTANT MED HUND" ||
+                    list[i] == "KRÖNIKÖR" ||
+                    list[i] == "BOSS" ||
+                    list[i] == "SLAV")
+                {
+                    nameMenu = list[i];
+                    head.Clear();
+                }
+                else
+                {
+                    
+                    MenuItem mi = new MenuItem();
+                    mi.Click += new RoutedEventHandler(NameContextMenu1);
+                    mi.Header = list[i];
+       
+                    // Bestämmer vilken kolumn som påverkas
+                    if (cm.Name.Contains("_1"))
+                        mi.Tag = 1;
+                    else if (cm.Name.Contains("_2"))
+                        mi.Tag = 2;
+                    else if (cm.Name.Contains("_3"))
+                        mi.Tag = 3;
 
-                MenuItem mi = new MenuItem();
-                mi.Click += new RoutedEventHandler(NameContextMenu1);
-                mi.Header = list[i];
+                    mi.Name = plainName + i.ToString() + endInteger;
 
-                // Bestämmer vilken kolumn som påverkas
-                if (cm.Name.Contains("_1"))
-                    mi.Tag = 1;
-                else if (cm.Name.Contains("_2"))
-                    mi.Tag = 2;
-                else if (cm.Name.Contains("_3"))
-                    mi.Tag = 3;
+                    head.Add(mi);
 
-
-                // Får sitt namn satt beroende på vilket fält det ska påverka
-                //if (cm.Name.Contains("1_1"))
-                //{
-                //    mi.Name = plainName + i.ToString() + "_1";
-                //}
-                //else if (cm.Name.Contains("2_1"))
-                //{
-                //    mi.Name = plainName + i.ToString() + "_2";
-                //}
-                //else if (cm.Name.Contains("3_1"))
-                //{
-                //    mi.Name = plainName + i.ToString() + "_3";
-                //}
-                //else
-                //{
-                //    mi.Name = plainName + i.ToString();
-                //}
-
-                mi.Name = plainName + i.ToString() + endInteger;
-
-                cm.Items.Add(mi);
+                    if (list[i] != list[list.Count - 1])
+                    {
+                        if (list[i + 1] == "KROSSARE" ||
+                        list[i + 1] == "SKROTSKALLE" ||
+                        list[i + 1] == "ZONSTRYKARE" ||
+                        list[i + 1] == "FIXARE" ||
+                        list[i + 1] == "MUTANT MED HUND" ||
+                        list[i + 1] == "KRÖNIKÖR" ||
+                        list[i + 1] == "BOSS" ||
+                        list[i + 1] == "SLAV")
+                        {
+                            cm.Items.Add
+                                (new MenuItem()
+                                {Name = nameMenu == "MUTANT MED HUND" ? "MUTANTMEDHUND" : nameMenu,
+                                    Header = nameMenu,
+                                  ItemsSource = head});
+                        }
+                    }
+                }
             }
         }
 

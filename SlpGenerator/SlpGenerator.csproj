@@ -139,6 +139,9 @@
     <Resource Include="TextFiles\DROM.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="TextFiles\SPEC_DROM - Copy.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Content Include="TextFiles\SPEC_DROM.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
