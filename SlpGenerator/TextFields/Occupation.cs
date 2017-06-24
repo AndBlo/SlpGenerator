@@ -177,6 +177,15 @@ namespace SlpGenerator.TextFields
             return multiOption.ToList<string>();
         }
 
+        public static List<string> GetMultiOptions(string multiString)
+        {
+            string[] multiOption;
+            multiOption = multiString.Split('_');
+            List<string> strList = new List<string>();
+
+            return multiOption.ToList<string>();
+        }
+
         public static List<string> GetAllOptions(List<string> list)
         {
             List<string> returnList = new List<string>();
@@ -191,6 +200,8 @@ namespace SlpGenerator.TextFields
 
             return returnList;
         }
+
+
         public static OccupationList GetAllOptions(OccupationList list)
         {
             OccupationList returnList = new OccupationList();
@@ -254,6 +265,41 @@ namespace SlpGenerator.TextFields
             CurrentEquip[0] += ammoRes.ToString();
             CurrentEquip[1] += foodRes.ToString();
             CurrentEquip[2] += waterRes.ToString();
+        }
+
+        public static string GetEquipment(List<string> list)
+        {
+
+            int ammoDice = Convert.ToInt32(list[0]);
+            int foodDice = Convert.ToInt32(list[1]);
+            int waterDice = Convert.ToInt32(list[2]);
+
+            Random rnd = new Random();
+
+            int ammoRes = 0;
+            int foodRes = 0;
+            int waterRes = 0;
+
+            // "slår tärningar", T6or. ammoInt är antalet tärningar att kasta.
+            for (int i = 0; i < ammoDice; i++)
+            {
+                ammoRes += rnd.Next(1, 7);
+            }
+
+            for (int i = 0; i < foodDice; i++)
+            {
+                foodRes += rnd.Next(1, 7);
+            }
+
+            for (int i = 0; i < waterDice; i++)
+            {
+                waterRes += rnd.Next(1, 7);
+            }
+
+            return string.Format("PATRONER: {0} KRUBB: {1} VATTEN: {2}",
+                ammoRes,
+                foodRes,
+                waterRes);
         }
 
 

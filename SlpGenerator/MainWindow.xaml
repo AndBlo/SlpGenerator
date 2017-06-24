@@ -100,6 +100,10 @@
                     Panel.ZIndex="1">
                 <Button.ContextMenu>
                     <ContextMenu Name="NameCM1_1">
+                        <MenuItem Name="nameRandom_1" Header="SLUMPA" Click="RandomizeName_Click" Tag="1"/>
+                        <Separator/>
+                        <MenuItem Name="nameEmpty_1" Uid="" Header="TÖM" Click="NameContextMenu1" Tag="1" />
+                        <Separator/>
                     </ContextMenu>
                 </Button.ContextMenu>
             </Button>
@@ -139,6 +143,18 @@
                     ContextMenuService.IsEnabled="False" FontSize="18">
                 <Button.ContextMenu>
                     <ContextMenu Name="TraitCM1_1">
+                        <MenuItem Name="traitRandom_1" Header="SLUMPA" Click="RandomizeName_Click" Tag="1"/>
+                        <Separator/>
+                        <MenuItem Name="traitEmpty_1" Uid="" Header="TÖM" Click="NameContextMenu1" Tag="1" />
+                        <Separator/>
+                        <MenuItem Header="KROSSARE" Name="krossItem"/>
+                        <MenuItem Header="SKROTSKALLE" Name="skrotItem"/>
+                        <MenuItem Header="ZONSTRYKARE" Name="zonsItem"/>
+                        <MenuItem Header="FIXARE" Name="fixaItem"/>
+                        <MenuItem Header="MUTANT MED HUND" Name="mutaItem"/>
+                        <MenuItem Header="KRÖNIKÖR" Name="kronItem"/>
+                        <MenuItem Header="BOSS" Name="bossItem"/>
+                        <MenuItem Header="SLAV" Name="slavItem"/>
                     </ContextMenu>
                 </Button.ContextMenu>
             </Button>
@@ -160,6 +176,18 @@
                     ContextMenuService.IsEnabled="False" FontSize="18">
                     <Button.ContextMenu>
                         <ContextMenu Name="GoalCM1_1">
+                            <MenuItem Name="goalRandom_1" Header="SLUMPA" Click="RandomizeName_Click" Tag="1"/>
+                            <Separator/>
+                            <MenuItem Name="goalEmpty_1" Uid="" Header="TÖM" Click="NameContextMenu1" Tag="1" />
+                            <Separator/>
+                            <MenuItem Header="KROSSARE" />
+                            <MenuItem Header="SKROTSKALLE" />
+                            <MenuItem Header="ZONSTRYKARE" />
+                            <MenuItem Header="FIXARE"/>
+                            <MenuItem Header="MUTANT MED HUND"/>
+                            <MenuItem Header="KRÖNIKÖR"/>
+                            <MenuItem Header="BOSS"/>
+                            <MenuItem Header="SLAV"/>
                         </ContextMenu>
                     </Button.ContextMenu>
                 </Button>
@@ -193,6 +221,18 @@
                     ContextMenuService.IsEnabled="False" FontSize="18">
                 <Button.ContextMenu>
                     <ContextMenu Name="SkillCM1_1">
+                        <MenuItem Name="skillRandom_1" Header="SLUMPA" Click="RandomizeName_Click" Tag="1"/>
+                        <Separator/>
+                        <MenuItem Name="skillEmpty_1" Uid="" Header="TÖM" Click="NameContextMenu1" Tag="1" />
+                        <Separator/>
+                        <MenuItem Header="KROSSARE" />
+                        <MenuItem Header="SKROTSKALLE" />
+                        <MenuItem Header="ZONSTRYKARE" />
+                        <MenuItem Header="FIXARE"/>
+                        <MenuItem Header="MUTANT MED HUND"/>
+                        <MenuItem Header="KRÖNIKÖR"/>
+                        <MenuItem Header="BOSS"/>
+                        <MenuItem Header="SLAV"/>
                     </ContextMenu>
                 </Button.ContextMenu>
             </Button>
@@ -213,7 +253,19 @@
                     Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="2"
                     ContextMenuService.IsEnabled="False" FontSize="18">
                 <Button.ContextMenu>
-                    <ContextMenu Name="SkillCM2_1">
+                    <ContextMenu Name="AnySkillCM2_1">
+                        <MenuItem Name="skillRandom_2" Header="SLUMPA" Click="RandomizeName_Click" Tag="1"/>
+                        <Separator/>
+                        <MenuItem Name="anySkillEmpty_2" Uid="" Header="TÖM" Click="NameContextMenu1" Tag="1" />
+                        <Separator/>
+                        <MenuItem Header="KROSSARE" />
+                        <MenuItem Header="SKROTSKALLE" />
+                        <MenuItem Header="ZONSTRYKARE" />
+                        <MenuItem Header="FIXARE"/>
+                        <MenuItem Header="MUTANT MED HUND"/>
+                        <MenuItem Header="KRÖNIKÖR"/>
+                        <MenuItem Header="BOSS"/>
+                        <MenuItem Header="SLAV"/>
                     </ContextMenu>
                 </Button.ContextMenu>
             </Button>
@@ -234,7 +286,19 @@
                     Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="2"
                     ContextMenuService.IsEnabled="False" FontSize="18">
                 <Button.ContextMenu>
-                    <ContextMenu Name="SkillCM3_1">
+                    <ContextMenu Name="AnySkillCM3_1">
+                        <MenuItem Name="skillRandom_3" Header="SLUMPA" Click="RandomizeName_Click" Tag="1"/>
+                        <Separator/>
+                        <MenuItem Name="anySkillEmpty_3" Uid="" Header="TÖM" Click="NameContextMenu1" Tag="1" />
+                        <Separator/>
+                        <MenuItem Header="KROSSARE" />
+                        <MenuItem Header="SKROTSKALLE" />
+                        <MenuItem Header="ZONSTRYKARE" />
+                        <MenuItem Header="FIXARE"/>
+                        <MenuItem Header="MUTANT MED HUND"/>
+                        <MenuItem Header="KRÖNIKÖR"/>
+                        <MenuItem Header="BOSS"/>
+                        <MenuItem Header="SLAV"/>
                     </ContextMenu>
                 </Button.ContextMenu>
             </Button>
@@ -255,7 +319,19 @@
                     Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="2"
                     ContextMenuService.IsEnabled="False" FontSize="18">
                 <Button.ContextMenu>
-                    <ContextMenu Name="SkillCM4_1">
+                    <ContextMenu Name="AnySkillCM4_1">
+                        <MenuItem Name="skillRandom_4" Header="SLUMPA" Click="RandomizeName_Click" Tag="1"/>
+                        <Separator/>
+                        <MenuItem Name="anySkillEmpty_4" Uid="" Header="TÖM" Click="NameContextMenu1" Tag="1" />
+                        <Separator/>
+                        <MenuItem Header="KROSSARE" />
+                        <MenuItem Header="SKROTSKALLE" />
+                        <MenuItem Header="ZONSTRYKARE" />
+                        <MenuItem Header="FIXARE"/>
+                        <MenuItem Header="MUTANT MED HUND"/>
+                        <MenuItem Header="KRÖNIKÖR"/>
+                        <MenuItem Header="BOSS"/>
+                        <MenuItem Header="SLAV"/>
                     </ContextMenu>
                 </Button.ContextMenu>
             </Button>
@@ -276,7 +352,19 @@
                     Grid.Column="0" Grid.Row="14" Grid.ColumnSpan="2"
                     ContextMenuService.IsEnabled="False" FontSize="18">
                 <Button.ContextMenu>
-                    <ContextMenu Name="SkillCM5_1">
+                    <ContextMenu Name="AnySkillCM5_1">
+                        <MenuItem Name="skillRandom_5" Header="SLUMPA" Click="RandomizeName_Click" Tag="1"/>
+                        <Separator/>
+                        <MenuItem Name="anySkillEmpty_5" Uid="" Header="TÖM" Click="NameContextMenu1" Tag="1" />
+                        <Separator/>
+                        <MenuItem Header="KROSSARE" />
+                        <MenuItem Header="SKROTSKALLE" />
+                        <MenuItem Header="ZONSTRYKARE" />
+                        <MenuItem Header="FIXARE"/>
+                        <MenuItem Header="MUTANT MED HUND"/>
+                        <MenuItem Header="KRÖNIKÖR"/>
+                        <MenuItem Header="BOSS"/>
+                        <MenuItem Header="SLAV"/>
                     </ContextMenu>
                 </Button.ContextMenu>
             </Button>
@@ -297,7 +385,20 @@
                     Grid.Column="0" Grid.Row="15" Grid.ColumnSpan="2"
                     ContextMenuService.IsEnabled="False" FontSize="18">
                 <Button.ContextMenu>
-                    <ContextMenu Name="SkillCM6_1">
+                    <ContextMenu Name="AnySkillCM6_1">
+                        <MenuItem Name="skillRandom_6" Header="SLUMPA" Click="RandomizeName_Click" Tag="1"/>
+                        <Separator/>
+                        <MenuItem Name="anySkillEmpty_6" Uid="" Header="TÖM" Click="NameContextMenu1" Tag="1" />
+                        <Separator/>
+                        <MenuItem Header="KROSSARE" />
+                        <MenuItem Header="SKROTSKALLE" />
+                        <MenuItem Header="ZONSTRYKARE" />
+                        <MenuItem Header="FIXARE"/>
+                        <MenuItem Header="MUTANT MED HUND"/>
+                        <MenuItem Header="KRÖNIKÖR"/>
+                        <MenuItem Header="BOSS"/>
+                        <MenuItem Header="SLAV"/>
+                        <Separator/>
                     </ContextMenu>
                 </Button.ContextMenu>
             </Button>
@@ -319,6 +420,18 @@
                     ContextMenuService.IsEnabled="False" FontSize="18">
                 <Button.ContextMenu>
                     <ContextMenu Name="TalentCM1_1">
+                        <MenuItem Name="talentRandom_1" Header="SLUMPA" Click="RandomizeName_Click" Tag="1"/>
+                        <Separator/>
+                        <MenuItem Name="talentEmpty_1" Uid="" Header="TÖM" Click="NameContextMenu1" Tag="1" />
+                        <Separator/>
+                        <MenuItem Header="KROSSARE" />
+                        <MenuItem Header="SKROTSKALLE" />
+                        <MenuItem Header="ZONSTRYKARE" />
+                        <MenuItem Header="FIXARE"/>
+                        <MenuItem Header="MUTANT MED HUND"/>
+                        <MenuItem Header="KRÖNIKÖR"/>
+                        <MenuItem Header="BOSS"/>
+                        <MenuItem Header="SLAV"/>
                     </ContextMenu>
                 </Button.ContextMenu>
             </Button>
@@ -335,6 +448,10 @@
                     Panel.ZIndex="1">
                 <Button.ContextMenu>
                     <ContextMenu Name="MutationCM1_1">
+                        <MenuItem Name="mutationRandom_1" Header="SLUMPA" Click="RandomizeName_Click" Tag="1"/>
+                        <Separator/>
+                        <MenuItem Name="mutationEmpty_1" Uid="" Header="TÖM" Click="NameContextMenu1" Tag="1" />
+                        <Separator/>
                     </ContextMenu>
                 </Button.ContextMenu>
             </Button>
@@ -350,6 +467,10 @@
                     ContextMenuService.IsEnabled="False" FontSize="18">
                 <Button.ContextMenu>
                     <ContextMenu Name="MutationCM2_1">
+                        <MenuItem Name="mutationRandom_2" Header="SLUMPA" Click="RandomizeName_Click" Tag="1"/>
+                        <Separator/>
+                        <MenuItem Name="mutationEmpty_2" Uid="" Header="TÖM" Click="NameContextMenu1" Tag="1" />
+                        <Separator/>
                     </ContextMenu>
                 </Button.ContextMenu>
             </Button>
@@ -365,6 +486,10 @@
                     ContextMenuService.IsEnabled="False" FontSize="18">
                 <Button.ContextMenu>
                     <ContextMenu Name="MutationCM3_1">
+                        <MenuItem Name="mutationRandom_3" Header="SLUMPA" Click="RandomizeName_Click" Tag="1"/>
+                        <Separator/>
+                        <MenuItem Name="mutationEmpty_3" Uid="" Header="TÖM" Click="NameContextMenu1" Tag="1" />
+                        <Separator/>
                     </ContextMenu>
                 </Button.ContextMenu>
             </Button>
@@ -373,6 +498,64 @@
             </Viewbox>
 
             <Button Name="EquipmentBtn1" Click="EquipmentBtn1_Click" Background="Transparent" BorderBrush="Transparent" Grid.Column="0" Grid.Row="24" Grid.ColumnSpan="4" />
+
+            <Button Name="Equipment1Btn1" 
+                    Click="EquipmentBtn1_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0" Grid.Row="25" Grid.ColumnSpan="3"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Button.ContextMenu>
+                    <ContextMenu Name="EquipmentCM1_1">
+                        <MenuItem Name="equipmentRandom_1" Header="SLUMPA" Click="RandomizeName_Click" Tag="1"/>
+                        <Separator/>
+                        <MenuItem Name="equipmentEmpty_1" Uid="" Header="TÖM" Click="NameContextMenu1" Tag="1" />
+                        <Separator/>
+                        <MenuItem Name="equipmentWeapon1_1" Header="VAPEN">
+                            <MenuItem Name="equipmentWeaponRandom_1" Header="SLUMPA" Click="RandomizeName_Click" Tag="1"/>
+                            <Separator/>
+                            <MenuItem Name="equipmentWeaponEmpty_1" Uid="" Header="TÖM" Click="NameContextMenu1" Tag="1" />
+                            <Separator/>
+                            <MenuItem Header="KROSSARE" />
+                            <MenuItem Header="SKROTSKALLE" />
+                            <MenuItem Header="ZONSTRYKARE" />
+                            <MenuItem Header="FIXARE"/>
+                            <MenuItem Header="MUTANT MED HUND"/>
+                            <MenuItem Header="KRÖNIKÖR"/>
+                            <MenuItem Header="BOSS"/>
+                            <MenuItem Header="SLAV"/>
+                        </MenuItem>
+                        <MenuItem Name="equipmentStuff1_1" Header="FÖRNÖDENHETER">
+                            <MenuItem Name="equipmentStuffRandom_1" Header="SLUMPA" Click="RandomizeName_Click" Tag="1"/>
+                            <Separator/>
+                            <MenuItem Name="equipmentStuffEmpty_1" Uid="" Header="TÖM" Click="NameContextMenu1" Tag="1" />
+                            <Separator/>
+                            <MenuItem Header="KROSSARE" />
+                            <MenuItem Header="SKROTSKALLE" />
+                            <MenuItem Header="ZONSTRYKARE" />
+                            <MenuItem Header="FIXARE"/>
+                            <MenuItem Header="MUTANT MED HUND"/>
+                            <MenuItem Header="KRÖNIKÖR"/>
+                            <MenuItem Header="BOSS"/>
+                            <MenuItem Header="SLAV"/>
+                        </MenuItem>
+                        <MenuItem Name="equipmentArt1_1" Header="ARTEFAKTER">
+                            <MenuItem Name="equipmentArtRandom_1" Header="SLUMPA" Click="RandomizeName_Click" Tag="1"/>
+                            <Separator/>
+                            <MenuItem Name="equipmentArtEmpty_1" Uid="" Header="TÖM" Click="NameContextMenu1" Tag="1" />
+                            <Separator/>
+                            <MenuItem Header="KROSSARE" />
+                            <MenuItem Header="SKROTSKALLE" />
+                            <MenuItem Header="ZONSTRYKARE" />
+                            <MenuItem Header="FIXARE"/>
+                            <MenuItem Header="MUTANT MED HUND"/>
+                            <MenuItem Header="KRÖNIKÖR"/>
+                            <MenuItem Header="BOSS"/>
+                            <MenuItem Header="SLAV"/>
+                        </MenuItem>
+                    </ContextMenu>
+                </Button.ContextMenu>
+            </Button>
             <Viewbox Grid.Column="0" Grid.Row="25" Grid.ColumnSpan="3">
                 <Label Name="Equipment1Txt1" Background="Transparent" BorderBrush="Transparent" />
             </Viewbox>
