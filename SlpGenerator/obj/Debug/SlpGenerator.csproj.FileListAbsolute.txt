@@ -111,7 +111,6 @@ C:\Users\anten\Source\Repos\SlpGenerator\SlpGenerator\obj\Debug\App.g.cs
 C:\Users\anten\Source\Repos\SlpGenerator\SlpGenerator\obj\Debug\SlpGenerator_Content.g.cs
 C:\Users\anten\Source\Repos\SlpGenerator\SlpGenerator\obj\Debug\SlpGenerator_MarkupCompile.cache
 C:\Users\anten\Source\Repos\SlpGenerator\SlpGenerator\obj\Debug\SlpGenerator_MarkupCompile.lref
-C:\Users\anten\Source\Repos\SlpGenerator\SlpGenerator\obj\Debug\App.baml
 C:\Users\anten\Source\Repos\SlpGenerator\SlpGenerator\obj\Debug\MainWindow.baml
 C:\Users\anten\Source\Repos\SlpGenerator\SlpGenerator\obj\Debug\SlpGenerator.g.resources
 C:\Users\anten\Source\Repos\SlpGenerator\SlpGenerator\obj\Debug\SlpGenerator.Properties.Resources.resources
