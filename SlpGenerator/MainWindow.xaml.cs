@@ -239,8 +239,8 @@ namespace SlpGenerator
             {
             string subName = "";
 
-            if ( mi.Name.Contains("occuspec"))
-                subName = mi.Name.ToLower();
+                if (mi.Uid == "sub")
+                    subName = mi.Uid;
 
             //Används för att namnge items med deras namn utan ändelser
             string plainName = cm.Name.Contains("_") ?
@@ -266,7 +266,7 @@ namespace SlpGenerator
                 mi.Tag = 3;
             }
 
-            if (subName.Contains("occuspec"))
+            if (subName.Contains("sub"))
                 mi.Name = subName + plainName + endInteger;
             else
                 mi.Name = plainName + endInteger;
@@ -927,7 +927,9 @@ namespace SlpGenerator
 
         public void PopulateSubmenu(ContextMenu parent, MenuItem m, int item, List<string> list)
         {
+            m.Uid = "sub";
             NameAndTagMenuItems(parent, m);
+
 
             // Lägger till varje sträng i listan som listobjekt
             for (int i = 0; i < list.Count; i++)
