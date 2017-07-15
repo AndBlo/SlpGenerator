@@ -15,7 +15,6 @@
             <Separator/>
             <MenuItem Name="Empty" Uid="" Header="TÖM" Click="SetTextFromContext"/>
             <Separator/>
-            <!--<MenuItem Name="OVRIGT" Header="EJ SPECIFIKT FÖR SYSSLA" Visibility="Hidden" />-->
             <MenuItem Name="KROSSARE" Header="KROSSARE" />
             <MenuItem Name="SKROTSKALLE" Header="SKROTSKALLE" />
             <MenuItem Name="ZONSTRYKARE" Header="ZONSTRYKARE" />
@@ -25,11 +24,10 @@
             <MenuItem Name="BOSS" Header="BOSS" />
             <MenuItem Name="SLAV" Header="SLAV" />
         </Collections:ArrayList>
-        
-        
+
+
 
     </Window.Resources>
-
 
     <Window.Background>
         <ImageBrush ImageSource="Images\slp.png" />
@@ -114,74 +112,48 @@
                 <ColumnDefinition Width="32*"/>
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
-            
+
             <Button Name="NameBtn1" 
                     Click="NameBtn1_Click" 
                     Background="Transparent" 
                     BorderBrush="Transparent" 
-                    Grid.Column="0" Grid.Row="0"
+                    Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3"
                     ContextMenuService.IsEnabled="False" FontSize="18"
                     Panel.ZIndex="1">
-                <Button.ContextMenu>
+                <!--<Button.ContextMenu>
                     <ContextMenu Name="NameCM1_1" />
-                </Button.ContextMenu>
+                </Button.ContextMenu>-->
+                <Viewbox Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" Panel.ZIndex="2">
+                    <Label Name="NameTxt1" />
+                </Viewbox>
             </Button>
-            <Viewbox Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" Panel.ZIndex="2">
-                <Label Name="NameTxt1" Content="{Binding Name}" />
-            </Viewbox>
 
-                <Button
-            Background="Transparent" BorderBrush="Transparent"
-            Grid.Column="0"
-            Grid.Row="1"    
+            <Button
+                Name="OccuBtn1"
+                Background="Transparent" 
+                BorderBrush="Transparent"
+                Grid.Column="0"   
+                Grid.ColumnSpan="3"
         Click="OccuBtn1_Click"
-        ContextMenuService.IsEnabled="False" FontSize="18">
-                <Button.ContextMenu>
-                    <ContextMenu Name="OccupationCM1_1" ItemsSource="{StaticResource MenuItems}" />
-                        <!--<MenuItem Name="Krossare" Click="Krossare_Click" Header="Krossare"/>
-                        <MenuItem Name="Skrotskalle" Click="Skrotskalle_Click" Header="Skrotskalle"/>
-                        <MenuItem Name="Zonstrykare" Click="Zonstrykare_Click" Header="Zonstrykare"/>
-                        <MenuItem Name="Fixare" Click="Fixare_Click" Header="Fixare"/>
-                        <MenuItem Name="MutantMedHund" Click="MutantMedHund_Click" Header="Mutant med hund"/>
-                        <MenuItem Name="Kronikor" Click="Kronikor_Click" Header="Krönikör"/>
-                        <MenuItem Name="Boss" Click="Boss_Click" Header="Boss"/>
-                        <MenuItem Name="Slav" Click="Slav_Click" Header="Slav"/>
-                    </ContextMenu>-->
-                </Button.ContextMenu>
+        ContextMenuService.IsEnabled="False" FontSize="18" Margin="0" Grid.Row="1">
+                <Viewbox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2">
+                    <Label Name="OccuTxt" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
             </Button>
-            <Viewbox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2">
-                <Label Name="OccuTxt" Background="Transparent" BorderBrush="Transparent" />
-            </Viewbox>
-            
 
-            <Button Name="TraitBtn1" 
+
+            <Button 
+                Name="TraitBtn1" 
                     Click="TraitBtn1_Click" 
                     Background="Transparent" 
                     BorderBrush="Transparent" 
                     Grid.Column="0" Grid.Row="2"
                     ContextMenuService.IsEnabled="False" FontSize="18">
-                <Button.ContextMenu>
-                    <ContextMenu Name="TraitCM1_1" ItemsSource="{StaticResource MenuItems}" />
-                    <!--<ContextMenu Name="TraitCM1_1">
-                        <MenuItem Name="traitRandom_1" Header="SLUMPA" Click="RandomizeName_Click" Tag="1"/>
-                        <Separator/>
-                        <MenuItem Name="traitEmpty_1" Uid="" Header="TÖM" Click="SetTextFromContext" Tag="1" />
-                        <Separator/>
-                        <MenuItem Header="KROSSARE" Name="krossItem"/>
-                        <MenuItem Header="SKROTSKALLE" Name="skrotItem"/>
-                        <MenuItem Header="ZONSTRYKARE" Name="zonsItem"/>
-                        <MenuItem Header="FIXARE" Name="fixaItem"/>
-                        <MenuItem Header="MUTANT MED HUND" Name="mutaItem"/>
-                        <MenuItem Header="KRÖNIKÖR" Name="kronItem"/>
-                        <MenuItem Header="BOSS" Name="bossItem"/>
-                        <MenuItem Header="SLAV" Name="slavItem"/>
-                    </ContextMenu>-->
-                </Button.ContextMenu>
             </Button>
             <Viewbox Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2">
                 <Label Name="TraitTxt" Background="Transparent" BorderBrush="Transparent" />
             </Viewbox>
-            
+
             <Grid Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="23*"/>
@@ -194,16 +166,13 @@
                     BorderBrush="Transparent" 
                     Grid.Column="0"
                     ContextMenuService.IsEnabled="False" FontSize="18">
-                    <Button.ContextMenu>
-                        <ContextMenu Name="GoalCM1_1" ItemsSource="{StaticResource MenuItems}" />
-                    </Button.ContextMenu>
                 </Button>
                 <Viewbox Grid.Column="1" Margin="0">
                     <Label Name="GoalTxt" Background="Transparent" BorderBrush="Transparent" />
                 </Viewbox>
             </Grid>
-            
-            
+
+
             <Button Name="BpBtn1" Click="BpBtn1_Click" Background="Transparent" BorderBrush="Transparent" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="4" />
             <Viewbox Grid.Column="2" Grid.Row="5">
                 <Label Name="StyTxt1" Background="Transparent" BorderBrush="Transparent" />
@@ -217,7 +186,7 @@
             <Viewbox Grid.Column="2" Grid.Row="8">
                 <Label Name="KnsTxt1" Background="Transparent" BorderBrush="Transparent" />
             </Viewbox>
-            
+
             <Button Name="SkillsBtn1" Click="SkillsBtn1_Click" Background="Transparent" BorderBrush="Transparent" Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="4" />
 
             <Button Name="Skill1Btn1" 
@@ -226,11 +195,6 @@
                     BorderBrush="Transparent" 
                     Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2"
                     ContextMenuService.IsEnabled="False" FontSize="18">
-                <Button.ContextMenu>
-                    <ContextMenu Name="SkillCM1_1">
-                        <MenuItem Name="_OccuSpec1" Header="SPECIFIKT FÖR SYSSLA" ItemsSource="{StaticResource MenuItems}" />
-                    </ContextMenu>
-                </Button.ContextMenu>
             </Button>
             <Viewbox Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2">
                 <Label Name="Skill1Txt1" Background="Transparent" BorderBrush="Transparent" />
@@ -248,11 +212,6 @@
                     BorderBrush="Transparent" 
                     Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="2"
                     ContextMenuService.IsEnabled="False" FontSize="18">
-                <Button.ContextMenu>
-                    <ContextMenu Name="SkillCM2_1">
-                        <MenuItem Name="_OccuSpec2" Header="SPECIFIKT FÖR SYSSLA" ItemsSource="{StaticResource MenuItems}" />
-                    </ContextMenu>
-                </Button.ContextMenu>
             </Button>
             <Viewbox Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="2" >
                 <Label Name="Skill2Txt1" Background="Transparent" BorderBrush="Transparent" />
@@ -272,7 +231,7 @@
                     ContextMenuService.IsEnabled="False" FontSize="18">
                 <Button.ContextMenu>
                     <ContextMenu Name="SkillCM3_1">
-                        <MenuItem Name="_OccuSpec3" Header="SPECIFIKT FÖR SYSSLA" ItemsSource="{StaticResource MenuItems}" />
+                        <MenuItem Name="_occuSub3" Header="SPECIFIKT FÖR SYSSLA" ItemsSource="{StaticResource MenuItems}" />
                     </ContextMenu>
                 </Button.ContextMenu>
             </Button>
@@ -294,7 +253,7 @@
                     ContextMenuService.IsEnabled="False" FontSize="18">
                 <Button.ContextMenu>
                     <ContextMenu Name="SkillCM4_1">
-                        <MenuItem Name="_OccuSpec4" Header="SPECIFIKT FÖR SYSSLA" ItemsSource="{StaticResource MenuItems}" />
+                        <MenuItem Name="_occuSub4" Header="SPECIFIKT FÖR SYSSLA" ItemsSource="{StaticResource MenuItems}" />
                     </ContextMenu>
                 </Button.ContextMenu>
             </Button>
@@ -316,7 +275,7 @@
                     ContextMenuService.IsEnabled="False" FontSize="18">
                 <Button.ContextMenu>
                     <ContextMenu Name="SkillCM5_1">
-                        <MenuItem Name="_OccuSpec5" Header="SPECIFIKT FÖR SYSSLA" ItemsSource="{StaticResource MenuItems}" />
+                        <MenuItem Name="_occuSub5" Header="SPECIFIKT FÖR SYSSLA" ItemsSource="{StaticResource MenuItems}" />
                     </ContextMenu>
                 </Button.ContextMenu>
             </Button>
@@ -338,7 +297,7 @@
                     ContextMenuService.IsEnabled="False" FontSize="18">
                 <Button.ContextMenu>
                     <ContextMenu Name="SkillCM6_1">
-                        <MenuItem Name="_OccuSpec6" Header="SPECIFIKT FÖR SYSSLA" ItemsSource="{StaticResource MenuItems}" />
+                        <MenuItem Name="_occuSub6" Header="SPECIFIKT FÖR SYSSLA" ItemsSource="{StaticResource MenuItems}" />
                     </ContextMenu>
                 </Button.ContextMenu>
             </Button>
@@ -418,7 +377,12 @@
                     Grid.Column="0" Grid.Row="25" Grid.ColumnSpan="3"
                     ContextMenuService.IsEnabled="False" FontSize="18">
                 <Button.ContextMenu>
-                    <ContextMenu Name="EquipmentCM1_1" ItemsSource="{StaticResource MenuItems}" />
+                    <ContextMenu Name="EquipmentCM1_1">
+                        <MenuItem Name="_occuSub7" Header="SPECIFIKT FÖR SYSSLA" ItemsSource="{StaticResource MenuItems}" />
+                        <MenuItem Name="_weaponSub1" Header="VAPEN" />
+                        <MenuItem Name="_gearSub1" Header="UTRUSTNING" />
+                        <MenuItem Name="_artifactSub1" Header="ARTEFAKT" />
+                    </ContextMenu>
                 </Button.ContextMenu>
             </Button>
             <Viewbox Grid.Column="0" Grid.Row="25" Grid.ColumnSpan="3">
@@ -432,7 +396,12 @@
                     Grid.Column="0" Grid.Row="26" Grid.ColumnSpan="3"
                     ContextMenuService.IsEnabled="False" FontSize="18">
                 <Button.ContextMenu>
-                    <ContextMenu Name="EquipmentCM2_1" ItemsSource="{StaticResource MenuItems}" />
+                    <ContextMenu Name="EquipmentCM2_1">
+                        <MenuItem Name="_occuSub8" Header="SPECIFIKT FÖR SYSSLA" ItemsSource="{StaticResource MenuItems}" />
+                        <MenuItem Name="_weaponSub2" Header="VAPEN" />
+                        <MenuItem Name="_gearSub2" Header="UTRUSTNING" />
+                        <MenuItem Name="_artifact2Sub" Header="ARTEFAKT" />
+                    </ContextMenu>
                 </Button.ContextMenu>
             </Button>
             <Viewbox Grid.Column="0" Grid.Row="26" Grid.ColumnSpan="3">
@@ -446,7 +415,12 @@
                     Grid.Column="0" Grid.Row="27" Grid.ColumnSpan="3"
                     ContextMenuService.IsEnabled="False" FontSize="18">
                 <Button.ContextMenu>
-                    <ContextMenu Name="EquipmentCM3_1" ItemsSource="{StaticResource MenuItems}" />
+                    <ContextMenu Name="EquipmentCM3_1">
+                        <MenuItem Name="_occuSub9" Header="SPECIFIKT FÖR SYSSLA" ItemsSource="{StaticResource MenuItems}" />
+                        <MenuItem Name="_weaponSub3" Header="VAPEN" />
+                        <MenuItem Name="_gearSub3" Header="UTRUSTNING" />
+                        <MenuItem Name="_artifactSub3" Header="ARTEFAKT" />
+                    </ContextMenu>
                 </Button.ContextMenu>
             </Button>
             <Viewbox Grid.Column="0" Grid.Row="27" Grid.ColumnSpan="3">
@@ -460,7 +434,12 @@
                     Grid.Column="0" Grid.Row="28" Grid.ColumnSpan="3"
                     ContextMenuService.IsEnabled="False" FontSize="18">
                 <Button.ContextMenu>
-                    <ContextMenu Name="EquipmentCM4_1" ItemsSource="{StaticResource MenuItems}" />
+                    <ContextMenu Name="EquipmentCM4_1">
+                        <MenuItem Name="_occuSub10" Header="SPECIFIKT FÖR SYSSLA" ItemsSource="{StaticResource MenuItems}" />
+                        <MenuItem Name="_weaponSub4" Header="VAPEN" />
+                        <MenuItem Name="_gearSub4" Header="UTRUSTNING" />
+                        <MenuItem Name="_artifactSub4" Header="ARTEFAKT" />
+                    </ContextMenu>
                 </Button.ContextMenu>
             </Button>
             <Viewbox Grid.Column="0" Grid.Row="28" Grid.ColumnSpan="3">

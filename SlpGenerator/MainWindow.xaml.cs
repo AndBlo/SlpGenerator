@@ -15,6 +15,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Xceed.Wpf;
+using SlpGenerator.TextFields;
+using SlpGenerator.TextFields.Menus.MenuList;
 
 namespace SlpGenerator
 {
@@ -36,139 +38,98 @@ namespace SlpGenerator
             Populate();
 
             // Fyller Namn-menyn med SLUMPA, TÖM och Namnen från lista
-            AddStandardItemsToContextMenu(NameCM1_1);
-            SetInitialContextMenuItemValue(NameCM1_1);
-            PopulateContextMenu(NameCM1_1, TextFields.MutantHumanName.Mutants);
+            //AddStandardItemsToContextMenu(NameCM1_1);
+            //SetInitialContextMenuItemValue(NameCM1_1);
+            //PopulateContextMenu(NameCM1_1, TextFields.MutantHumanName.Mutants);
 
-            SetClickToMenuItems(OccupationCM1_1);
+            Menus.SlpMenu.name = new DropMenu
+                (MutantHumanName.Mutants,
+                new RoutedEventHandler(Menus.SlpMenu.GetRandom),
+                new RoutedEventHandler(Menus.SlpMenu.SetTextFromContext),
+                "Names");
+            NameBtn1.ContextMenu =
+                Menus.SlpMenu.name;
 
-            PopulateContextMenu(TraitCM1_1, 4, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialTrait[0]));
-            PopulateContextMenu(TraitCM1_1, 5, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialTrait[1]));
-            PopulateContextMenu(TraitCM1_1, 6, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialTrait[2]));
-            PopulateContextMenu(TraitCM1_1, 7, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialTrait[3]));
-            PopulateContextMenu(TraitCM1_1, 8, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialTrait[4]));
-            PopulateContextMenu(TraitCM1_1, 9, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialTrait[5]));
-            PopulateContextMenu(TraitCM1_1, 10, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialTrait[6]));
-            PopulateContextMenu(TraitCM1_1, 11, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialTrait[7]));
-            SetInitialContextMenuItemValue(TraitCM1_1);
+            Menus.SlpMenu.occupation = new DropMenu
+                (Occupation.Occupations,
+                new RoutedEventHandler(Menus.SlpMenu.GetRandom),
+                new RoutedEventHandler(Menus.SlpMenu.SetTextFromContext),
+                "Occupations");
+            OccuBtn1.ContextMenu = Menus.SlpMenu.occupation;
 
-            PopulateContextMenu(GoalCM1_1, 4, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialGoal[0]));
-            PopulateContextMenu(GoalCM1_1, 5, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialGoal[1]));
-            PopulateContextMenu(GoalCM1_1, 6, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialGoal[2]));
-            PopulateContextMenu(GoalCM1_1, 7, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialGoal[3]));
-            PopulateContextMenu(GoalCM1_1, 8, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialGoal[4]));
-            PopulateContextMenu(GoalCM1_1, 9, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialGoal[5]));
-            PopulateContextMenu(GoalCM1_1, 10, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialGoal[6]));
-            PopulateContextMenu(GoalCM1_1, 11, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialGoal[7]));
-            SetInitialContextMenuItemValue(GoalCM1_1);
-
-            AddStandardItemsToContextMenu(SkillCM1_1);
-            SetInitialContextMenuItemValue(SkillCM1_1);
-            for (int i = 0; i < SkillCM1_1.Items.Count; i++)
+            Menus.SlpMenu.trait = new DropMenu
+                (Occupation.Occupations,
+                new RoutedEventHandler(Menus.SlpMenu.GetRandom),
+                new RoutedEventHandler(Menus.SlpMenu.SetTextFromContext),
+                "Traits");
+            for (int i = 4; i < Menus.SlpMenu.trait.Items.Count; i++)
             {
-                NameAndTagMenuItems(SkillCM1_1, SkillCM1_1.Items[i] as MenuItem);
+                Menus.SlpMenu.trait.
+                    AddItemsToSubMenu(Occupation.GetMultiOptions(Occupation.SpecialTrait[i - 4]),
+                    new RoutedEventHandler(Menus.SlpMenu.GetRandom),
+                    new RoutedEventHandler(Menus.SlpMenu.SetTextFromContext), i);
             }
-            PopulateContextMenu(SkillCM1_1, TextFields.Skill.Skills);
-            PopulateSubmenu(SkillCM1_1, SkillCM1_1.Items[4] as MenuItem, 4, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[0]));
-            PopulateSubmenu(SkillCM1_1, SkillCM1_1.Items[4] as MenuItem, 5, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[1]));
-            PopulateSubmenu(SkillCM1_1, SkillCM1_1.Items[4] as MenuItem, 6, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[2]));
-            PopulateSubmenu(SkillCM1_1, SkillCM1_1.Items[4] as MenuItem, 7, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[3]));
-            PopulateSubmenu(SkillCM1_1, SkillCM1_1.Items[4] as MenuItem, 8, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[4]));
-            PopulateSubmenu(SkillCM1_1, SkillCM1_1.Items[4] as MenuItem, 9, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[5]));
-            PopulateSubmenu(SkillCM1_1, SkillCM1_1.Items[4] as MenuItem, 10, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[6]));
-            PopulateSubmenu(SkillCM1_1, SkillCM1_1.Items[4] as MenuItem, 11, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[7]));
-            SetInitialContextMenuItemValue(SkillCM1_1, SkillCM1_1.Items[4] as MenuItem);
+            TraitBtn1.ContextMenu = Menus.SlpMenu.goal;
 
-            //AddStandardItemsToContextMenu(SkillCM2_1);
-            //SetInitialContextMenuItemValue(SkillCM2_1);
-            //PopulateContextMenu(SkillCM2_1, TextFields.Skill.Skills);
-            //PopulateSubmenu(SkillCM2_1.Items[4] as MenuItem, 4, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[0]));
-            //PopulateSubmenu(SkillCM2_1.Items[4] as MenuItem, 5, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[1]));
-            //PopulateSubmenu(SkillCM2_1.Items[4] as MenuItem, 6, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[2]));
-            //PopulateSubmenu(SkillCM2_1.Items[4] as MenuItem, 7, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[3]));
-            //PopulateSubmenu(SkillCM2_1.Items[4] as MenuItem, 8, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[4]));
-            //PopulateSubmenu(SkillCM2_1.Items[4] as MenuItem, 9, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[5]));
-            //PopulateSubmenu(SkillCM2_1.Items[4] as MenuItem, 10, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[6]));
-            //PopulateSubmenu(SkillCM2_1.Items[4] as MenuItem, 11, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[7]));
-            //SetInitialContextMenuItemValue(SkillCM2_1, SkillCM2_1.Items[4] as MenuItem);
+            Menus.SlpMenu.goal = new DropMenu
+                (Occupation.Occupations, 
+                new RoutedEventHandler(Menus.SlpMenu.GetRandom), 
+                new RoutedEventHandler(Menus.SlpMenu.SetTextFromContext),
+                "Goals");
+            for (int i = 4; i < Menus.SlpMenu.goal.Items.Count; i++)
+            {
+                Menus.SlpMenu.goal.
+                    AddItemsToSubMenu(Occupation.GetMultiOptions(Occupation.SpecialGoal[i - 4]),
+                    new RoutedEventHandler(Menus.SlpMenu.GetRandom),
+                    new RoutedEventHandler(Menus.SlpMenu.SetTextFromContext), i);
+            }
+            GoalBtn1.ContextMenu = Menus.SlpMenu.goal;
 
-            //AddStandardItemsToContextMenu(SkillCM3_1);
-            //SetInitialContextMenuItemValue(SkillCM3_1);
-            //PopulateContextMenu(SkillCM3_1, TextFields.Skill.Skills);
-            //MakeVisible(SkillCM3_1, 4);
-            //PopulateSubmenu(SkillCM3_1.Items[4] as MenuItem, 4, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[0]));
-            //PopulateSubmenu(SkillCM3_1.Items[4] as MenuItem, 5, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[1]));
-            //PopulateSubmenu(SkillCM3_1.Items[4] as MenuItem, 6, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[2]));
-            //PopulateSubmenu(SkillCM3_1.Items[4] as MenuItem, 7, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[3]));
-            //PopulateSubmenu(SkillCM3_1.Items[4] as MenuItem, 8, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[4]));
-            //PopulateSubmenu(SkillCM3_1.Items[4] as MenuItem, 9, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[5]));
-            //PopulateSubmenu(SkillCM3_1.Items[4] as MenuItem, 10, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[6]));
-            //PopulateSubmenu(SkillCM3_1.Items[4] as MenuItem, 11, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[7]));
-            //SetInitialContextMenuItemValue(SkillCM3_1, SkillCM3_1.Items[4] as MenuItem);
+            //SetClickToMenuItems(OccupationCM1_1, 3, new RoutedEventHandler(SetTextFromContext));
 
-            //AddStandardItemsToContextMenu(SkillCM4_1);
-            //SetInitialContextMenuItemValue(SkillCM4_1);
-            //PopulateContextMenu(SkillCM4_1, TextFields.Skill.Skills);
-            //MakeVisible(SkillCM4_1, 4);
-            //PopulateSubmenu(SkillCM4_1.Items[4] as MenuItem, 4, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[0]));
-            //PopulateSubmenu(SkillCM4_1.Items[4] as MenuItem, 5, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[1]));
-            //PopulateSubmenu(SkillCM4_1.Items[4] as MenuItem, 6, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[2]));
-            //PopulateSubmenu(SkillCM4_1.Items[4] as MenuItem, 7, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[3]));
-            //PopulateSubmenu(SkillCM4_1.Items[4] as MenuItem, 8, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[4]));
-            //PopulateSubmenu(SkillCM4_1.Items[4] as MenuItem, 9, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[5]));
-            //PopulateSubmenu(SkillCM4_1.Items[4] as MenuItem, 10, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[6]));
-            //PopulateSubmenu(SkillCM4_1.Items[4] as MenuItem, 11, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[7]));
-            //SetInitialContextMenuItemValue(SkillCM4_1, SkillCM4_1.Items[4] as MenuItem);
+            //PopulateContextMenu(TraitCM1_1, 4, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialTrait[0]));
+            //PopulateContextMenu(TraitCM1_1, 5, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialTrait[1]));
+            //PopulateContextMenu(TraitCM1_1, 6, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialTrait[2]));
+            //PopulateContextMenu(TraitCM1_1, 7, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialTrait[3]));
+            //PopulateContextMenu(TraitCM1_1, 8, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialTrait[4]));
+            //PopulateContextMenu(TraitCM1_1, 9, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialTrait[5]));
+            //PopulateContextMenu(TraitCM1_1, 10, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialTrait[6]));
+            //PopulateContextMenu(TraitCM1_1, 11, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialTrait[7]));
+            //SetInitialContextMenuItemValue(TraitCM1_1);
 
-            //AddStandardItemsToContextMenu(SkillCM5_1);
-            //SetInitialContextMenuItemValue(SkillCM5_1);
-            //PopulateContextMenu(SkillCM5_1, TextFields.Skill.Skills);
-            //MakeVisible(SkillCM5_1, 4);
-            //PopulateSubmenu(SkillCM5_1.Items[4] as MenuItem, 4, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[0]));
-            //PopulateSubmenu(SkillCM5_1.Items[4] as MenuItem, 5, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[1]));
-            //PopulateSubmenu(SkillCM5_1.Items[4] as MenuItem, 6, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[2]));
-            //PopulateSubmenu(SkillCM5_1.Items[4] as MenuItem, 7, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[3]));
-            //PopulateSubmenu(SkillCM5_1.Items[4] as MenuItem, 8, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[4]));
-            //PopulateSubmenu(SkillCM5_1.Items[4] as MenuItem, 9, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[5]));
-            //PopulateSubmenu(SkillCM5_1.Items[4] as MenuItem, 10, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[6]));
-            //PopulateSubmenu(SkillCM5_1.Items[4] as MenuItem, 11, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[7]));
-            //SetInitialContextMenuItemValue(SkillCM5_1, SkillCM5_1.Items[4] as MenuItem);
+            //PopulateContextMenu(GoalCM1_1, 4, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialGoal[0]));
+            //PopulateContextMenu(GoalCM1_1, 5, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialGoal[1]));
+            //PopulateContextMenu(GoalCM1_1, 6, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialGoal[2]));
+            //PopulateContextMenu(GoalCM1_1, 7, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialGoal[3]));
+            //PopulateContextMenu(GoalCM1_1, 8, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialGoal[4]));
+            //PopulateContextMenu(GoalCM1_1, 9, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialGoal[5]));
+            //PopulateContextMenu(GoalCM1_1, 10, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialGoal[6]));
+            //PopulateContextMenu(GoalCM1_1, 11, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialGoal[7]));
+            //SetInitialContextMenuItemValue(GoalCM1_1);
 
-            //AddStandardItemsToContextMenu(SkillCM6_1);
-            //SetInitialContextMenuItemValue(SkillCM6_1);
-            //PopulateContextMenu(SkillCM6_1, TextFields.Skill.Skills);
-            //MakeVisible(SkillCM6_1, 4);
-            //PopulateSubmenu(SkillCM6_1.Items[4] as MenuItem, 4, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[0]));
-            //PopulateSubmenu(SkillCM6_1.Items[4] as MenuItem, 5, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[1]));
-            //PopulateSubmenu(SkillCM6_1.Items[4] as MenuItem, 6, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[2]));
-            //PopulateSubmenu(SkillCM6_1.Items[4] as MenuItem, 7, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[3]));
-            //PopulateSubmenu(SkillCM6_1.Items[4] as MenuItem, 8, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[4]));
-            //PopulateSubmenu(SkillCM6_1.Items[4] as MenuItem, 9, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[5]));
-            //PopulateSubmenu(SkillCM6_1.Items[4] as MenuItem, 10, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[6]));
-            //PopulateSubmenu(SkillCM6_1.Items[4] as MenuItem, 11, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[7]));
-            //SetInitialContextMenuItemValue(SkillCM6_1, SkillCM6_1.Items[4] as MenuItem);
+            //PopulateSkillContextMenu(SkillCM1_1);
+            //PopulateSkillContextMenu(SkillCM2_1);
+            //PopulateSkillContextMenu(SkillCM3_1);
+            //PopulateSkillContextMenu(SkillCM4_1);
+            //PopulateSkillContextMenu(SkillCM5_1);
+            //PopulateSkillContextMenu(SkillCM6_1);
 
-            AddStandardItemsToContextMenu(MutationCM1_1);
-            SetInitialContextMenuItemValue(MutationCM1_1);
-            PopulateContextMenu(MutationCM1_1, 4, TextFields.Occupation.GetAllOptions(TextFields.Mutation.Mutations));
+            PopulateMutationContextMenu(MutationCM1_1);
+            PopulateMutationContextMenu(MutationCM2_1);
+            PopulateMutationContextMenu(MutationCM3_1);
 
-            AddStandardItemsToContextMenu(MutationCM2_1);
-            SetInitialContextMenuItemValue(MutationCM2_1);
-            PopulateContextMenu(MutationCM2_1, 4, TextFields.Occupation.GetAllOptions(TextFields.Mutation.Mutations));
+            PopulateContextMenu(TalentCM1_1, 4, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialTalents[0]));
+            PopulateContextMenu(TalentCM1_1, 5, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialTalents[1]));
+            PopulateContextMenu(TalentCM1_1, 6, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialTalents[2]));
+            PopulateContextMenu(TalentCM1_1, 7, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialTalents[3]));
+            PopulateContextMenu(TalentCM1_1, 8, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialTalents[4]));
+            PopulateContextMenu(TalentCM1_1, 9, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialTalents[5]));
+            PopulateContextMenu(TalentCM1_1, 10, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialTalents[6]));
+            PopulateContextMenu(TalentCM1_1, 11, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialTalents[7]));
+            SetInitialContextMenuItemValue(TalentCM1_1);
 
-            AddStandardItemsToContextMenu(MutationCM3_1);
-            SetInitialContextMenuItemValue(MutationCM3_1);
-            PopulateContextMenu(MutationCM3_1, 4, TextFields.Occupation.GetAllOptions(TextFields.Mutation.Mutations));
-
-            //PopulateContextMenu(TalentCM1_1, 4, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialTalents[0]));
-            //PopulateContextMenu(TalentCM1_1, 5, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialTalents[1]));
-            //PopulateContextMenu(TalentCM1_1, 6, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialTalents[2]));
-            //PopulateContextMenu(TalentCM1_1, 7, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialTalents[3]));
-            //PopulateContextMenu(TalentCM1_1, 8, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialTalents[4]));
-            //PopulateContextMenu(TalentCM1_1, 9, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialTalents[5]));
-            //PopulateContextMenu(TalentCM1_1, 10, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialTalents[6]));
-            //PopulateContextMenu(TalentCM1_1, 11, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialTalents[7]));
-            //SetInitialContextMenuItemValue(TalentCM1_1);
+            AddStandardItemsToContextMenu(EquipmentCM1_1);
+            PopulateContextMenu(EquipmentCM1_1, 1, TextFields.Occupation.GetAllOptions(TextFields.Occupation.SpecialWeapon));
 
             //PopulateSubmenu(EquipmentCM1_1.Items[4] as MenuItem, 4, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialWeapon[0]));
             //PopulateSubmenu(EquipmentCM1_1.Items[4] as MenuItem, 5, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialWeapon[1]));
@@ -197,6 +158,34 @@ namespace SlpGenerator
             SetInitialSpinnerValue(SkillPoint4Spinner1);
             SetInitialSpinnerValue(SkillPoint5Spinner1);
             SetInitialSpinnerValue(SkillPoint6Spinner1);
+        }
+
+        private void PopulateMutationContextMenu(ContextMenu cm)
+        {
+            AddStandardItemsToContextMenu(cm);
+            SetInitialContextMenuItemValue(cm);
+            PopulateContextMenu(cm, 4, TextFields.Occupation.GetAllOptions(TextFields.Mutation.Mutations));
+        }
+
+        private void PopulateSkillContextMenu(ContextMenu cm)
+        {
+            AddStandardItemsToContextMenu(cm);
+            SetInitialContextMenuItemValue(cm);
+            for (int i = 0; i < cm.Items.Count; i++)
+            {
+                NameMenuItems(cm.Name, cm.Items[i] as MenuItem);
+                TagMenuItems(cm.Name, cm.Items[i] as MenuItem);
+            }
+            PopulateContextMenu(cm, TextFields.Skill.Skills);
+            PopulateSubmenu(cm.Name, cm.Items[4] as MenuItem, 4, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[0]));
+            PopulateSubmenu(cm.Name, cm.Items[4] as MenuItem, 5, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[1]));
+            PopulateSubmenu(cm.Name, cm.Items[4] as MenuItem, 6, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[2]));
+            PopulateSubmenu(cm.Name, cm.Items[4] as MenuItem, 7, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[3]));
+            PopulateSubmenu(cm.Name, cm.Items[4] as MenuItem, 8, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[4]));
+            PopulateSubmenu(cm.Name, cm.Items[4] as MenuItem, 9, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[5]));
+            PopulateSubmenu(cm.Name, cm.Items[4] as MenuItem, 10, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[6]));
+            PopulateSubmenu(cm.Name, cm.Items[4] as MenuItem, 11, TextFields.Occupation.GetMultiOptions(TextFields.Occupation.SpecialSkills[7]));
+            SetInitialContextMenuItemValue(cm, cm.Items[4] as MenuItem);
         }
 
         enum OccupationEnum
@@ -232,49 +221,121 @@ namespace SlpGenerator
 
         //--------------------------------------------------------CONTEXTMENU-METODER----------------------------------------------------------------------------
 
+        private void PopulateMenu(ContextMenu cm, MenuItem m)
+        {
+
+        }
+
+        private void PopulateSubMenu(ContextMenu cm, List<string> list)
+        {
+            MenuItem mi = new MenuItem();
+            MenuItem subMi = new MenuItem();
+            for (int i = 0; i < cm.Items.Count; i++)
+            {
+                mi = cm.Items[i] as MenuItem;
+                if (mi.HasItems)
+                {
+                    for (int j = 0; j < mi.Items.Count; j++)
+                    {
+                        subMi = mi.Items[j] as MenuItem;
+                        subMi.Uid = "sub";
+                        NameAndTagMenuItems(cm, subMi);
+                    }
+                    NameAndTagMenuItems(cm, mi);
+                }
+            }
+
+        }
+
+        private void TagMenuItems(string menuName, MenuItem mi)
+        {
+            if (mi != null)
+            {
+                // Bestämmer vilken kolumn som påverkas
+                if (menuName.Contains("_1"))
+                {
+                    mi.Tag = 1;
+                }
+                else if (menuName.Contains("_2"))
+                {
+                    mi.Tag = 2;
+                }
+                else if (menuName.Contains("_3"))
+                {
+                    mi.Tag = 3;
+                }
+            }
+        }
+
+        private void NameMenuItems(string menuName, MenuItem mi)
+        {
+            if (mi != null)
+            {
+                string subName = "";
+
+                if (mi.Uid == "sub")
+                    subName = mi.Uid;
+
+                //Används för att namnge items med deras namn utan ändelser
+                string plainName = menuName.Contains("_") ?
+                (menuName.Substring(0, (menuName.Count() - 5))).ToLower() :
+                (menuName.Substring(0, (menuName.Count() - 3))).ToLower();
+
+                // Lagrar ändelsen på context-menyns namn
+                string endInteger = menuName.Contains("_") ?
+                    "_" + (menuName.Substring((menuName.Count() - 3), 1)).ToLower() :
+                    "";
+
+                if (subName.Contains("sub"))
+                    mi.Name = subName + plainName + endInteger;
+                else
+                    mi.Name = plainName + endInteger;
+            }
+
+        }
 
         private void NameAndTagMenuItems(ContextMenu cm, MenuItem mi)
         {
             if (mi != null)
             {
-            string subName = "";
+                string subName = "";
 
                 if (mi.Uid == "sub")
                     subName = mi.Uid;
 
-            //Används för att namnge items med deras namn utan ändelser
-            string plainName = cm.Name.Contains("_") ?
-                (cm.Name.Substring(0, (cm.Name.Count() - 5))).ToLower() :
-                (cm.Name.Substring(0, (cm.Name.Count() - 3))).ToLower();
+                //Används för att namnge items med deras namn utan ändelser
+                string plainName = cm.Name.Contains("_") ?
+                    (cm.Name.Substring(0, (cm.Name.Count() - 5))).ToLower() :
+                    (cm.Name.Substring(0, (cm.Name.Count() - 3))).ToLower();
 
-            // Lagrar ändelsen på context-menyns namn
-            string endInteger = cm.Name.Contains("_") ?
-                "_" + (cm.Name.Substring((cm.Name.Count() - 3), 1)).ToLower() :
-                "";
+                // Lagrar ändelsen på context-menyns namn
+                string endInteger = cm.Name.Contains("_") ?
+                    "_" + (cm.Name.Substring((cm.Name.Count() - 3), 1)).ToLower() :
+                    "";
 
-            // Bestämmer vilken kolumn som påverkas
-            if (cm.Name.Contains("_1"))
-            {
-                mi.Tag = 1;
-            }
-            else if (cm.Name.Contains("_2"))
-            {
-                mi.Tag = 2;
-            }
-            else if (cm.Name.Contains("_3"))
-            {
-                mi.Tag = 3;
-            }
+                // Bestämmer vilken kolumn som påverkas
+                if (cm.Name.Contains("_1"))
+                {
+                    mi.Tag = 1;
+                }
+                else if (cm.Name.Contains("_2"))
+                {
+                    mi.Tag = 2;
+                }
+                else if (cm.Name.Contains("_3"))
+                {
+                    mi.Tag = 3;
+                }
 
-            if (subName.Contains("sub"))
-                mi.Name = subName + plainName + endInteger;
-            else
-                mi.Name = plainName + endInteger;
+                if (subName.Contains("sub"))
+                    mi.Name = subName + plainName + endInteger;
+                else
+                    mi.Name = plainName + endInteger;
             }
         }
 
 
-        private void SetClickToMenuItems(ContextMenu cm)
+        private void SetClickToMenuItems(ContextMenu cm, int startIndex, RoutedEventHandler REH)
         {
             MenuItem mi = new MenuItem();
             Separator sep = new Separator();
@@ -286,9 +347,9 @@ namespace SlpGenerator
 
                 if (mi != null)
                 {
-                    if (i > 4)
+                    if (i > startIndex)
                     {
-                        mi.Click += new RoutedEventHandler(SetTextFromContext);
+                        mi.Click += REH;
                     }
 
                     NameAndTagMenuItems(cm, mi);
@@ -328,7 +389,7 @@ namespace SlpGenerator
             thirdItem.Click += new RoutedEventHandler(SetTextFromContext);
             thirdItem.Header = "TÖM";
             thirdItem.Uid = "";
-            
+
             //Skapar en andra separator
             Separator fourthItem = new Separator();
             fourthItem.Uid = "separator";
@@ -340,15 +401,35 @@ namespace SlpGenerator
                 cmToMi = cm.Items[0] as MenuItem;
             }
 
-            if (cmToMi.Name.ToLower().Contains("occuspec"))
+            if (cmToMi.Name.ToLower().Contains("sub"))
             {
-                MenuItem temp = cmToMi;
-                cm.Items.Add(firstItem);
-                cm.Items.Add(secondItem);
-                cm.Items.Add(thirdItem);
-                cm.Items.Add(fourthItem);
-                cm.Items.RemoveAt(0);
-                cm.Items.Add(temp);
+                List<object> miList = new List<object>();
+
+                miList.Add(firstItem);
+                miList.Add(secondItem);
+                miList.Add(thirdItem);
+                miList.Add(fourthItem);
+
+                for (int i = 0; i < cm.Items.Count; i++)
+                {
+                    miList.Add(cm.Items[i]);
+                }
+
+                cm.Items.Clear();
+                //cm.ItemsSource = miList;
+
+                for (int i = 0; i < miList.Count; i++)
+                {
+                    if (i == 1 || i == 3)
+                    {
+                        cm.Items.Add(miList[i] as Separator);
+                    }
+                    else
+                    {
+                        cm.Items.Add(miList[i] as MenuItem);
+                    }
+
+                }
             }
             else
             {
@@ -383,7 +464,7 @@ namespace SlpGenerator
 
             MenuItem cmToMi = new MenuItem();
             cmToMi = cm.Items[0] as MenuItem;
-            if (cmToMi.Name.ToLower() == "occuspec")
+            if (cmToMi.Name.ToLower() == "sub")
             {
                 MenuItem temp = cmToMi;
                 cmToMi.Items.Clear();
@@ -410,38 +491,11 @@ namespace SlpGenerator
             mi1 = cm.Items[0] as MenuItem;
             mi2 = cm.Items[2] as MenuItem;
 
+            NameMenuItems(cm.Name, mi1);
+            NameMenuItems(cm.Name, mi2);
+            TagMenuItems(cm.Name, mi1);
+            TagMenuItems(cm.Name, mi2);
 
-            NameAndTagMenuItems(cm, mi1);
-            NameAndTagMenuItems(cm, mi2);
-            ////Används för att namnge items med deras namn utan ändelser
-            //string plainName = cm.Name.Contains("_") ?
-            //    (cm.Name.Substring(0, (cm.Name.Count() - 5))).ToLower() :
-            //    (cm.Name.Substring(0, (cm.Name.Count() - 3))).ToLower();
-
-            //// Lagrar ändelsen på context-menyns namn
-            //string endInteger = cm.Name.Contains("_") ?
-            //    "_" + (cm.Name.Substring((cm.Name.Count() - 3), 1)).ToLower() :
-            //    "";
-
-            //// Bestämmer vilken kolumn som påverkas
-            //if (cm.Name.Contains("_1"))
-            //{
-            //    mi1.Tag = 1;
-            //    mi2.Tag = 1;
-            //}
-            //else if (cm.Name.Contains("_2"))
-            //{
-            //    mi1.Tag = 2;
-            //    mi2.Tag = 2;
-            //}
-            //else if (cm.Name.Contains("_3"))
-            //{
-            //    mi1.Tag = 3;
-            //    mi2.Tag = 3;
-            //}
-
-            //mi1.Name = plainName + endInteger;
-            //mi2.Name = plainName + endInteger;
         }
 
         //private void SetInitialContextMenuItemValue(ContextMenu cm, MenuItem m)
@@ -486,13 +540,20 @@ namespace SlpGenerator
 
         private void SetInitialContextMenuItemValue(ContextMenu cm, MenuItem m)
         {
-            MenuItem mi1 = new MenuItem();
-            MenuItem mi2 = new MenuItem();
-            mi1 = m.Items[0] as MenuItem;
-            mi2 = m.Items[2] as MenuItem;
+            if (m != null)
+            {
+                MenuItem mi1 = new MenuItem();
+                MenuItem mi2 = new MenuItem();
 
-            NameAndTagMenuItems(cm, mi1);
-            NameAndTagMenuItems(cm, mi2);
+                mi1 = m.Items[0] as MenuItem;
+                mi1.Uid = "sub";
+                mi2 = m.Items[2] as MenuItem;
+                mi2.Uid = "sub";
+
+
+                NameAndTagMenuItems(cm, mi1);
+                NameAndTagMenuItems(cm, mi2);
+            }
         }
 
 
@@ -516,7 +577,7 @@ namespace SlpGenerator
                     }
                     else if (mi.Name.ToLower().Contains("trait"))
                     {
-                            TraitTxt.Content = TextFields.Occupation.GetAllOptions(TextFields.Occupation.SpecialTrait).GetRandomName();
+                        TraitTxt.Content = TextFields.Occupation.GetAllOptions(TextFields.Occupation.SpecialTrait).GetRandomName();
                     }
                     else if (mi.Name.ToLower().Contains("goal"))
                     {
@@ -528,7 +589,7 @@ namespace SlpGenerator
                     }
                     else if (mi.Name.ToLower().Contains("skill"))
                     {
-                        if (mi.Name.ToLower().Contains("occuspec"))
+                        if (mi.Name.ToLower().Contains("sub"))
                         {
                             Skill1Txt1.Content = TextFields.Occupation.SpecialSkills.GetRandomName();
                         }
@@ -565,7 +626,14 @@ namespace SlpGenerator
                     }
                     else if (mi.Name.ToLower().Contains("skill"))
                     {
-                        Skill2Txt1.Content = TextFields.Skill.Skills.GetRandomName();
+                        if (mi.Name.ToLower().Contains("sub"))
+                        {
+                            Skill2Txt1.Content = TextFields.Occupation.SpecialSkills.GetRandomName();
+                        }
+                        else
+                        {
+                            Skill2Txt1.Content = TextFields.Skill.Skills.GetRandomName();
+                        }
                     }
                 }
                 else if (mi.Name.ToLower().Contains("_3"))
@@ -576,28 +644,56 @@ namespace SlpGenerator
                     }
                     else if (mi.Name.ToLower().Contains("skill"))
                     {
-                        Skill3Txt1.Content = TextFields.Skill.Skills.GetRandomName();
+                        if (mi.Name.ToLower().Contains("sub"))
+                        {
+                            Skill3Txt1.Content = TextFields.Occupation.SpecialSkills.GetRandomName();
+                        }
+                        else
+                        {
+                            Skill3Txt1.Content = TextFields.Skill.Skills.GetRandomName();
+                        }
                     }
                 }
                 else if (mi.Name.ToLower().Contains("_4"))
                 {
                     if (mi.Name.ToLower().Contains("skill"))
                     {
-                        Skill4Txt1.Content = TextFields.Skill.Skills.GetRandomName();
+                        if (mi.Name.ToLower().Contains("sub"))
+                        {
+                            Skill4Txt1.Content = TextFields.Occupation.SpecialSkills.GetRandomName();
+                        }
+                        else
+                        {
+                            Skill4Txt1.Content = TextFields.Skill.Skills.GetRandomName();
+                        }
                     }
                 }
                 else if (mi.Name.ToLower().Contains("_5"))
                 {
                     if (mi.Name.ToLower().Contains("skill"))
                     {
-                        Skill5Txt1.Content = TextFields.Skill.Skills.GetRandomName();
+                        if (mi.Name.ToLower().Contains("sub"))
+                        {
+                            Skill5Txt1.Content = TextFields.Occupation.SpecialSkills.GetRandomName();
+                        }
+                        else
+                        {
+                            Skill5Txt1.Content = TextFields.Skill.Skills.GetRandomName();
+                        }
                     }
                 }
                 else if (mi.Name.ToLower().Contains("_6"))
                 {
                     if (mi.Name.ToLower().Contains("skill"))
                     {
-                        Skill6Txt1.Content = TextFields.Skill.Skills.GetRandomName();
+                        if (mi.Name.ToLower().Contains("sub"))
+                        {
+                            Skill6Txt1.Content = TextFields.Occupation.SpecialSkills.GetRandomName();
+                        }
+                        else
+                        {
+                            Skill6Txt1.Content = TextFields.Skill.Skills.GetRandomName();
+                        }
                     }
                 }
             }
@@ -605,7 +701,7 @@ namespace SlpGenerator
 
         }
 
-        private void ContMenu(object sender)
+        private void OpenContextMenu(object sender)
         {
             var btn = sender as Button;
 
@@ -619,168 +715,187 @@ namespace SlpGenerator
         {
             field.Content =
                         (string)mi.Header == "TÖM" ?
-                        mi.Uid.ToString() :
+                        "" :
                         mi.Header.ToString();
         }
 
         public void SetTextFromContext(object sender, RoutedEventArgs e)
         {
+            MenuItem sent = sender as MenuItem;
+            ContextMenu cm = new ContextMenu();
 
-            MenuItem mi = sender as MenuItem;
+            cm = sent.Parent as ContextMenu;
 
-            // Kolumn 1
-            if (Convert.ToInt32(mi.Tag) == 1)
-            {
-                if (mi.Name.ToLower().Contains("_1"))
-                {
-                    if (mi.Name.ToLower().Contains("name"))
-                    {
-                        SetTextField(mi, NameTxt1);
-                    }
-                    else if (mi.Name.ToLower().Contains("occupation"))
-                    {
-                        SetTextField(mi, OccuTxt);
-                    }
-                    else if (mi.Name.ToLower().Contains("trait"))
-                    {
-                        SetTextField(mi, TraitTxt);
-                    }
-                    else if (mi.Name.ToLower().Contains("goal"))
-                    {
-                        SetTextField(mi, GoalTxt);
-                    }
-                    else if (mi.Name.ToLower().Contains("mutation"))
-                    {
-                        SetTextField(mi, Mutation1Txt1);
-                    }
-                    else if (mi.Name.ToLower().Contains("skill"))
-                    {
-                        SetTextField(mi, Skill1Txt1);
-                    }
-                    else if (mi.Name.ToLower().Contains("talent"))
-                    {
-                        SetTextField(mi, TalentsTxt1);
-                    }
-                    else if (mi.Name.ToLower().Contains("equipment"))
-                    {
-                        if (mi.Name.ToLower().Contains("weap"))
-                        {
-                            SetTextField(mi, Equipment1Txt1);
-                        }
-                        else if (mi.Name.ToLower().Contains("stuff"))
-                        {
-                            Equipment1Txt2.Content = TextFields.Occupation.GetEquipment(TextFields.Occupation.GetMultiOptions(mi.Uid));
-                        }
-                        else if (mi.Name.ToLower().Contains("art"))
-                        {
-                            SetTextField(mi, Equipment1Txt1);
-                        }
-                    }
-                }
-                else if (mi.Name.ToLower().Contains("_2"))
-                {
-                    if (mi.Name.ToLower().Contains("mutation"))
-                    {
-                        SetTextField(mi, Mutation2Txt1);
-                    }
-                    else if (mi.Name.ToLower().Contains("skill"))
-                    {
-                        SetTextField(mi, Skill2Txt1);
-                    }
-                    else if (mi.Name.ToLower().Contains("equipment"))
-                    {
-                        if (mi.Name.ToLower().Contains("weap"))
-                        {
-                            SetTextField(mi, Equipment1Txt1);
-                        }
-                        else if (mi.Name.ToLower().Contains("stuff"))
-                        {
-                            SetTextField(mi, Equipment1Txt1);
-                        }
-                        else if (mi.Name.ToLower().Contains("art"))
-                        {
-                            SetTextField(mi, Equipment1Txt1);
-                        }
-                    }
-                }
-                else if (mi.Name.ToLower().Contains("_3"))
-                {
-                    if (mi.Name.ToLower().Contains("mutation"))
-                    {
-                        SetTextField(mi, Mutation3Txt1);
-                    }
-                    else if (mi.Name.ToLower().Contains("skill"))
-                    {
-                        SetTextField(mi, Skill3Txt1);
-                    }
-                    else if (mi.Name.ToLower().Contains("equipment"))
-                    {
-                        if (mi.Name.ToLower().Contains("weap"))
-                        {
-                            SetTextField(mi, Equipment1Txt1);
-                        }
-                        else if (mi.Name.ToLower().Contains("stuff"))
-                        {
-                            SetTextField(mi, Equipment1Txt1);
-                        }
-                        else if (mi.Name.ToLower().Contains("art"))
-                        {
-                            SetTextField(mi, Equipment1Txt1);
-                        }
-                    }
-                }
-                else if (mi.Name.ToLower().Contains("_4"))
-                {
-                    if (mi.Name.ToLower().Contains("skill"))
-                    {
-                        SetTextField(mi, Skill4Txt1);
-                    }
-                    else if (mi.Name.ToLower().Contains("equipment"))
-                    {
-                        if (mi.Name.ToLower().Contains("weap"))
-                        {
-                            SetTextField(mi, Equipment1Txt1);
-                        }
-                        else if (mi.Name.ToLower().Contains("stuff"))
-                        {
-                            SetTextField(mi, Equipment1Txt1);
-                        }
-                        else if (mi.Name.ToLower().Contains("art"))
-                        {
-                            SetTextField(mi, Equipment1Txt1);
-                        }
-                    }
-                }
-                else if (mi.Name.ToLower().Contains("_5"))
-                {
-                    if (mi.Name.ToLower().Contains("skill"))
-                    {
-                        SetTextField(mi, Skill5Txt1);
-                    }
-                }
-                else if (mi.Name.ToLower().Contains("_6"))
-                {
-                    if (mi.Name.ToLower().Contains("skill"))
-                    {
-                        SetTextField(mi, Skill6Txt1);
-                    }
-                }
-            }
+            ItemsControl ic = sent.Parent as ItemsControl;
+
+            Button btn = cm.PlacementTarget as Button;
+            Viewbox vb = btn.Content as Viewbox;
+            Label lbl = vb.Child as Label;
+
+            SetTextField(sent, lbl);
 
         }
+
+        //public void SetTextFromContext(object sender, RoutedEventArgs e)
+        //{
+
+        //    MenuItem mi = sender as MenuItem;
+
+        //    // Kolumn 1
+        //    if (Convert.ToInt32(mi.Tag) == 1)
+        //    {
+        //        if (mi.Name.ToLower().Contains("_1"))
+        //        {
+        //            if (mi.Name.ToLower().Contains("name"))
+        //            {
+        //                SetTextField(mi, NameTxt1);
+        //            }
+        //            else if (mi.Name.ToLower().Contains("occupation"))
+        //            {
+        //                SetTextField(mi, OccuTxt);
+        //            }
+        //            else if (mi.Name.ToLower().Contains("trait"))
+        //            {
+        //                SetTextField(mi, TraitTxt);
+        //            }
+        //            else if (mi.Name.ToLower().Contains("goal"))
+        //            {
+        //                SetTextField(mi, GoalTxt);
+        //            }
+        //            else if (mi.Name.ToLower().Contains("mutation"))
+        //            {
+        //                SetTextField(mi, Mutation1Txt1);
+        //            }
+        //            else if (mi.Name.ToLower().Contains("skill"))
+        //            {
+        //                SetTextField(mi, Skill1Txt1);
+        //            }
+        //            else if (mi.Name.ToLower().Contains("talent"))
+        //            {
+        //                SetTextField(mi, TalentsTxt1);
+        //            }
+        //            else if (mi.Name.ToLower().Contains("equipment"))
+        //            {
+        //                if (mi.Name.ToLower().Contains("weap"))
+        //                {
+        //                    SetTextField(mi, Equipment1Txt1);
+        //                }
+        //                else if (mi.Name.ToLower().Contains("stuff"))
+        //                {
+        //                    Equipment1Txt2.Content = TextFields.Occupation.GetEquipment(TextFields.Occupation.GetMultiOptions(mi.Uid));
+        //                }
+        //                else if (mi.Name.ToLower().Contains("art"))
+        //                {
+        //                    SetTextField(mi, Equipment1Txt1);
+        //                }
+        //            }
+        //        }
+        //        else if (mi.Name.ToLower().Contains("_2"))
+        //        {
+        //            if (mi.Name.ToLower().Contains("mutation"))
+        //            {
+        //                SetTextField(mi, Mutation2Txt1);
+        //            }
+        //            else if (mi.Name.ToLower().Contains("skill"))
+        //            {
+        //                SetTextField(mi, Skill2Txt1);
+        //            }
+        //            else if (mi.Name.ToLower().Contains("equipment"))
+        //            {
+        //                if (mi.Name.ToLower().Contains("weap"))
+        //                {
+        //                    SetTextField(mi, Equipment1Txt1);
+        //                }
+        //                else if (mi.Name.ToLower().Contains("stuff"))
+        //                {
+        //                    SetTextField(mi, Equipment1Txt1);
+        //                }
+        //                else if (mi.Name.ToLower().Contains("art"))
+        //                {
+        //                    SetTextField(mi, Equipment1Txt1);
+        //                }
+        //            }
+        //        }
+        //        else if (mi.Name.ToLower().Contains("_3"))
+        //        {
+        //            if (mi.Name.ToLower().Contains("mutation"))
+        //            {
+        //                SetTextField(mi, Mutation3Txt1);
+        //            }
+        //            else if (mi.Name.ToLower().Contains("skill"))
+        //            {
+        //                SetTextField(mi, Skill3Txt1);
+        //            }
+        //            else if (mi.Name.ToLower().Contains("equipment"))
+        //            {
+        //                if (mi.Name.ToLower().Contains("weap"))
+        //                {
+        //                    SetTextField(mi, Equipment1Txt1);
+        //                }
+        //                else if (mi.Name.ToLower().Contains("stuff"))
+        //                {
+        //                    SetTextField(mi, Equipment1Txt1);
+        //                }
+        //                else if (mi.Name.ToLower().Contains("art"))
+        //                {
+        //                    SetTextField(mi, Equipment1Txt1);
+        //                }
+        //            }
+        //        }
+        //        else if (mi.Name.ToLower().Contains("_4"))
+        //        {
+        //            if (mi.Name.ToLower().Contains("skill"))
+        //            {
+        //                SetTextField(mi, Skill4Txt1);
+        //            }
+        //            else if (mi.Name.ToLower().Contains("equipment"))
+        //            {
+        //                if (mi.Name.ToLower().Contains("weap"))
+        //                {
+        //                    SetTextField(mi, Equipment1Txt1);
+        //                }
+        //                else if (mi.Name.ToLower().Contains("stuff"))
+        //                {
+        //                    SetTextField(mi, Equipment1Txt1);
+        //                }
+        //                else if (mi.Name.ToLower().Contains("art"))
+        //                {
+        //                    SetTextField(mi, Equipment1Txt1);
+        //                }
+        //            }
+        //        }
+        //        else if (mi.Name.ToLower().Contains("_5"))
+        //        {
+        //            if (mi.Name.ToLower().Contains("skill"))
+        //            {
+        //                SetTextField(mi, Skill5Txt1);
+        //            }
+        //        }
+        //        else if (mi.Name.ToLower().Contains("_6"))
+        //        {
+        //            if (mi.Name.ToLower().Contains("skill"))
+        //            {
+        //                SetTextField(mi, Skill6Txt1);
+        //            }
+        //        }
+        //    }
+
+        //}
 
         public void PopulateContextMenu(ContextMenu cm, int item, List<string> list)
         {
 
-            //Används för att namnge items med deras namn utan ändelser
-                string plainName = cm.Name.Contains("_") ?
-                    (cm.Name.Substring(0, (cm.Name.Count() - 5))).ToLower() :
-                    (cm.Name.Substring(0, (cm.Name.Count() - 3))).ToLower();
+            ////Används för att namnge items med deras namn utan ändelser
+            //string plainName = cm.Name.Contains("_") ?
+            //    (cm.Name.Substring(0, (cm.Name.Count() - 5))).ToLower() :
+            //    (cm.Name.Substring(0, (cm.Name.Count() - 3))).ToLower();
 
-            // Lagrar ändelsen på context-menyns namn
-            string endInteger = cm.Name.Contains("_") ?
-                "_" + (cm.Name.Substring((cm.Name.Count() - 3), 1)).ToLower() :
-                "";
+            //// Lagrar ändelsen på context-menyns namn
+            //string endInteger = cm.Name.Contains("_") ?
+            //    "_" + (cm.Name.Substring((cm.Name.Count() - 3), 1)).ToLower() :
+            //    "";
+
+            MenuItem newMenuItem = new MenuItem();
 
             // Lägger till varje sträng i listan som listobjekt
             for (int i = 0; i < list.Count; i++)
@@ -790,15 +905,18 @@ namespace SlpGenerator
                 mi.Click += new RoutedEventHandler(SetTextFromContext);
                 mi.Header = list[i];
 
-                // Bestämmer vilken kolumn som påverkas
-                if (cm.Name.Contains("_1"))
-                    mi.Tag = 1;
-                else if (cm.Name.Contains("_2"))
-                    mi.Tag = 2;
-                else if (cm.Name.Contains("_3"))
-                    mi.Tag = 3;
+                NameMenuItems(cm.Name, mi);
+                TagMenuItems(cm.Name, mi);
 
-                mi.Name = plainName + i.ToString() + endInteger;
+                //// Bestämmer vilken kolumn som påverkas
+                //if (cm.Name.Contains("_1"))
+                //    mi.Tag = 1;
+                //else if (cm.Name.Contains("_2"))
+                //    mi.Tag = 2;
+                //else if (cm.Name.Contains("_3"))
+                //    mi.Tag = 3;
+
+                //mi.Name = plainName + i.ToString() + endInteger;
 
                 if (mi.Name.ToLower().Contains("name") ||
                                 mi.Name.ToLower().Contains("mutation") ||
@@ -809,29 +927,30 @@ namespace SlpGenerator
                 }
                 else
                 {
-                    MenuItem newMenuItem = new MenuItem();
-                    newMenuItem = (MenuItem)cm.Items[item];
-                    newMenuItem.Items.Add(mi);
+
+
+
+                    if (cm.Items[item].GetType() != typeof(Separator))
+                    {
+                        newMenuItem = (MenuItem)cm.Items[item];
+                        newMenuItem.Items.Add(mi);
+                    }
+                    else
+                    {
+                        //Separator newSep = new Separator();
+                        //newSep = (Separator)cm.Items[item];
+                        //newMenuItem.Items.Add(newSep);
+                    }
+
                 }
 
-                
+
             }
         }
 
 
         public void PopulateContextMenu(ContextMenu cm, List<string> list)
         {
-
-            //Används för att namnge items med deras namn utan ändelser
-            string plainName = cm.Name.Contains("_") ?
-                (cm.Name.Substring(0, (cm.Name.Count() - 5))).ToLower() :
-                (cm.Name.Substring(0, (cm.Name.Count() - 3))).ToLower();
-
-            // Lagrar ändelsen på context-menyns namn
-            string endInteger = cm.Name.Contains("_") ?
-                "_" + (cm.Name.Substring((cm.Name.Count() - 3), 1)).ToLower() :
-                "";
-
             // Lägger till varje sträng i listan som listobjekt
             for (int i = 0; i < list.Count; i++)
             {
@@ -840,16 +959,8 @@ namespace SlpGenerator
                 mi.Click += new RoutedEventHandler(SetTextFromContext);
                 mi.Header = list[i];
 
-                // Bestämmer vilken kolumn som påverkas
-                if (cm.Name.Contains("_1"))
-                    mi.Tag = 1;
-                else if (cm.Name.Contains("_2"))
-                    mi.Tag = 2;
-                else if (cm.Name.Contains("_3"))
-                    mi.Tag = 3;
-
-                // Lägger till korrekt namn baserat på vilken ContextMenu den baseras på
-                mi.Name = plainName + i.ToString() + endInteger;
+                TagMenuItems(cm.Name, mi);
+                NameMenuItems(cm.Name, mi);
 
                 cm.Items.Add(mi);
             }
@@ -925,45 +1036,94 @@ namespace SlpGenerator
 
 
 
-        public void PopulateSubmenu(ContextMenu parent, MenuItem m, int item, List<string> list)
+        public void PopulateSubmenu(string menuName, MenuItem m, int item, List<string> list)
         {
-            m.Uid = "sub";
-            NameAndTagMenuItems(parent, m);
-
-
-            // Lägger till varje sträng i listan som listobjekt
-            for (int i = 0; i < list.Count; i++)
+            if (m != null)
             {
+                m.Uid = "sub";
+                NameMenuItems(menuName, m);
+                TagMenuItems(menuName, m);
 
-                MenuItem mi = new MenuItem();
-                mi.Click += new RoutedEventHandler(SetTextFromContext);
 
-                if (m.Name.ToLower().Contains("stuff"))
+                // Lägger till varje sträng i listan som listobjekt
+                for (int i = 0; i < list.Count; i++)
                 {
-                    if (list.Count > 1 && i == 0)
-                        mi.Header = "1T6 * " + list[i] + " Patroner";
-                    else if (list.Count > 1 && i == 1)
-                        mi.Header = "1T6 * " + list[i] + " Krubb";
-                    else if (list.Count > 1 && i == 2)
-                        mi.Header = "1T6 * " + list[i] + " Vatten";
-                    else if (list.Count < 1)
+
+                    MenuItem mi = new MenuItem();
+                    mi.Click += new RoutedEventHandler(SetTextFromContext);
+                    mi.Uid = "sub";
+                    NameMenuItems(menuName, mi);
+                    TagMenuItems(menuName, mi);
+
+                    if (m.Name.ToLower().Contains("stuff"))
                     {
-                        mi.Uid = list[0];
-                        mi.Header = "1T6 * " + list[i] + " Patroner, " +
-                            "1T6 * " + list[i] + " Krubb, " +
-                            "1T6 * " + list[i] + " Vatten";
+                        if (list.Count > 1 && i == 0)
+                            mi.Header = "1T6 * " + list[i] + " Patroner";
+                        else if (list.Count > 1 && i == 1)
+                            mi.Header = "1T6 * " + list[i] + " Krubb";
+                        else if (list.Count > 1 && i == 2)
+                            mi.Header = "1T6 * " + list[i] + " Vatten";
+                        else if (list.Count < 1)
+                        {
+                            mi.Uid = list[0];
+                            mi.Header = "1T6 * " + list[i] + " Patroner, " +
+                                "1T6 * " + list[i] + " Krubb, " +
+                                "1T6 * " + list[i] + " Vatten";
+                        }
                     }
+                    else
+                    {
+                        mi.Header = list[i];
+
+                        MenuItem newMenuItem = new MenuItem();
+                        newMenuItem = (MenuItem)m.Items[item];
+                        newMenuItem.Items.Add(mi);
+                    }
+
                 }
-                else
-
-                mi.Header = list[i];
-
-                MenuItem newMenuItem = new MenuItem();
-                newMenuItem = (MenuItem)m.Items[item];
-                newMenuItem.Items.Add(mi);
-
             }
         }
+
+
+        //public void PopulateSubmenu(ContextMenu parent, MenuItem m, int item, List<string> list)
+        //{
+        //    m.Uid = "sub";
+        //    NameAndTagMenuItems(parent, m);
+
+
+        //    // Lägger till varje sträng i listan som listobjekt
+        //    for (int i = 0; i < list.Count; i++)
+        //    {
+
+        //        MenuItem mi = new MenuItem();
+        //        mi.Click += new RoutedEventHandler(SetTextFromContext);
+
+        //        if (m.Name.ToLower().Contains("stuff"))
+        //        {
+        //            if (list.Count > 1 && i == 0)
+        //                mi.Header = "1T6 * " + list[i] + " Patroner";
+        //            else if (list.Count > 1 && i == 1)
+        //                mi.Header = "1T6 * " + list[i] + " Krubb";
+        //            else if (list.Count > 1 && i == 2)
+        //                mi.Header = "1T6 * " + list[i] + " Vatten";
+        //            else if (list.Count < 1)
+        //            {
+        //                mi.Uid = list[0];
+        //                mi.Header = "1T6 * " + list[i] + " Patroner, " +
+        //                    "1T6 * " + list[i] + " Krubb, " +
+        //                    "1T6 * " + list[i] + " Vatten";
+        //            }
+        //        }
+        //        else
+
+        //        mi.Header = list[i];
+
+        //        MenuItem newMenuItem = new MenuItem();
+        //        newMenuItem = (MenuItem)m.Items[item];
+        //        newMenuItem.Items.Add(mi);
+
+        //    }
+        //}
 
         //public void PopulateContextMenu(ContextMenu cm, List<string> list)
         //{
@@ -1480,13 +1640,13 @@ namespace SlpGenerator
 
         private void NameBtn1_Click(object sender, RoutedEventArgs e)
         {
-            ContMenu(sender);
+            OpenContextMenu(sender);
             //NameTxt1.Content = TextFields.MutantHumanName.Mutants.GetRandomName();
         }
 
         private void OccuBtn1_Click(object sender, RoutedEventArgs e)
         {
-            ContMenu(sender);
+            OpenContextMenu(sender);
         }
 
         private void Krossare_Click(object sender, RoutedEventArgs e)
@@ -1539,13 +1699,13 @@ namespace SlpGenerator
 
         private void TraitBtn1_Click(object sender, RoutedEventArgs e)
         {
-            ContMenu(sender);
+            OpenContextMenu(sender);
             //TraitTxt.Content = TextFields.Occupation.GetRandomMultiOption(6);
         }
 
         private void GoalBtn1_Click(object sender, RoutedEventArgs e)
         {
-            ContMenu(sender);
+            OpenContextMenu(sender);
             //GoalTxt.Content = TextFields.Occupation.GetRandomMultiOption(7);
         }
 
@@ -1561,23 +1721,23 @@ namespace SlpGenerator
 
         private void MutationsBtn1_Click(object sender, RoutedEventArgs e)
         {
-            ContMenu(sender);
+            OpenContextMenu(sender);
             //GetMutation(Mutation1Txt1, Mutation2Txt1);
         }
 
         private void Skill1Btn1_Click(object sender, RoutedEventArgs e)
         {
-            ContMenu(sender);
+            OpenContextMenu(sender);
         }
 
         private void TalentsBtn1_Click(object sender, RoutedEventArgs e)
         {
-            ContMenu(sender);
+            OpenContextMenu(sender);
         }
 
         private void EquipmentBtn1_Click(object sender, RoutedEventArgs e)
         {
-            ContMenu(sender);
+            OpenContextMenu(sender);
             //TextFields.Occupation.GetEquipment();
             //Equipment1Txt1.Content = TextFields.Occupation.GetRandomMultiOption(4);
             //Equipment2Txt1.Content = string.Format("{0} {1} {2}",

@@ -73,11 +73,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CButton.cs" />
+    <Compile Include="CLabel.cs" />
+    <Compile Include="Menus.cs" />
     <Compile Include="TextFields\BasicProperty.cs" />
     <Compile Include="TextFields\Lists\OccupationList.cs" />
     <Compile Include="TextFields\Lists\BasicPropertyPointList.cs" />
     <Compile Include="TextFields\Lists\PointList.cs" />
     <Compile Include="TextFields\Lists\NameList.cs" />
+    <Compile Include="TextFields\Menus\DropMenu\DropMenu.cs" />
     <Compile Include="TextFields\MutantHumanName.cs" />
     <Compile Include="TextFields\Mutation.cs" />
     <Compile Include="TextFields\Occupation.cs" />
