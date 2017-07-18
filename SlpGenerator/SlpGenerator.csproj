@@ -76,11 +76,13 @@
     <Compile Include="CButton.cs" />
     <Compile Include="CLabel.cs" />
     <Compile Include="Menus.cs" />
+    <Compile Include="TextFields\Artifact.cs" />
     <Compile Include="TextFields\BasicProperty.cs" />
     <Compile Include="TextFields\Lists\OccupationList.cs" />
     <Compile Include="TextFields\Lists\BasicPropertyPointList.cs" />
     <Compile Include="TextFields\Lists\PointList.cs" />
     <Compile Include="TextFields\Lists\NameList.cs" />
+    <Compile Include="TextFields\Menus\DropItem\DropItem.cs" />
     <Compile Include="TextFields\Menus\DropMenu\DropMenu.cs" />
     <Compile Include="TextFields\MutantHumanName.cs" />
     <Compile Include="TextFields\Mutation.cs" />
@@ -134,6 +136,9 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="TextFiles\ARTEFAKTER.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="TextFiles\MUTANTER.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -185,6 +190,9 @@
     <Content Include="TextFiles\SPEC_UTSEENDE_KROPP.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="TextFields\SpecLabels\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

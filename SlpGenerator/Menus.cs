@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using SlpGenerator.TextFields;
 using System.Windows;
+using SlpGenerator.TextFields.Menus.DropItem;
 
 namespace SlpGenerator.Menus
 {
@@ -21,10 +22,11 @@ namespace SlpGenerator.Menus
         public static DropMenu talent { get; set; }
         public static DropMenu mutation { get; set; }
         public static DropMenu equipment { get; set; }
+        public static DropMenu point { get; set; }
 
         static public void SetTextFromContext(object sender, RoutedEventArgs e)
         {
-            MenuItem sent;
+            DropItem sent;
             Label lbl;
             GetLabel(sender, out sent, out lbl);
 
@@ -32,21 +34,61 @@ namespace SlpGenerator.Menus
 
         }
 
-        private static void GetLabel(object sender, out MenuItem sent, out Label lbl)
+        public static void GetLabel(object sender, out DropItem sent, out Label lbl)
         {
-            sent = sender as MenuItem;
+            sent = sender as DropItem;
+
             ContextMenu cm = new ContextMenu();
 
-            cm = sent.Parent as ContextMenu;
-
-            ItemsControl ic = sent.Parent as ItemsControl;
+            if (sent.Parent.GetType() == typeof(DropMenu))
+            {
+                cm = sent.Parent as ContextMenu;
+            }
+            else if (((DropItem)sent.Parent).Parent.GetType() == typeof(DropMenu))
+            {
+                cm = ((DropItem)sent.Parent).Parent as ContextMenu;
+            }
+            else if (((DropItem)((DropItem)sent.Parent).Parent).Parent.GetType() == typeof(DropMenu))
+            {
+                cm = ((DropItem)((DropItem)sent.Parent).Parent).Parent as ContextMenu;
+            }
+            else if (((DropItem)((DropItem)((DropItem)sent.Parent).Parent).Parent).Parent.GetType() == typeof(DropMenu))
+            {
+                cm = ((DropItem)((DropItem)((DropItem)sent.Parent).Parent).Parent).Parent as ContextMenu;
+            }
 
             Button btn = cm.PlacementTarget as Button;
             Viewbox vb = btn.Content as Viewbox;
             lbl = vb.Child as Label;
         }
 
-        static public void SetTextField(MenuItem mi, Label field)
+        public static void GetButton(object sender, out DropItem sent, out Button btn)
+        {
+            sent = sender as DropItem;
+
+            ContextMenu cm = new ContextMenu();
+
+            if (sent.Parent.GetType() == typeof(DropMenu))
+            {
+                cm = sent.Parent as ContextMenu;
+            }
+            else if (((DropItem)sent.Parent).Parent.GetType() == typeof(DropMenu))
+            {
+                cm = ((DropItem)sent.Parent).Parent as ContextMenu;
+            }
+            else if (((DropItem)((DropItem)sent.Parent).Parent).Parent.GetType() == typeof(DropMenu))
+            {
+                cm = ((DropItem)((DropItem)sent.Parent).Parent).Parent as ContextMenu;
+            }
+            else if (((DropItem)((DropItem)((DropItem)sent.Parent).Parent).Parent).Parent.GetType() == typeof(DropMenu))
+            {
+                cm = ((DropItem)((DropItem)((DropItem)sent.Parent).Parent).Parent).Parent as ContextMenu;
+            }
+
+            btn = cm.PlacementTarget as Button;
+        }
+
+        static public void SetTextField(DropItem mi, Label field)
         {
             field.Content =
                         (string)mi.Header == "TÖM" ?
@@ -55,19 +97,21 @@ namespace SlpGenerator.Menus
         }
         static public void GetRandom(object sender, RoutedEventArgs e)
         {
-            MenuItem sent;
+            DropItem sent;
             Label lbl;
             GetLabel(sender, out sent, out lbl);
 
-            MenuItem mi = new MenuItem();
-            mi = sent.Parent as MenuItem;
+            DropItem mi = new DropItem();
+            mi = sent.Parent as DropItem;
 
             DropMenu dm;
             dm = sent.Parent as DropMenu;
 
-            int index = GetIndex(sender, dm);
+            SetTextField(dm.GetRandom(), lbl);
 
-            SetTextField(dm.GetRandom(index), lbl);
+            //int index = GetIndex(sender, dm);
+
+            //SetTextField(dm.GetRandom(index), lbl);
 
 
         }
@@ -77,11 +121,11 @@ namespace SlpGenerator.Menus
             List<string> list = new List<string>() { "init1", "init2", "init3", "init4" };
             for (int i = 4; i < dm.Items.Count; i++)
             {
-                list.Add(((MenuItem)dm.Items[i]).Header.ToString());
+                list.Add(((DropItem)dm.Items[i]).Header.ToString());
 
             }
             int index;
-            index = list.FindIndex(p => p == ((MenuItem)sender).Header.ToString());
+            index = list.FindIndex(p => p == ((DropItem)sender).Header.ToString());
             return index;
         }
     }

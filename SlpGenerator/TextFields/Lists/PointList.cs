@@ -11,6 +11,11 @@ namespace SlpGenerator.TextFields.Lists
 
         protected Random Random;
 
+        public PointList()
+        {
+            
+        }
+
         public virtual PointList GetRandomValues(int sum, int maxPoint)
         {
             int maxSize = this.Count();

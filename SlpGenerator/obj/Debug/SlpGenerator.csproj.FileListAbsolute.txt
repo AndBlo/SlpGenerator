@@ -239,3 +239,4 @@ C:\Users\Andreas\Source\Repos\newer\SlpGenerator\SlpGenerator\obj\Debug\SlpGener
 C:\Users\Andreas\Source\Repos\newer\SlpGenerator\SlpGenerator\obj\Debug\SlpGenerator.csproj.GenerateResource.Cache
 C:\Users\Andreas\Source\Repos\newer\SlpGenerator\SlpGenerator\obj\Debug\SlpGenerator.exe
 C:\Users\Andreas\Source\Repos\newer\SlpGenerator\SlpGenerator\obj\Debug\SlpGenerator.pdb
+C:\Users\Andreas\Source\Repos\newer\SlpGenerator\SlpGenerator\bin\Debug\TextFiles\ARTEFAKTER.txt

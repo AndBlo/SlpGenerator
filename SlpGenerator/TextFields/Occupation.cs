@@ -168,6 +168,27 @@ namespace SlpGenerator.TextFields
 
         }
 
+        // Slumpar fram ett värde från en sträng som innehåller fler alternativ, där alternativen separeras med "_".
+        public static string GetRandomMultiOption(string multiString)
+        {
+            List<string> multiOption = GetMultiOptions(multiString);
+
+            Random Random = new Random(DateTime.Now.Millisecond ^ multiOption[0].Length);
+            Thread.Sleep(1);
+
+            string result = multiOption[Random.Next() % multiOption.Count];
+
+            if (result.ToLower() == "inget")
+            {
+                return "";
+            }
+            else
+            {
+                return result;
+            }
+
+        }
+
         public static List<string> GetMultiOptions(int index)
         {
             string[] multiOption;
@@ -210,11 +231,28 @@ namespace SlpGenerator.TextFields
             {
                 string[] multiOption;
                 multiOption = list[i].Split('_');
-
+                
                 returnList.AddRange(multiOption);
+
+                returnList = DeleteDoubles(returnList);
             }
 
             return returnList;
+        }
+
+        public static OccupationList DeleteDoubles(OccupationList list)
+        {
+            for (int i = 0; i < list.Count; i++)
+            {
+                for (int j = i + 1; j < list.Count - i; j++)
+                {
+                    if (list[i] == list[j])
+                    {
+                        list.RemoveAt(i);
+                    }
+                }
+            }
+            return list;
         }
 
         // Instansierar och sätter de initiala sträng-värdena på CurrentEquip
@@ -302,6 +340,14 @@ namespace SlpGenerator.TextFields
                 waterRes);
         }
 
+        public static string ShowEquipmentDice(List<string> list, int index)
+        {
+            string ammo = "PATRONER: " + list[0] + "X1 T6. ";
+            string food = "KRUBB: " + list[0] + "X1 T6. ";
+            string water = "VATTEN: " + list[0] + "X1 T6. ";
+
+            return ammo + food + water;
+        }
 
 
     }

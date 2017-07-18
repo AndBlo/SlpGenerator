@@ -5,23 +5,51 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using SlpGenerator.TextFields.Menus.DropItem;
 
 namespace SlpGenerator.TextFields.Menus.MenuList
 {
     class DropMenu : ContextMenu
     {
         Random rnd;
-        public DropMenu(List<string> list, RoutedEventHandler random, RoutedEventHandler textSetter, string name)
+        public DropMenu(List<string> list, RoutedEventHandler random, RoutedEventHandler textSetter, string name, bool itemsAreParents)
         {
             AddInitialItems(random, textSetter);
-            AddItems(list, textSetter);
+            if (!itemsAreParents)
+            {
+                AddItems(list, textSetter);
+            }
+            else
+            {
+                AddItems(list);
+            }
+            this.Name = name;
+        }
+
+        public DropMenu(string item, RoutedEventHandler random, RoutedEventHandler textSetter, string name, bool itemsAreParents)
+        {
+            AddInitialItems(random, textSetter);
+            if (!itemsAreParents)
+            {
+                AddItems(item, textSetter);
+            }
+            else
+            {
+                AddItems(item);
+            }
+            this.Name = name;
+        }
+
+        public DropMenu(string item, string name)
+        {
+            AddItems(item);
             this.Name = name;
         }
 
         private void AddInitialItems(RoutedEventHandler random, RoutedEventHandler textSetter)
         {
             //Skapar första menyvalet "SLUMPA!"
-            MenuItem firstItem = new MenuItem();
+            DropItem.DropItem firstItem = new DropItem.DropItem();
             firstItem.Click += new RoutedEventHandler(random);
             firstItem.Header = "SLUMPA";
             firstItem.Tag = 0;
@@ -31,7 +59,7 @@ namespace SlpGenerator.TextFields.Menus.MenuList
             secondItem.Uid = "separator";
 
             // SKapar andra menyvalet som nollar textfältet
-            MenuItem thirdItem = new MenuItem();
+            DropItem.DropItem thirdItem = new DropItem.DropItem();
             thirdItem.Click += new RoutedEventHandler(textSetter);
             thirdItem.Header = "TÖM";
             thirdItem.Tag = 0;
@@ -45,10 +73,10 @@ namespace SlpGenerator.TextFields.Menus.MenuList
             this.Items.Add(thirdItem);
             this.Items.Add(fourthItem);
         }
-        private void AddInitialItems(MenuItem subMi ,RoutedEventHandler random, RoutedEventHandler textSetter)
+        private void AddInitialItems(DropItem.DropItem subMi, RoutedEventHandler random, RoutedEventHandler textSetter)
         {
             //Skapar första menyvalet "SLUMPA!"
-            MenuItem firstItem = new MenuItem();
+            DropItem.DropItem firstItem = new DropItem.DropItem();
             firstItem.Click += new RoutedEventHandler(random);
             firstItem.Header = "SLUMPA";
             firstItem.Tag = 1;
@@ -58,7 +86,7 @@ namespace SlpGenerator.TextFields.Menus.MenuList
             secondItem.Uid = "separator";
 
             // SKapar andra menyvalet som nollar textfältet
-            MenuItem thirdItem = new MenuItem();
+            DropItem.DropItem thirdItem = new DropItem.DropItem();
             thirdItem.Click += new RoutedEventHandler(textSetter);
             thirdItem.Header = "TÖM";
             thirdItem.Tag = 1;
@@ -77,49 +105,119 @@ namespace SlpGenerator.TextFields.Menus.MenuList
         {
             for (int i = 0; i < list.Count; i++)
             {
-                MenuItem mi = new MenuItem();
+                DropItem.DropItem mi = new DropItem.DropItem();
                 mi.Header = list[i];
                 mi.Click += textSetter;
                 this.Items.Add(mi);
             }
         }
-        public void AddItemsToSubMenu(List<string> list, RoutedEventHandler random, RoutedEventHandler textSetter, int subMenuIndex)
+
+        public void AddItems(string item, RoutedEventHandler textSetter)
+        {
+            DropItem.DropItem mi = new DropItem.DropItem();
+            mi.Header = item;
+            mi.Click += textSetter;
+            this.Items.Add(mi);
+        }
+
+        public void AddItems(List<string> list)
+        {
+            for (int i = 0; i < list.Count; i++)
+            {
+                DropItem.DropItem mi = new DropItem.DropItem();
+                mi.Header = list[i];
+                this.Items.Add(mi);
+            }
+        }
+
+        public void AddItems(string item)
+        {
+            DropItem.DropItem mi = new DropItem.DropItem();
+            mi.Header = item;
+            this.Items.Add(mi);
+        }
+
+        public void AddItemsToSubMenu(List<string> list, RoutedEventHandler textSetter, int menuIndex)
         {
             if (this.HasItems)
             {
-                AddInitialItems((MenuItem)this.Items[subMenuIndex], random ,textSetter);
+                //AddInitialItems((DropItem.DropItem)this.Items[subMenuIndex], random ,textSetter);
 
                 for (int i = 0; i < list.Count; i++)
                 {
-                    MenuItem mi = new MenuItem();
+                    DropItem.DropItem mi = new DropItem.DropItem();
                     mi.Header = list[i];
                     mi.Click += textSetter;
-                    ((MenuItem)this.Items[subMenuIndex]).Items.Add(list[i]);
+                    ((DropItem.DropItem)this.Items[menuIndex]).Items.Add(mi);
                 }
             }
-            
+
         }
+        public void AddItemsToSubMenu(List<string> list, int menuIndex)
+        {
+            if (this.HasItems)
+            {
+                //AddInitialItems((DropItem.DropItem)this.Items[subMenuIndex], random ,textSetter);
+
+                for (int i = 0; i < list.Count; i++)
+                {
+                    DropItem.DropItem mi = new DropItem.DropItem();
+                    mi.Header = list[i];
+                    ((DropItem.DropItem)this.Items[menuIndex]).Items.Add(mi);
+                }
+            }
+
+        }
+
+        public void AddItemsToSubMenu(List<string> list, int menuIndex, int subMenuIndex)
+        {
+            if (this.HasItems)
+            {
+                //AddInitialItems((DropItem.DropItem)this.Items[subMenuIndex], random ,textSetter);
+
+                for (int i = 0; i < list.Count; i++)
+                {
+                    DropItem.DropItem mi = new DropItem.DropItem();
+                    mi.Header = list[i];
+                    (((DropItem.DropItem)this.Items[subMenuIndex]).Items[subMenuIndex] as DropItem.DropItem).Items.Add(mi);
+                }
+            }
+
+        }
+
+        public void AddItemsToSubMenu(string item, RoutedEventHandler textSetter, int menuIndex, int subMenuIndex)
+        {
+            if (this.HasItems)
+            {
+                //AddInitialItems((DropItem.DropItem)this.Items[subMenuIndex], random ,textSetter);
+                DropItem.DropItem mi1 = new DropItem.DropItem();
+                DropItem.DropItem mi2 = new DropItem.DropItem();
+                DropItem.DropItem miAdd = new DropItem.DropItem();
+
+                mi1 = this.Items[menuIndex] as DropItem.DropItem;
+                mi2 = mi1.Items[subMenuIndex] as DropItem.DropItem;
+
+                miAdd.Header = item;
+                miAdd.Click += textSetter;
+                mi2.Items.Add(miAdd);
+            }
+
+        }
+
 
         public void AddSubMenu(int insertIndex, string header)
         {
-            MenuItem mi = new MenuItem() { Header = header, Name = header };
+            DropItem.DropItem mi = new DropItem.DropItem() { Header = header, Name = Util.RemoveWhitespace(header) };
             this.Items.Insert(insertIndex, mi);
         }
 
-        public MenuItem GetRandom(int index)
+        public DropItem.DropItem GetRandom()
         {
             rnd = new Random();
-            if (index == -1)
-            {
-                return ((MenuItem)this.Items[rnd.Next(4, Items.Count)]);
-            }
-            else
-            {
-                MenuItem mi = new MenuItem();
-                mi = (MenuItem)this.Items[index];
-
-                return ((MenuItem)mi.Items[rnd.Next(4, Items.Count)]);
-            }
+            List<DropItem.DropItem> diLi = new List<DropItem.DropItem>();
+            diLi = DropItem.DropItem.GetList(this);
+            return diLi[rnd.Next(0, diLi.Count)];
         }
+
     }
 }
