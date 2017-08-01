@@ -161,22 +161,6 @@ C:\Users\Andreas\Source\Repos\SlpGenerator\SlpGenerator\bin\Debug\ro\Xceed.Wpf.A
 C:\Users\Andreas\Source\Repos\SlpGenerator\SlpGenerator\bin\Debug\ru\Xceed.Wpf.AvalonDock.resources.dll
 C:\Users\Andreas\Source\Repos\SlpGenerator\SlpGenerator\bin\Debug\sv\Xceed.Wpf.AvalonDock.resources.dll
 C:\Users\Andreas\Source\Repos\SlpGenerator\SlpGenerator\bin\Debug\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
-C:\Users\anten\Source\Repos\SlpGenerator\SlpGenerator\bin\Debug\Xceed.Wpf.AvalonDock.dll
-C:\Users\anten\Source\Repos\SlpGenerator\SlpGenerator\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Aero.dll
-C:\Users\anten\Source\Repos\SlpGenerator\SlpGenerator\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Metro.dll
-C:\Users\anten\Source\Repos\SlpGenerator\SlpGenerator\bin\Debug\Xceed.Wpf.AvalonDock.Themes.VS2010.dll
-C:\Users\anten\Source\Repos\SlpGenerator\SlpGenerator\bin\Debug\Xceed.Wpf.DataGrid.dll
-C:\Users\anten\Source\Repos\SlpGenerator\SlpGenerator\bin\Debug\Xceed.Wpf.Toolkit.dll
-C:\Users\anten\Source\Repos\SlpGenerator\SlpGenerator\bin\Debug\de\Xceed.Wpf.AvalonDock.resources.dll
-C:\Users\anten\Source\Repos\SlpGenerator\SlpGenerator\bin\Debug\es\Xceed.Wpf.AvalonDock.resources.dll
-C:\Users\anten\Source\Repos\SlpGenerator\SlpGenerator\bin\Debug\fr\Xceed.Wpf.AvalonDock.resources.dll
-C:\Users\anten\Source\Repos\SlpGenerator\SlpGenerator\bin\Debug\hu\Xceed.Wpf.AvalonDock.resources.dll
-C:\Users\anten\Source\Repos\SlpGenerator\SlpGenerator\bin\Debug\it\Xceed.Wpf.AvalonDock.resources.dll
-C:\Users\anten\Source\Repos\SlpGenerator\SlpGenerator\bin\Debug\pt-BR\Xceed.Wpf.AvalonDock.resources.dll
-C:\Users\anten\Source\Repos\SlpGenerator\SlpGenerator\bin\Debug\ro\Xceed.Wpf.AvalonDock.resources.dll
-C:\Users\anten\Source\Repos\SlpGenerator\SlpGenerator\bin\Debug\ru\Xceed.Wpf.AvalonDock.resources.dll
-C:\Users\anten\Source\Repos\SlpGenerator\SlpGenerator\bin\Debug\sv\Xceed.Wpf.AvalonDock.resources.dll
-C:\Users\anten\Source\Repos\SlpGenerator\SlpGenerator\bin\Debug\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
 C:\Users\Andreas\Desktop\SlpGenerator\SlpGenerator\bin\Debug\Xceed.Wpf.AvalonDock.dll
 C:\Users\Andreas\Desktop\SlpGenerator\SlpGenerator\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Aero.dll
 C:\Users\Andreas\Desktop\SlpGenerator\SlpGenerator\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Metro.dll
@@ -224,3 +208,4 @@ C:\Users\Andreas\Source\Repos\newer\SlpGenerator\SlpGenerator\obj\Debug\SlpGener
 C:\Users\Andreas\Source\Repos\newer\SlpGenerator\SlpGenerator\obj\Debug\SlpGenerator.pdb
 C:\Users\Andreas\Source\Repos\newer\SlpGenerator\SlpGenerator\bin\Debug\TextFiles\ARTEFAKTER.txt
 C:\Users\Andreas\Source\Repos\newer\SlpGenerator\SlpGenerator\obj\Debug\SlpGenerator.csprojResolveAssemblyReference.cache
+C:\Users\anten\Source\Repos\SlpGenerator\SlpGenerator\bin\Debug\TextFiles\ARTEFAKTER.txt

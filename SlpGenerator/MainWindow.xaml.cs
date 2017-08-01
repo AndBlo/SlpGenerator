@@ -33,8 +33,8 @@ namespace SlpGenerator
     /// 
 
     // Lagt till två till filer som är "partial" klasser av MainWindow för att få lite ordning: 
-    // * RandomCharacter.cs som innehåller metoder för att slumpa fram hela karaktärer - används av slump-knapparna.
-    // * LoadCM.cs som innehåller metoderna för att ladda in alla menyer och items i samtliga ContextMenu.
+    // * RandomCharacter.cs som innehåller metoder för att slumpa fram hela karaktärer - används genom toolbaren och slump-knappen
+    // * LoadCM.cs som innehåller metoderna för att ladda in alla menyer och items i samtliga ContextMeyer ("DropMenu").
 
     public partial class MainWindow : Window
     {
