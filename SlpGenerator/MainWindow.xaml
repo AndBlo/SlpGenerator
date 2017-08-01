@@ -4,19 +4,25 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SlpGenerator"
-        xmlns:wpfx="http://schemas.xceed.com/wpf/xaml/toolkit"
-        xmlns:Collections="clr-namespace:System.Collections;assembly=mscorlib"
         mc:Ignorable="d"
         Title="MainWindow" Height="850" Width="600">
 
     <Window.Background>
         <ImageBrush ImageSource="Images\slp.png" />
     </Window.Background>
+    <Window.CommandBindings>
+        <CommandBinding Command="New" CanExecute="CommonCommandBinding_CanExecute" />
+        <CommandBinding Command="Open" CanExecute="CommonCommandBinding_CanExecute" />
+        <CommandBinding Command="Save" CanExecute="CommonCommandBinding_CanExecute" />
+        <CommandBinding Command="SaveAs" CanExecute="CommonCommandBinding_CanExecute" />
+        <CommandBinding Command="Print" CanExecute="CommonCommandBinding_CanExecute" />
+    </Window.CommandBindings>
     <Grid Name="MainGrid">
         <Grid.RowDefinitions>
-            <RowDefinition Height="167*"/>
-            <RowDefinition Height="733*"/>
-            <RowDefinition Height="19*"/>
+            <RowDefinition Height="31*"/>
+            <RowDefinition Height="118*"/>
+            <RowDefinition Height="653*"/>
+            <RowDefinition Height="17*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="21*"/>
@@ -27,36 +33,189 @@
             <ColumnDefinition Width="208*"/>
             <ColumnDefinition Width="21*"/>
         </Grid.ColumnDefinitions>
-        <Button Name="SlumpSlp1" Click="SlumpSlp1_Click" Grid.Column="1" Grid.Row="0" Margin="0,130,0,0" Content="SLUMPA SLP" FontWeight="Bold" BorderBrush="Black">
-            <Button.Background>
-                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                    <GradientStop Color="#FFA43704" Offset="0.0" />
-                    <GradientStop Color="#FFCF8600" Offset="0.5" />
-                    <GradientStop Color="PaleGoldenrod" Offset="1.0" />
-                </LinearGradientBrush>
-            </Button.Background>
-        </Button>
-        <Button Name="SlumpSlp2" Click="SlumpSlp2_Click" Grid.Column="3" Grid.Row="0" Margin="0,130,0,0" Content="SLUMPA SLP" FontWeight="Bold" BorderBrush="Black">
-            <Button.Background>
-                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                    <GradientStop Color="#FFA43704" Offset="0.0" />
-                    <GradientStop Color="#FFCF8600" Offset="0.5" />
-                    <GradientStop Color="PaleGoldenrod" Offset="1.0" />
-                </LinearGradientBrush>
-            </Button.Background>
-        </Button>
-        <Button Name="SlumpSlp3" Click="SlumpSlp3_Click" Grid.Column="5" Grid.Row="0" Margin="0,130,0,0" Content="SLUMPA SLP" FontWeight="Bold" BorderBrush="Black">
-            <Button.Background>
-                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                    <GradientStop Color="#FFA43704" Offset="0.0" />
-                    <GradientStop Color="#FFCF8600" Offset="0.5" />
-                    <GradientStop Color="PaleGoldenrod" Offset="1.0" />
-                </LinearGradientBrush>
-            </Button.Background>
-        </Button>
-        <Grid />
+        <DockPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="7">
+            <ToolBarTray Name="tbTray">
+                <ToolBar>
+                    <Menu>
+                        <MenuItem Header="Arkiv">
+                            <MenuItem Header="Nytt ark" Click="EmptyAll_Click">
+                            </MenuItem>
+                            <MenuItem Header="Öppna">
+                                <MenuItem Header="SLP 1" Click="LoadSLP1Btn" />
+                                <MenuItem Header="SLP 2" Click="LoadSLP2Btn" />
+                                <MenuItem Header="SLP 3" Click="LoadSLP3Btn"/>
+                            </MenuItem>
+                            <MenuItem Header="Spara">
+                                <MenuItem Header="SLP 1" Click="SaveSLP1Btn"/>
+                                <MenuItem Header="SLP 2" Click="SaveSLP2Btn"/>
+                                <MenuItem Header="SLP 3" Click="SaveSLP3Btn"/>
+                            </MenuItem>
+                            <MenuItem Header="Exportera ark som bild"  Click="button_save_window_Click"/>
+                            <MenuItem Header="Skriv ut ark" Click="PrinBtn"/>
+                            <MenuItem Header="Avsluta" Click="ExitBtn"/>
+                        </MenuItem>
+                    </Menu>
+                </ToolBar>
+            </ToolBarTray>
+            <ToolBarTray >
+                <ToolBar>
+                    <Menu>
+                    <MenuItem Header="Syssla" Margin="3">
+                        <ComboBox Name="_occu">
+                            <ComboBoxItem Content="Slumpvalt" IsSelected="True" />
+                            <ComboBoxItem Content="Krossare" />
+                            <ComboBoxItem Content="Skrotskalle" />
+                            <ComboBoxItem Content="Zonstrykare" />
+                            <ComboBoxItem Content="Fixare" />
+                            <ComboBoxItem Content="Mutant med hund" />
+                            <ComboBoxItem Content="Krönikör" />
+                            <ComboBoxItem Content="Boss" />
+                            <ComboBoxItem Content="Slav" />
+                        </ComboBox>
+                    </MenuItem>
+                    </Menu>
+                    <Separator/>
+                    <ComboBox Name="_targetCB" Width="46">
+                        <ComboBoxItem Content="Slp 1" IsSelected="True"/>
+                        <ComboBoxItem Content="Slp 2" />
+                        <ComboBoxItem Content="Slp 3" />
+                        <ComboBoxItem Content="Alla" />
+                    </ComboBox>
+                    <Separator />
+                    <Menu Background="Transparent">
+                        <MenuItem Header="Grundegenskaper" Margin="3">
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Poäng"/>
+                                <ComboBox x:Name="_bpCB" Margin="29,0,0,0">
+                                    <ComboBoxItem Content="12"  />
+                                    <ComboBoxItem Content="13" />
+                                    <ComboBoxItem Content="14" IsSelected="True"/>
+                                    <ComboBoxItem Content="15" />
+                                </ComboBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Special GE"/>
+                                <ComboBox x:Name="_specialBpCB" Margin="7,0,0,0">
+                                    <ComboBoxItem Content="Enligt syssla"  IsSelected="True"/>
+                                    <ComboBoxItem Content="Sty"  />
+                                    <ComboBoxItem Content="Kyl" />
+                                    <ComboBoxItem Content="Skp"/>
+                                    <ComboBoxItem Content="Kns" />
+                                </ComboBox>
+                            </StackPanel>
+                        </MenuItem>
+                    </Menu>
+                    <Separator />
+                    <Menu>
+                        <MenuItem Header="Färdigheter" Focusable="False" Margin="3">
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Antal" Grid.Column="0" Grid.Row="0"/>
+                                <ComboBox Name="_skill" SelectionChanged="_skill_SelectionChanged" Grid.Column="1" Grid.Row="0" Margin="34,0,0,0">
+                                    <ComboBoxItem Content="0" />
+                                    <ComboBoxItem Content="1" />
+                                    <ComboBoxItem Content="2" />
+                                    <ComboBoxItem Content="3" IsSelected="True" />
+                                    <ComboBoxItem Content="4" />
+                                    <ComboBoxItem Content="5" />
+                                    <ComboBoxItem Content="6" />
+                                </ComboBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Poäng" Grid.Column="0" Grid.Row="1" Focusable="False"/>
+                                <ComboBox Name="_spCB" SelectionChanged="_skill_SelectionChanged" Grid.Column="1" Grid.Row="1" Focusable="False" Margin="29,0,0,0">
+                                    <ComboBoxItem Content="0" />
+                                    <ComboBoxItem Content="1" />
+                                    <ComboBoxItem Content="2" />
+                                    <ComboBoxItem Content="3" />
+                                    <ComboBoxItem Content="4" />
+                                    <ComboBoxItem Content="5" />
+                                    <ComboBoxItem Content="6" IsSelected="True"/>
+                                    <ComboBoxItem Content="7" />
+                                    <ComboBoxItem Content="8" />
+                                    <ComboBoxItem Content="9" />
+                                    <ComboBoxItem Content="10" />
+                                    <ComboBoxItem Content="11" />
+                                    <ComboBoxItem Content="12" />
+                                </ComboBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Min" Grid.Column="0" Grid.Row="2" Focusable="False" />
+                                <ComboBox Name="_minSpCB" SelectionChanged="_skill_SelectionChanged" Grid.Column="1" Grid.Row="2" Focusable="False" Margin="42,0,0,0">
+                                    <ComboBoxItem Content="1" IsSelected="True"/>
+                                    <ComboBoxItem Content="2" />
+                                    <ComboBoxItem Content="3" />
+                                    <ComboBoxItem Content="4" />
+                                    <ComboBoxItem Content="5" />
+                                    <ComboBoxItem Content="6" />
+                                    <ComboBoxItem Content="7" />
+                                    <ComboBoxItem Content="8" />
+                                    <ComboBoxItem Content="9" />
+                                    <ComboBoxItem Content="10" />
+                                    <ComboBoxItem Content="11" />
+                                    <ComboBoxItem Content="12" />
+                                </ComboBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Max" Grid.Column="0" Grid.Row="3" Focusable="False" />
+                                <ComboBox Name="_maxSpCB" SelectionChanged="_skill_SelectionChanged" Grid.Column="1" Grid.Row="3" Focusable="False" Margin="40,0,0,0">
+                                    <ComboBoxItem Content="1" />
+                                    <ComboBoxItem Content="2" IsSelected="True"/>
+                                    <ComboBoxItem Content="3" />
+                                    <ComboBoxItem Content="4" />
+                                    <ComboBoxItem Content="5" />
+                                    <ComboBoxItem Content="6" />
+                                    <ComboBoxItem Content="7" />
+                                    <ComboBoxItem Content="8" />
+                                    <ComboBoxItem Content="9" />
+                                    <ComboBoxItem Content="10" />
+                                    <ComboBoxItem Content="11" />
+                                    <ComboBoxItem Content="12" />
+                                </ComboBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Max special" Grid.Column="0" Grid.Row="4" Focusable="False" />
+                                <ComboBox Name="_maxSpecSpCB" SelectionChanged="_skill_SelectionChanged" Grid.Column="1" Grid.Row="4" Focusable="False">
+                                    <ComboBoxItem Content="1" />
+                                    <ComboBoxItem Content="2" />
+                                    <ComboBoxItem Content="3" IsSelected="True"/>
+                                    <ComboBoxItem Content="4" />
+                                    <ComboBoxItem Content="5" />
+                                    <ComboBoxItem Content="6" />
+                                    <ComboBoxItem Content="7" />
+                                    <ComboBoxItem Content="8" />
+                                    <ComboBoxItem Content="9" />
+                                    <ComboBoxItem Content="10" />
+                                    <ComboBoxItem Content="11" />
+                                    <ComboBoxItem Content="12" />
+                                </ComboBox>
+                            </StackPanel>
+                            <!--</Grid>-->
+                        </MenuItem>
+                    </Menu>
+                    <Separator />
+                    <Menu>
+                        <MenuItem Header="Mutationer" Margin="3">
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Antal"/>
+                                <ComboBox Name="_mut" Margin="34,0,0,0">
+                                    <ComboBoxItem Content="Enligt regler"  IsSelected="True"/>
+                                    <ComboBoxItem Content="0" />
+                                    <ComboBoxItem Content="1" />
+                                    <ComboBoxItem Content="2" />
+                                    <ComboBoxItem Content="3" />
+                                </ComboBox>
+                            </StackPanel>
+                        </MenuItem>
+                    </Menu>
+                    <Separator />
+                    <Button Content="Slumpa!" Click="Slumpa_Click" Margin="3,3,3,3"/>
+                </ToolBar>
+            </ToolBarTray>
 
-        <Grid Name="Grid1" Grid.Column="1" Grid.Row="1">
+        </DockPanel>
+        <Grid Grid.RowSpan="2" />
+
+        <Grid Name="Grid1" Grid.Column="1" Grid.Row="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="26*"/>
                 <RowDefinition Height="25*"/>
@@ -83,7 +242,7 @@
                 <RowDefinition Height="29*"/>
                 <RowDefinition Height="23*"/>
                 <RowDefinition Height="30*"/>
-                <RowDefinition Height="22*"/>
+                <RowDefinition Height="23*"/>
                 <RowDefinition Height="23*"/>
                 <RowDefinition Height="23*"/>
                 <RowDefinition Height="23*"/>
@@ -284,7 +443,7 @@
                     Background="Transparent" 
                     BorderBrush="Transparent" 
                     Grid.Column="0" Grid.Row="14" Grid.ColumnSpan="2"
-                    ContextMenuService.IsEnabled="False" FontSize="18">
+                    ContextMenuService.IsEnabled="False" FontSize="18" Margin="0,1,0,21" Grid.RowSpan="2">
                 <Viewbox Grid.Column="0" Grid.Row="14" Grid.ColumnSpan="2">
                     <Label Name="Skill5Txt1" Uid="skill5" Background="Transparent" BorderBrush="Transparent" />
                 </Viewbox>
@@ -306,7 +465,7 @@
                     Background="Transparent" 
                     BorderBrush="Transparent" 
                     Grid.Column="0" Grid.Row="15" Grid.ColumnSpan="2"
-                    ContextMenuService.IsEnabled="False" FontSize="18">
+                    ContextMenuService.IsEnabled="False" FontSize="18" Margin="0,2,0,24" Grid.RowSpan="2">
                 <Viewbox Grid.Column="0" Grid.Row="15" Grid.ColumnSpan="2">
                     <Label Name="Skill6Txt1" Uid="skill6" Background="Transparent" BorderBrush="Transparent" />
                 </Viewbox>
@@ -327,7 +486,7 @@
                     Click="Btn_Click" 
                     Background="Transparent" 
                     BorderBrush="Transparent" 
-                    Grid.Column="0" Grid.Row="17" Grid.ColumnSpan="3"
+                    Grid.Column="0" Grid.Row="17" Grid.ColumnSpan="4"
                     ContextMenuService.IsEnabled="False" FontSize="18">
                 <Viewbox Grid.Column="0" Grid.Row="17" Grid.ColumnSpan="3">
                     <Label Name="TalentsTxt1" Uid="talent" Background="Transparent" BorderBrush="Transparent" />
@@ -338,7 +497,7 @@
                     Click="Btn_Click" 
                     Background="Transparent" 
                     BorderBrush="Transparent" 
-                    Grid.Column="0" Grid.Row="19" Grid.ColumnSpan="3"
+                    Grid.Column="0" Grid.Row="19" Grid.ColumnSpan="4"
                     ContextMenuService.IsEnabled="False" FontSize="18"
                     Panel.ZIndex="1">
                 <Viewbox Grid.Column="0" Grid.Row="19" Grid.ColumnSpan="3" Panel.ZIndex="2">
@@ -350,7 +509,7 @@
                     Click="Btn_Click" 
                     Background="Transparent" 
                     BorderBrush="Transparent" 
-                    Grid.Column="0" Grid.Row="20" Grid.ColumnSpan="3"
+                    Grid.Column="0" Grid.Row="20" Grid.ColumnSpan="4"
                     ContextMenuService.IsEnabled="False" FontSize="18">
                 <Viewbox Grid.Column="0" Grid.Row="20" Grid.ColumnSpan="3">
                     <Label Name="Mutation2Txt1" Uid="mutat2" Background="Transparent" BorderBrush="Transparent" />
@@ -361,7 +520,7 @@
                     Click="Btn_Click" 
                     Background="Transparent" 
                     BorderBrush="Transparent" 
-                    Grid.Column="0" Grid.Row="21" Grid.ColumnSpan="3"
+                    Grid.Column="0" Grid.Row="21" Grid.ColumnSpan="4"
                     ContextMenuService.IsEnabled="False" FontSize="18">
                 <Viewbox Grid.Column="0" Grid.Row="21" Grid.ColumnSpan="3">
                     <Label Name="Mutation3Txt1" Uid="mutat3" Background="Transparent" BorderBrush="Transparent" />
@@ -373,8 +532,8 @@
                     Click="Btn_Click" 
                     Background="Transparent" 
                     BorderBrush="Transparent" 
-                    Grid.Column="0" Grid.Row="25" Grid.ColumnSpan="3"
-                    ContextMenuService.IsEnabled="False" FontSize="18">
+                    Grid.Column="0" Grid.Row="25" Grid.ColumnSpan="4"
+                    ContextMenuService.IsEnabled="False" FontSize="18" Margin="0,3,0,18" Grid.RowSpan="2">
                 <Viewbox Grid.Column="0" Grid.Row="25" Grid.ColumnSpan="3">
                     <Label Name="Equipment1Txt1" Uid="equip1" Background="Transparent" BorderBrush="Transparent" />
                 </Viewbox>
@@ -385,7 +544,7 @@
                     Click="Btn_Click" 
                     Background="Transparent" 
                     BorderBrush="Transparent" 
-                    Grid.Column="0" Grid.Row="26" Grid.ColumnSpan="3"
+                    Grid.Column="0" Grid.Row="26" Grid.ColumnSpan="4"
                     ContextMenuService.IsEnabled="False" FontSize="18">
                 <Viewbox Grid.Column="0" Grid.Row="26" Grid.ColumnSpan="3">
                     <Label Name="Equipment2Txt1" Uid="equip2" Background="Transparent" BorderBrush="Transparent" />
@@ -397,7 +556,7 @@
                     Click="Btn_Click" 
                     Background="Transparent" 
                     BorderBrush="Transparent" 
-                    Grid.Column="0" Grid.Row="27" Grid.ColumnSpan="3"
+                    Grid.Column="0" Grid.Row="27" Grid.ColumnSpan="4"
                     ContextMenuService.IsEnabled="False" FontSize="18">
                 <Viewbox Grid.Column="0" Grid.Row="27" Grid.ColumnSpan="3">
                     <Label Name="Equipment3Txt1" Uid="equip3" Background="Transparent" BorderBrush="Transparent" />
@@ -409,7 +568,7 @@
                     Click="Btn_Click" 
                     Background="Transparent" 
                     BorderBrush="Transparent" 
-                    Grid.Column="0" Grid.Row="28" Grid.ColumnSpan="3"
+                    Grid.Column="0" Grid.Row="28" Grid.ColumnSpan="4"
                     ContextMenuService.IsEnabled="False" FontSize="18">
                 <Viewbox Grid.Column="0" Grid.Row="28" Grid.ColumnSpan="3">
                     <Label Name="Equipment4Txt1" Uid="equip4" Background="Transparent" BorderBrush="Transparent" />
@@ -420,7 +579,7 @@
         </Grid>
 
 
-        <Grid Name="Grid2" Grid.Column="3" Grid.Row="1">
+        <Grid Name="Grid2" Grid.Column="3" Grid.Row="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="26*"/>
                 <RowDefinition Height="25*"/>
@@ -447,7 +606,7 @@
                 <RowDefinition Height="29*"/>
                 <RowDefinition Height="23*"/>
                 <RowDefinition Height="30*"/>
-                <RowDefinition Height="22*"/>
+                <RowDefinition Height="23*"/>
                 <RowDefinition Height="23*"/>
                 <RowDefinition Height="23*"/>
                 <RowDefinition Height="23*"/>
@@ -648,7 +807,7 @@
                     Background="Transparent" 
                     BorderBrush="Transparent" 
                     Grid.Column="0" Grid.Row="14" Grid.ColumnSpan="2"
-                    ContextMenuService.IsEnabled="False" FontSize="18">
+                    ContextMenuService.IsEnabled="False" FontSize="18" Margin="0,1,0,21" Grid.RowSpan="2">
                 <Viewbox Grid.Column="0" Grid.Row="14" Grid.ColumnSpan="2">
                     <Label Name="Skill5Txt2" Uid="skill5" Background="Transparent" BorderBrush="Transparent" />
                 </Viewbox>
@@ -670,7 +829,7 @@
                     Background="Transparent" 
                     BorderBrush="Transparent" 
                     Grid.Column="0" Grid.Row="15" Grid.ColumnSpan="2"
-                    ContextMenuService.IsEnabled="False" FontSize="18">
+                    ContextMenuService.IsEnabled="False" FontSize="18" Margin="0,2,0,24" Grid.RowSpan="2">
                 <Viewbox Grid.Column="0" Grid.Row="15" Grid.ColumnSpan="2">
                     <Label Name="Skill6Txt2" Uid="skill6" Background="Transparent" BorderBrush="Transparent" />
                 </Viewbox>
@@ -691,7 +850,7 @@
                     Click="Btn_Click" 
                     Background="Transparent" 
                     BorderBrush="Transparent" 
-                    Grid.Column="0" Grid.Row="17" Grid.ColumnSpan="3"
+                    Grid.Column="0" Grid.Row="17" Grid.ColumnSpan="4"
                     ContextMenuService.IsEnabled="False" FontSize="18">
                 <Viewbox Grid.Column="0" Grid.Row="17" Grid.ColumnSpan="3">
                     <Label Name="TalentsTxt2" Uid="talent" Background="Transparent" BorderBrush="Transparent" />
@@ -702,7 +861,7 @@
                     Click="Btn_Click" 
                     Background="Transparent" 
                     BorderBrush="Transparent" 
-                    Grid.Column="0" Grid.Row="19" Grid.ColumnSpan="3"
+                    Grid.Column="0" Grid.Row="19" Grid.ColumnSpan="4"
                     ContextMenuService.IsEnabled="False" FontSize="18"
                     Panel.ZIndex="1">
                 <Viewbox Grid.Column="0" Grid.Row="19" Grid.ColumnSpan="3" Panel.ZIndex="2">
@@ -714,7 +873,7 @@
                     Click="Btn_Click" 
                     Background="Transparent" 
                     BorderBrush="Transparent" 
-                    Grid.Column="0" Grid.Row="20" Grid.ColumnSpan="3"
+                    Grid.Column="0" Grid.Row="20" Grid.ColumnSpan="4"
                     ContextMenuService.IsEnabled="False" FontSize="18">
                 <Viewbox Grid.Column="0" Grid.Row="20" Grid.ColumnSpan="3">
                     <Label Name="Mutation2Txt2" Uid="mutat2" Background="Transparent" BorderBrush="Transparent" />
@@ -725,7 +884,7 @@
                     Click="Btn_Click" 
                     Background="Transparent" 
                     BorderBrush="Transparent" 
-                    Grid.Column="0" Grid.Row="21" Grid.ColumnSpan="3"
+                    Grid.Column="0" Grid.Row="21" Grid.ColumnSpan="4"
                     ContextMenuService.IsEnabled="False" FontSize="18">
                 <Viewbox Grid.Column="0" Grid.Row="21" Grid.ColumnSpan="3">
                     <Label Name="Mutation3Txt2" Uid="mutat3" Background="Transparent" BorderBrush="Transparent" />
@@ -737,8 +896,8 @@
                     Click="Btn_Click" 
                     Background="Transparent" 
                     BorderBrush="Transparent" 
-                    Grid.Column="0" Grid.Row="25" Grid.ColumnSpan="3"
-                    ContextMenuService.IsEnabled="False" FontSize="18">
+                    Grid.Column="0" Grid.Row="25" Grid.ColumnSpan="4"
+                    ContextMenuService.IsEnabled="False" FontSize="18" Margin="0,3,0,18" Grid.RowSpan="2">
                 <Viewbox Grid.Column="0" Grid.Row="25" Grid.ColumnSpan="3">
                     <Label Name="Equipment1Txt2" Uid="equip1" Background="Transparent" BorderBrush="Transparent" />
                 </Viewbox>
@@ -749,7 +908,7 @@
                     Click="Btn_Click" 
                     Background="Transparent" 
                     BorderBrush="Transparent" 
-                    Grid.Column="0" Grid.Row="26" Grid.ColumnSpan="3"
+                    Grid.Column="0" Grid.Row="26" Grid.ColumnSpan="4"
                     ContextMenuService.IsEnabled="False" FontSize="18">
                 <Viewbox Grid.Column="0" Grid.Row="26" Grid.ColumnSpan="3">
                     <Label Name="Equipment2Txt2" Uid="equip2" Background="Transparent" BorderBrush="Transparent" />
@@ -761,7 +920,7 @@
                     Click="Btn_Click" 
                     Background="Transparent" 
                     BorderBrush="Transparent" 
-                    Grid.Column="0" Grid.Row="27" Grid.ColumnSpan="3"
+                    Grid.Column="0" Grid.Row="27" Grid.ColumnSpan="4"
                     ContextMenuService.IsEnabled="False" FontSize="18">
                 <Viewbox Grid.Column="0" Grid.Row="27" Grid.ColumnSpan="3">
                     <Label Name="Equipment3Txt2" Uid="equip3" Background="Transparent" BorderBrush="Transparent" />
@@ -773,7 +932,7 @@
                     Click="Btn_Click" 
                     Background="Transparent" 
                     BorderBrush="Transparent" 
-                    Grid.Column="0" Grid.Row="28" Grid.ColumnSpan="3"
+                    Grid.Column="0" Grid.Row="28" Grid.ColumnSpan="4"
                     ContextMenuService.IsEnabled="False" FontSize="18">
                 <Viewbox Grid.Column="0" Grid.Row="28" Grid.ColumnSpan="3">
                     <Label Name="Equipment4Txt2" Uid="equip4" Background="Transparent" BorderBrush="Transparent" />
@@ -784,7 +943,7 @@
         </Grid>
 
 
-        <Grid Name="Grid3" Grid.Column="5" Grid.Row="1">
+        <Grid Name="Grid3" Grid.Column="5" Grid.Row="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="26*"/>
                 <RowDefinition Height="25*"/>
@@ -811,7 +970,7 @@
                 <RowDefinition Height="29*"/>
                 <RowDefinition Height="23*"/>
                 <RowDefinition Height="30*"/>
-                <RowDefinition Height="22*"/>
+                <RowDefinition Height="23*"/>
                 <RowDefinition Height="23*"/>
                 <RowDefinition Height="23*"/>
                 <RowDefinition Height="23*"/>
@@ -1012,7 +1171,7 @@
                     Background="Transparent" 
                     BorderBrush="Transparent" 
                     Grid.Column="0" Grid.Row="14" Grid.ColumnSpan="2"
-                    ContextMenuService.IsEnabled="False" FontSize="18">
+                    ContextMenuService.IsEnabled="False" FontSize="18" Margin="0,1,0,21" Grid.RowSpan="2">
                 <Viewbox Grid.Column="0" Grid.Row="14" Grid.ColumnSpan="2">
                     <Label Name="Skill5Txt3" Uid="skill5" Background="Transparent" BorderBrush="Transparent" />
                 </Viewbox>
@@ -1034,7 +1193,7 @@
                     Background="Transparent" 
                     BorderBrush="Transparent" 
                     Grid.Column="0" Grid.Row="15" Grid.ColumnSpan="2"
-                    ContextMenuService.IsEnabled="False" FontSize="18">
+                    ContextMenuService.IsEnabled="False" FontSize="18" Margin="0,2,0,24" Grid.RowSpan="2">
                 <Viewbox Grid.Column="0" Grid.Row="15" Grid.ColumnSpan="2">
                     <Label Name="Skill6Txt3" Uid="skill6" Background="Transparent" BorderBrush="Transparent" />
                 </Viewbox>
@@ -1055,7 +1214,7 @@
                     Click="Btn_Click" 
                     Background="Transparent" 
                     BorderBrush="Transparent" 
-                    Grid.Column="0" Grid.Row="17" Grid.ColumnSpan="3"
+                    Grid.Column="0" Grid.Row="17" Grid.ColumnSpan="4"
                     ContextMenuService.IsEnabled="False" FontSize="18">
                 <Viewbox Grid.Column="0" Grid.Row="17" Grid.ColumnSpan="3">
                     <Label Name="TalentsTxt3" Uid="talent" Background="Transparent" BorderBrush="Transparent" />
@@ -1066,7 +1225,7 @@
                     Click="Btn_Click" 
                     Background="Transparent" 
                     BorderBrush="Transparent" 
-                    Grid.Column="0" Grid.Row="19" Grid.ColumnSpan="3"
+                    Grid.Column="0" Grid.Row="19" Grid.ColumnSpan="4"
                     ContextMenuService.IsEnabled="False" FontSize="18"
                     Panel.ZIndex="1">
                 <Viewbox Grid.Column="0" Grid.Row="19" Grid.ColumnSpan="3" Panel.ZIndex="2">
@@ -1078,7 +1237,7 @@
                     Click="Btn_Click" 
                     Background="Transparent" 
                     BorderBrush="Transparent" 
-                    Grid.Column="0" Grid.Row="20" Grid.ColumnSpan="3"
+                    Grid.Column="0" Grid.Row="20" Grid.ColumnSpan="4"
                     ContextMenuService.IsEnabled="False" FontSize="18">
                 <Viewbox Grid.Column="0" Grid.Row="20" Grid.ColumnSpan="3">
                     <Label Name="Mutation2Txt3" Uid="mutat2" Background="Transparent" BorderBrush="Transparent" />
@@ -1089,7 +1248,7 @@
                     Click="Btn_Click" 
                     Background="Transparent" 
                     BorderBrush="Transparent" 
-                    Grid.Column="0" Grid.Row="21" Grid.ColumnSpan="3"
+                    Grid.Column="0" Grid.Row="21" Grid.ColumnSpan="4"
                     ContextMenuService.IsEnabled="False" FontSize="18">
                 <Viewbox Grid.Column="0" Grid.Row="21" Grid.ColumnSpan="3">
                     <Label Name="Mutation3Txt3" Uid="mutat3" Background="Transparent" BorderBrush="Transparent" />
@@ -1101,8 +1260,8 @@
                     Click="Btn_Click" 
                     Background="Transparent" 
                     BorderBrush="Transparent" 
-                    Grid.Column="0" Grid.Row="25" Grid.ColumnSpan="3"
-                    ContextMenuService.IsEnabled="False" FontSize="18">
+                    Grid.Column="0" Grid.Row="25" Grid.ColumnSpan="4"
+                    ContextMenuService.IsEnabled="False" FontSize="18" Margin="0,3,0,18" Grid.RowSpan="2">
                 <Viewbox Grid.Column="0" Grid.Row="25" Grid.ColumnSpan="3">
                     <Label Name="Equipment1Txt3" Uid="equip1" Background="Transparent" BorderBrush="Transparent" />
                 </Viewbox>
@@ -1113,7 +1272,7 @@
                     Click="Btn_Click" 
                     Background="Transparent" 
                     BorderBrush="Transparent" 
-                    Grid.Column="0" Grid.Row="26" Grid.ColumnSpan="3"
+                    Grid.Column="0" Grid.Row="26" Grid.ColumnSpan="4"
                     ContextMenuService.IsEnabled="False" FontSize="18">
                 <Viewbox Grid.Column="0" Grid.Row="26" Grid.ColumnSpan="3">
                     <Label Name="Equipment2Txt3" Uid="equip2" Background="Transparent" BorderBrush="Transparent" />
@@ -1125,7 +1284,7 @@
                     Click="Btn_Click" 
                     Background="Transparent" 
                     BorderBrush="Transparent" 
-                    Grid.Column="0" Grid.Row="27" Grid.ColumnSpan="3"
+                    Grid.Column="0" Grid.Row="27" Grid.ColumnSpan="4"
                     ContextMenuService.IsEnabled="False" FontSize="18">
                 <Viewbox Grid.Column="0" Grid.Row="27" Grid.ColumnSpan="3">
                     <Label Name="Equipment3Txt3" Uid="equip3" Background="Transparent" BorderBrush="Transparent" />
@@ -1137,7 +1296,7 @@
                     Click="Btn_Click" 
                     Background="Transparent" 
                     BorderBrush="Transparent" 
-                    Grid.Column="0" Grid.Row="28" Grid.ColumnSpan="3"
+                    Grid.Column="0" Grid.Row="28" Grid.ColumnSpan="4"
                     ContextMenuService.IsEnabled="False" FontSize="18">
                 <Viewbox Grid.Column="0" Grid.Row="28" Grid.ColumnSpan="3">
                     <Label Name="Equipment4Txt3" Uid="equip4" Background="Transparent" BorderBrush="Transparent" />
@@ -1148,6 +1307,5 @@
         </Grid>
 
 
-        <Button Name="SaveBtn" Grid.Column="3" Grid.Row="2" Click="button_save_window_Click">SAVE</Button>
     </Grid>
 </Window>

@@ -29,7 +29,8 @@ namespace SlpGenerator.TextFields.Menus.DropItem
                 if (!(((object)di.Items[i]).GetType() == typeof(Separator)))
                 {
                     if (!(((DropItem)di.Items[i]).Header.ToString().Contains("SLUMPA") ||
-                        ((DropItem)di.Items[i]).Header.ToString().Contains("TÖM")))
+                        ((DropItem)di.Items[i]).Header.ToString().Contains("TÖM") ||
+                        ((DropItem)di.Items[i]).Header.ToString().Contains("KASTA OM")))
                     {
                         if (((DropItem)di.Items[i]).HasItems)
                         {
@@ -61,7 +62,8 @@ namespace SlpGenerator.TextFields.Menus.DropItem
                 if (!(((object)di.Items[i]).GetType() == typeof(Separator)))
                 {
                     if (!(((DropItem)di.Items[i]).Header.ToString().Contains("SLUMPA") ||
-                        ((DropItem)di.Items[i]).Header.ToString().Contains("TÖM")))
+                        ((DropItem)di.Items[i]).Header.ToString().Contains("TÖM")) ||
+                        ((DropItem)di.Items[i]).Header.ToString().Contains("KASTA OM"))
                     {
                         if (((DropItem)di.Items[i]).HasItems)
                         {

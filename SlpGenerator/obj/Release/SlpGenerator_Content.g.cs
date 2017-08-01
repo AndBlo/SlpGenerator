@@ -8,6 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("textfiles/artefakter.txt")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("textfiles/mutanter.txt")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("textfiles/skills.txt")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("textfiles/spec_drom.txt")]

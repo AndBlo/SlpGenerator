@@ -37,14 +37,32 @@ namespace SlpGenerator
             return new String(newarr, 0, j);
         }
 
-        public static void SaveWindow(Window window, int dpi, string filename, Button btnToHide1, Button btnToHide2, Button btnToHide3, Button btnToHide4)
+        public static void PrintDialog(Window window, ToolBarTray tb)
+        {
+            tb.Visibility = Visibility.Hidden;
+            PrintDialog printDialog = new PrintDialog();
+  
+            if (printDialog.ShowDialog().GetValueOrDefault(false))
+            {
+                printDialog.PrintVisual(window, window.Title);
+            };
+            tb.Visibility = Visibility.Visible;
+        }
+
+        public static void SaveWindow(Window window, int dpi, ToolBarTray tbt)
         {
 
-            btnToHide1.Visibility = Visibility.Hidden;
-            btnToHide2.Visibility = Visibility.Hidden;
-            btnToHide3.Visibility = Visibility.Hidden;
-            btnToHide4.Visibility = Visibility.Hidden;
+            tbt.Visibility = Visibility.Hidden;
 
+            RenderTargetBitmap rtb = Render(window, dpi);
+
+            SaveRTBAsPNG(rtb);
+
+            tbt.Visibility = Visibility.Visible;
+        }
+
+        private static RenderTargetBitmap Render(Window window, int dpi)
+        {
             var rtb = new RenderTargetBitmap(
                 (int)window.Width * 2, //width 
                 (int)window.Height * 2, //height 
@@ -53,34 +71,29 @@ namespace SlpGenerator
                 PixelFormats.Pbgra32 // pixelformat 
                 );
             rtb.Render(window);
-
-            SaveRTBAsPNG(rtb, filename);
-            btnToHide1.Visibility = Visibility.Visible;
-            btnToHide2.Visibility = Visibility.Visible;
-            btnToHide3.Visibility = Visibility.Visible;
-            btnToHide4.Visibility = Visibility.Visible;
+            return rtb;
         }
 
-        public static void SaveCanvas(Window window, Grid grid, int dpi, string filename)
-        {
-            Size size = new Size(window.Width, window.Height);
+        //public static void SaveCanvas(Window window, Grid grid, int dpi, string filename)
+        //{
+        //    Size size = new Size(window.Width, window.Height);
 
-            grid.Measure(size);
-            //canvas.Arrange(new Rect(size));
+        //    grid.Measure(size);
+        //    //canvas.Arrange(new Rect(size));
 
-            var rtb = new RenderTargetBitmap(
-                (int)window.Width, //width 
-                (int)window.Height, //height 
-                dpi, //dpi x 
-                dpi, //dpi y 
-                PixelFormats.Pbgra32 // pixelformat 
-                );
-            rtb.Render(grid);
+        //    var rtb = new RenderTargetBitmap(
+        //        (int)window.Width, //width 
+        //        (int)window.Height, //height 
+        //        dpi, //dpi x 
+        //        dpi, //dpi y 
+        //        PixelFormats.Pbgra32 // pixelformat 
+        //        );
+        //    rtb.Render(grid);
 
-            SaveRTBAsPNG(rtb, filename);
-        }
+        //    SaveRTBAsPNG(rtb);
+        //}
 
-        private static void SaveRTBAsPNG(RenderTargetBitmap bmp, string filename)
+        private static void SaveRTBAsPNG(RenderTargetBitmap bmp)
         {
             var enc = new System.Windows.Media.Imaging.PngBitmapEncoder();
             enc.Frames.Add(System.Windows.Media.Imaging.BitmapFrame.Create(bmp));
