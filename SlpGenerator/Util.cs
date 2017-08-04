@@ -37,16 +37,18 @@ namespace SlpGenerator
             return new String(newarr, 0, j);
         }
 
-        public static void PrintDialog(Window window, ToolBarTray tb)
+        public static void PrintDialog(Window window, ToolBarTray tb1, ToolBarTray tb2)
         {
-            tb.Visibility = Visibility.Hidden;
+            tb1.Visibility = Visibility.Hidden;
+            tb2.Visibility = Visibility.Hidden;
             PrintDialog printDialog = new PrintDialog();
   
             if (printDialog.ShowDialog().GetValueOrDefault(false))
             {
                 printDialog.PrintVisual(window, window.Title);
             };
-            tb.Visibility = Visibility.Visible;
+            tb1.Visibility = Visibility.Visible;
+            tb2.Visibility = Visibility.Visible;
         }
 
         public static void SaveWindow(Window window, int dpi, ToolBarTray tbt)

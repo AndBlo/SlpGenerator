@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SlpGenerator"
         mc:Ignorable="d"
-        Title="MainWindow" Height="850" Width="600">
+        Title="MainWindow" Height="865" Width="620">
 
     <Window.Background>
         <ImageBrush ImageSource="Images\slp.png" />
@@ -57,11 +57,11 @@
                     </Menu>
                 </ToolBar>
             </ToolBarTray>
-            <ToolBarTray >
+            <ToolBarTray Name="slumpTray">
                 <ToolBar>
                     <Menu>
                     <MenuItem Header="Syssla" Margin="3">
-                        <ComboBox Name="_occu">
+                        <ComboBox Name="_occu" SelectionChanged="_occu_SelectionChanged">
                             <ComboBoxItem Content="Slumpvalt" IsSelected="True" />
                             <ComboBoxItem Content="Krossare" />
                             <ComboBoxItem Content="Skrotskalle" />
@@ -198,12 +198,56 @@
                             <StackPanel Orientation="Horizontal">
                                 <Label Content="Antal"/>
                                 <ComboBox Name="_mut" Margin="34,0,0,0">
-                                    <ComboBoxItem Content="Enligt regler"  IsSelected="True"/>
                                     <ComboBoxItem Content="0" />
-                                    <ComboBoxItem Content="1" />
+                                    <ComboBoxItem Content="1" IsSelected="True"/>
                                     <ComboBoxItem Content="2" />
                                     <ComboBoxItem Content="3" />
                                 </ComboBox>
+                            </StackPanel>
+                        </MenuItem>
+                    </Menu>
+                    <Separator />
+                    <Menu>
+                        <MenuItem Header="Prylar" Margin="3">
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Plats 1"/>
+                                <ComboBox Name="_equip1" Margin="34,0,0,0" Width="90">
+                                    <ComboBoxItem Content="Utrustning" IsSelected="True"/>
+                                    <ComboBoxItem Content="Vapen"/>
+                                    <ComboBoxItem Content="Artefakt" />
+                                    <ComboBoxItem Content="Skrot" />
+                                </ComboBox>
+                                <CheckBox Name="cbEquip1" Margin="6" IsChecked="True" Checked="cbEquip1_Checked" Unchecked="cbEquip1_Unchecked"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Plats 2"/>
+                                <ComboBox Name="_equip2" Margin="34,0,0,0" Width="90">
+                                    <ComboBoxItem Content="Utrustning" />
+                                    <ComboBoxItem Content="Vapen" IsSelected="True"/>
+                                    <ComboBoxItem Content="Artefakt" />
+                                    <ComboBoxItem Content="Skrot" />
+                                </ComboBox>
+                                <CheckBox Name="cbEquip2" Margin="6" IsChecked="True" Checked="cbEquip2_Checked" Unchecked="cbEquip2_Unchecked"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Plats 3"/>
+                                <ComboBox Name="_equip3" Margin="34,0,0,0" IsEnabled="False" Width="90">
+                                    <ComboBoxItem Content="Utrustning" />
+                                    <ComboBoxItem Content="Vapen"/>
+                                    <ComboBoxItem Content="Artefakt" IsSelected="True"/>
+                                    <ComboBoxItem Content="Skrot" />
+                                </ComboBox>
+                                <CheckBox Name="cbEquip3" Margin="6" IsChecked="False" Checked="cbEquip3_Checked" Unchecked="cbEquip3_Unchecked"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Plats 4"/>
+                                <ComboBox Name="_equip4" Margin="34,0,0,0" Width="90" IsEnabled="False">
+                                    <ComboBoxItem Content="Utrustning" />
+                                    <ComboBoxItem Content="Vapen"/>
+                                    <ComboBoxItem Content="Artefakt" />
+                                    <ComboBoxItem Content="Skrot" IsSelected="True"/>
+                                </ComboBox>
+                                <CheckBox Name="cbEquip4" Margin="6" IsChecked="False" Checked="cbEquip4_Checked" Unchecked="cbEquip4_Unchecked"/>
                             </StackPanel>
                         </MenuItem>
                     </Menu>

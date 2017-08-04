@@ -8,6 +8,18 @@ namespace SlpGenerator.TextFields
 {
     public static class Occupation
     {
+
+        public enum Names : int
+        {
+            Krossare = 0,
+            Skrotskalle = 1,
+            Zonstrykare = 2,
+            Fixare = 3,
+            MutantMedHund = 4,
+            Kronikor = 5,
+            Boss = 6,
+            Slav = 7
+        }
         /* "Special"-variablerna lagrar de specifika egenskaperna för de olika sysslorna i följande index": 
  *              0 = Krossare, 
  *              1 = Skrotskalle, 

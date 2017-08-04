@@ -11,6 +11,7 @@
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("textfiles/artefakter.txt")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("textfiles/mutanter.txt")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("textfiles/skills.txt")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("textfiles/skrot.txt")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("textfiles/spec_drom.txt")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("textfiles/spec_fardigheter.txt")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("textfiles/spec_bp.txt")]

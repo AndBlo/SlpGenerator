@@ -209,3 +209,6 @@ C:\Users\Andreas\Source\Repos\newer\SlpGenerator\SlpGenerator\obj\Debug\SlpGener
 C:\Users\Andreas\Source\Repos\newer\SlpGenerator\SlpGenerator\bin\Debug\TextFiles\ARTEFAKTER.txt
 C:\Users\Andreas\Source\Repos\newer\SlpGenerator\SlpGenerator\obj\Debug\SlpGenerator.csprojResolveAssemblyReference.cache
 C:\Users\anten\Source\Repos\SlpGenerator\SlpGenerator\bin\Debug\TextFiles\ARTEFAKTER.txt
+C:\Users\Andreas\Source\Repos\newer\SlpGenerator\SlpGenerator\bin\Debug\TextFiles\SKROT.txt
+C:\Users\Andreas\Source\Repos\newer\SlpGenerator\SlpGenerator\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Andreas\Source\Repos\newer\SlpGenerator\SlpGenerator\bin\Debug\Newtonsoft.Json.xml

@@ -34,7 +34,7 @@ namespace SlpGenerator.Menus
 
         }
 
-        static public void SetArtifact(object sender, RoutedEventArgs e)
+        static public void SetArtifactOrGarbage(object sender, RoutedEventArgs e)
         {
             DropItem sent;
             Label lbl;
@@ -70,10 +70,44 @@ namespace SlpGenerator.Menus
                 Random rnd = new Random();
                 List<string> list = new List<string>();
                 list.AddRange(str.Split(' '));
-                if (list[0] == "T6")
+                for (int i = 0; i < list.Count; i++)
                 {
-                    list[0] = rnd.Next(1, 7).ToString() + " ST";
+                    if (list[i] == "T6")
+                    {
+                        if (list.Contains("ST"))
+                        {
+                            list[i] = rnd.Next(1, 7).ToString();
+                        }
+                        else
+                        {
+                            list[i] = rnd.Next(1, 7).ToString() + " ST";
+                        }
+
+                    }
+                    else if (list[i] == "T66")
+                    {
+                        if (list.Contains("ST"))
+                        {
+                            list[i] = rnd.Next(1, 67).ToString();
+                        }
+                        else
+                        {
+                            list[i] = rnd.Next(1, 67).ToString() + " ST";
+                        }
+                    }
+                    else if (list[i] == "2T6")
+                    {
+                        if (list.Contains("ST"))
+                        {
+                            list[i] = rnd.Next(1, 13).ToString();
+                        }
+                        else
+                        {
+                            list[i] = rnd.Next(1, 13).ToString() + " ST";
+                        }
+                    }
                 }
+                
 
                 string returnString = "";
 
@@ -189,6 +223,10 @@ namespace SlpGenerator.Menus
             if (((string)di.Header).Contains("PATRONER"))
             {
                 SetTextField(Occupation.GetEquipment(ExtractIntegersFromEquipment(di.Header as string)), lbl);
+            }
+            else if ((((DropItem)di.Parent).Header as string).ToUpper().Contains("SKROT"))
+            {
+                SetTextField(ThrowDice(di.Header as string), lbl);
             }
             else
             {

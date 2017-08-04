@@ -62,6 +62,7 @@ namespace SlpGenerator
             TextFields.Occupation.SpecialGoal.Load("SPEC_DROM.txt");
             TextFields.Skill.Skills.Load("SKILLS.txt");
             TextFields.Artifact.Artifacts.Load("ARTEFAKTER.txt");
+            TextFields.Garbage.Garbages.Load("SKROT.txt");
 
             PopulateNameCM(NameBtn1);
             PopulateNameCM(NameBtn2);
@@ -176,7 +177,7 @@ namespace SlpGenerator
         private void PrinBtn(object sender, RoutedEventArgs e)
         {
             // Metod för att spara fönstret som .png. Metoden döljer knapparna
-            Util.PrintDialog(this, tbTray);
+            Util.PrintDialog(this, tbTray, slumpTray);
         }
 
         private void ExitBtn(object sender, RoutedEventArgs e)
@@ -184,44 +185,40 @@ namespace SlpGenerator
             Application.Current.Shutdown();
         }
 
-        private void SaverBtn(object sender, RoutedEventArgs e)
-        {
-        }
-
         private void SaveSLP1Btn(object sender, RoutedEventArgs e)
         {
             AppFile af1 = new AppFile();
-            af1.SaveFile(Grid1);
+            af1.Save(Grid1);
         }
 
         private void SaveSLP2Btn(object sender, RoutedEventArgs e)
         {
             AppFile af2 = new AppFile();
-            af2.SaveFile(Grid2);
+            af2.Save(Grid2);
         }
 
         private void SaveSLP3Btn(object sender, RoutedEventArgs e)
         {
             AppFile af3 = new AppFile();
-            af3.SaveFile(Grid3);
+            af3.Save(Grid3);
         }
 
         private void LoadSLP1Btn(object sender, RoutedEventArgs e)
         {
             AppFile af1 = new AppFile();
-            af1.OpenFile(Grid1);
+            af1.Open(Grid1);
         }
 
         private void LoadSLP2Btn(object sender, RoutedEventArgs e)
         {
             AppFile af2 = new AppFile();
-            af2.OpenFile(Grid2);
+            af2.Open(Grid2);
         }
 
         private void LoadSLP3Btn(object sender, RoutedEventArgs e)
         {
             AppFile af3 = new AppFile();
-            af3.OpenFile(Grid3);
+            af3.Open(Grid3);
         }
 
         private void button_save_window_Click(object sender, RoutedEventArgs e)
@@ -229,21 +226,6 @@ namespace SlpGenerator
             // Metod för att spara fönstret som .png. Metoden döljer knapparna
             Util.SaveWindow(this, 200, tbTray);
         }
-
-        //private void SlumpSlp1_Click(object sender, RoutedEventArgs e)
-        //{
-        //    GetRandomCharacter(Grid1);
-        //}
-
-        //private void SlumpSlp2_Click(object sender, RoutedEventArgs e)
-        //{
-        //    GetRandomCharacter(Grid2);
-        //}
-
-        //private void SlumpSlp3_Click(object sender, RoutedEventArgs e)
-        //{
-        //    GetRandomCharacter(Grid3);
-        //}
 
         private void Slumpa_Click(object sender, RoutedEventArgs e)
         {
@@ -274,29 +256,62 @@ namespace SlpGenerator
             // Maxpoäng för specialfärdigheten för sysslan
             int maxSpecialSkillPoint = Convert.ToInt32((_maxSpecSpCB.SelectedItem as ComboBoxItem).Content);
 
-            // Antalet mutationer lagras i mut. Om "enligt regler" är angivet så lagras -1.
-            int mutationCount = ((ComboBoxItem)_mut.SelectedItem).Content.ToString().ToLower() == "enligt regler" ?
-                    -1 : Convert.ToInt32(((ComboBoxItem)_mut.SelectedItem).Content);
-
+            //// Antalet mutationer lagras i mut
+            int mutationCount = Convert.ToInt32(((ComboBoxItem)_mut.SelectedItem).Content);
+            
+            // Lista med de kategorier som är valda i toolbar
+            List<string> selectedEquipment = GetSelectedEquipment();
 
             if (((ComboBoxItem)_targetCB.SelectedItem).Content.ToString() == "Slp 1")
             {
-                GetRandomCharacter(Grid1, occu, basicPoints, specialBasicPoint, skillPoints, maxSkillPoint, minSkillPoint, maxSpecialSkillPoint, skillCount, mutationCount);
+                GetRandomCharacter(Grid1, occu, basicPoints, specialBasicPoint, skillPoints, maxSkillPoint, minSkillPoint, maxSpecialSkillPoint, skillCount, mutationCount, selectedEquipment);
             }
             else if (((ComboBoxItem)_targetCB.SelectedItem).Content.ToString() == "Slp 2")
             {
-                GetRandomCharacter(Grid2, occu, basicPoints, specialBasicPoint, skillPoints, maxSkillPoint, minSkillPoint, maxSpecialSkillPoint, skillCount, mutationCount);
+                GetRandomCharacter(Grid2, occu, basicPoints, specialBasicPoint, skillPoints, maxSkillPoint, minSkillPoint, maxSpecialSkillPoint, skillCount, mutationCount, selectedEquipment);
             }
             else if (((ComboBoxItem)_targetCB.SelectedItem).Content.ToString() == "Slp 2")
             {
-                GetRandomCharacter(Grid3, occu, basicPoints, specialBasicPoint, skillPoints, maxSkillPoint, minSkillPoint, maxSpecialSkillPoint, skillCount, mutationCount);
+                GetRandomCharacter(Grid3, occu, basicPoints, specialBasicPoint, skillPoints, maxSkillPoint, minSkillPoint, maxSpecialSkillPoint, skillCount, mutationCount, selectedEquipment);
             }
             else
             {
-                GetRandomCharacter(Grid1, occu, basicPoints, specialBasicPoint, skillPoints, maxSkillPoint, minSkillPoint, maxSpecialSkillPoint, skillCount, mutationCount);
-                GetRandomCharacter(Grid2, occu, basicPoints, specialBasicPoint, skillPoints, maxSkillPoint, minSkillPoint, maxSpecialSkillPoint, skillCount, mutationCount);
-                GetRandomCharacter(Grid3, occu, basicPoints, specialBasicPoint, skillPoints, maxSkillPoint, minSkillPoint, maxSpecialSkillPoint, skillCount, mutationCount);
+                GetRandomCharacter(Grid1, occu, basicPoints, specialBasicPoint, skillPoints, maxSkillPoint, minSkillPoint, maxSpecialSkillPoint, skillCount, mutationCount, selectedEquipment);
+                GetRandomCharacter(Grid2, occu, basicPoints, specialBasicPoint, skillPoints, maxSkillPoint, minSkillPoint, maxSpecialSkillPoint, skillCount, mutationCount, selectedEquipment);
+                GetRandomCharacter(Grid3, occu, basicPoints, specialBasicPoint, skillPoints, maxSkillPoint, minSkillPoint, maxSpecialSkillPoint, skillCount, mutationCount, selectedEquipment);
             }
+        }
+
+        // Räknar och returnerar antalet aktiverade equipment i toolbar
+        private int CountEquip()
+        {
+            int counter = 0;
+
+            if (cbEquip1.IsChecked == true)
+                counter++;
+            if (cbEquip2.IsChecked == true)
+                counter++;
+            if (cbEquip3.IsChecked == true)
+                counter++;
+            if (cbEquip4.IsChecked == true)
+                counter++;
+
+            return counter;
+        }
+
+        private List<string> GetSelectedEquipment()
+        {
+            List<string> list = new List<string>();
+            if (cbEquip1.IsChecked == true)
+                list.Add(((ComboBoxItem)_equip1.SelectedItem).Content as string);
+            if (cbEquip2.IsChecked == true)
+                list.Add(((ComboBoxItem)_equip2.SelectedItem).Content as string);
+            if (cbEquip3.IsChecked == true)
+                list.Add(((ComboBoxItem)_equip3.SelectedItem).Content as string);
+            if (cbEquip4.IsChecked == true)
+                list.Add(((ComboBoxItem)_equip4.SelectedItem).Content as string);
+
+            return list;
         }
 
         private void EmptySlp1_Click(object sender, RoutedEventArgs e)
@@ -328,12 +343,14 @@ namespace SlpGenerator
 
         private void EmptyLabels(Grid grid)
         {
-            List<Label> lila = MainWindow.LoadLabelsFromGrid(grid);
+            List<Label> lila = MainWindow.GetLabelsFromGrid(grid);
             for (int i = 0; i < lila.Count; i++)
             {
                 lila[i].Content = "";
             }
         }
+
+        //---------------------------------------------------------SELECTIONCHANGED FÖR FÄRDIGHETER I TOOLBAR-----------------------------------------------------
 
         private void _skill_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -354,14 +371,6 @@ namespace SlpGenerator
                 // Uppdaterar antalet items som är enabled baserat på vilka items
                 // som är valda i andra boxar.
                 UpdateSkillComboBoxes(min, max, sMax, skillCount, skillPoints, maxSum, minSum);
-
-                //-----------------------------------------------------------------------------------------------------------------------------------------------
-                // Kollar om items i comboboxen är enabled. Om ingen är det så sätts
-                // comboboxens enabled på false.
-                //UpdateComboBoxIsEnabled(_spCB);
-                //UpdateComboBoxIsEnabled(_minSpCB);
-                //UpdateComboBoxIsEnabled(_maxSpCB);
-                //UpdateComboBoxIsEnabled(_maxSpecSpCB);
 
                 // Sätter SelectedItem till den närmsta enabled item
                 UpdateSelectedItem(_spCB);
@@ -456,22 +465,6 @@ namespace SlpGenerator
             }
         }
 
-
-        //private void SetComboBoxItems(int maxSum, int minSum, int i, int currentSkillPoints)
-        //{
-        //    if (currentSkillPoints < minSum || currentSkillPoints > maxSum)
-        //    {
-        //        ((ComboBoxItem)_spCB.Items[i]).IsEnabled = false;
-        //    }
-        //    else if (currentSkillPoints > minSum || currentSkillPoints < maxSum)
-        //    {
-        //        ((ComboBoxItem)_spCB.Items[i]).IsEnabled = true;
-        //    }
-        //}
-
-        //---------------------------------------------------------------------------------------------------------------------------
-
-
         public void UpdateComboBoxIsEnabled(ComboBox cb)
         {
             int counter = 0;
@@ -503,99 +496,67 @@ namespace SlpGenerator
             }
         }
 
-        //-----------------------------------------------------COMMANDS-------------------------------------------------------------------
-
-    }
-
-    public class AppFile
-    {
-        private OrderedDictionary od { get; set; } = new OrderedDictionary();
-
-        public List<string> Keys { get; set; } = new List<string>();
-
-        public List<string> Values { get; set; } = new List<string>();
-
-        public string StreamString { get; set; }
-
-
-        private void LoadLabels(Grid grid)
+        private void cbEquip1_Checked(object sender, RoutedEventArgs e)
         {
-            List<Label> labelList =
-            SlpGenerator.MainWindow.LoadLabelsFromGrid(grid);
-
-            for (int i = 0; i < labelList.Count; i++)
-            {
-                Keys.Add(labelList[i].Uid as string);
-                Values.Add(labelList[i].Content as string);
-            }
-
+            _equip1.IsEnabled = true;
         }
 
-        public void SaveFile(Grid grid)
+        private void cbEquip1_Unchecked(object sender, RoutedEventArgs e)
         {
-            LoadLabels(grid);
-
-            for (int i = 0; i < Keys.Count; i++)
-            {
-                StreamString
-                    += Keys[i]
-                    + "_";
-                StreamString
-                    += Values[i]
-                    + "|";
-            }
-
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "SLP file (*.slp)|*.slp";
-            saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-
-            if (saveFileDialog.ShowDialog() == true)
-            {
-                using (var writer = new StreamWriter(saveFileDialog.FileName, true))
-                {
-                    writer.WriteLine(StreamString);
-                }
-            }
+            _equip1.IsEnabled = false;
         }
-        public void OpenFile(Grid grid)
+
+        private void cbEquip2_Checked(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "SLP file (*.slp)|*.slp";
-            openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            _equip2.IsEnabled = true;
+        }
 
-            if (openFileDialog.ShowDialog() == true)
+        private void cbEquip2_Unchecked(object sender, RoutedEventArgs e)
+        {
+            _equip2.IsEnabled = false;
+        }
+
+        private void cbEquip3_Checked(object sender, RoutedEventArgs e)
+        {
+            _equip3.IsEnabled = true;
+        }
+
+        private void cbEquip3_Unchecked(object sender, RoutedEventArgs e)
+        {
+            _equip3.IsEnabled = false;
+        }
+
+        private void cbEquip4_Checked(object sender, RoutedEventArgs e)
+        {
+            _equip4.IsEnabled = true;
+        }
+
+        private void cbEquip4_Unchecked(object sender, RoutedEventArgs e)
+        {
+            _equip4.IsEnabled = false;
+        }
+
+        private void _occu_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (_equip3 != null && cbEquip3 != null)
             {
-                using (var reader = new StreamReader(openFileDialog.FileName, true))
+                ComboBoxItem cbi = new ComboBoxItem();
+                cbi = ((ComboBoxItem)_occu.SelectedItem);
+                if (((string)cbi.Content).ToUpper().Contains("skrot"))
                 {
-                    StreamString = reader.ReadLine();
+                    _equip3.IsEnabled = false;
+                    cbEquip3.IsChecked = false;
+                }
+                else
+                {
+                    _equip3.IsEnabled = true;
+                    cbEquip3.IsChecked = true;
                 }
             }
-
-            if (StreamString != null)
-            {
-
-                string[] arr;
-                string[] arr2;
-                arr = StreamString.Split('|');
-
-                for (int i = 0; i < arr.Length - 1; i++)
-                {
-                    arr2 = arr[i].Split('_');
-                    Keys.Add(arr2[0]);
-                    Values.Add(arr2[1]);
-                }
-
-                List<Label> labelList =
-                    SlpGenerator.MainWindow.LoadLabelsFromGrid(grid);
-
-                for (int i = 0; i < labelList.Count; i++)
-                {
-                    MainWindow.SetLabel(labelList, Keys[i], Values[i]);
-                }
-            }
-
-
+            
         }
 
     }
+
+    
 }

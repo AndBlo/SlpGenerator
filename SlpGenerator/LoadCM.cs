@@ -41,6 +41,7 @@ namespace SlpGenerator
             Menus.SlpMenu.equipment.Items.Add(new DropItem() { Header = "VAPEN" });
             Menus.SlpMenu.equipment.Items.Add(new DropItem() { Header = "UTRUSTNING" });
             Menus.SlpMenu.equipment.Items.Add(new DropItem() { Header = "ARTEFAKT" });
+            Menus.SlpMenu.equipment.Items.Add(new DropItem() { Header = "SKROT" });
 
             // Lägger till sysslor som submenyer i "SPECIFIKT FR SYSSLA"
             ((DropItem)Menus.SlpMenu.equipment.Items[4]).AddRange(Occupation.Occupations);
@@ -99,8 +100,10 @@ namespace SlpGenerator
             }
 
             // Lägger till items i Artefakter
-            ((DropItem)Menus.SlpMenu.equipment.Items[7]).AddRange(Artifact.Artifacts, new RoutedEventHandler(Menus.SlpMenu.SetArtifact));
-            //((DropItem)Menus.SlpMenu.equipment.Items[7]).AddRange(Artifact.Artifacts, new RoutedEventHandler(Menus.SlpMenu.SetTextFromContext));
+            ((DropItem)Menus.SlpMenu.equipment.Items[7]).AddRange(Artifact.Artifacts, new RoutedEventHandler(Menus.SlpMenu.SetArtifactOrGarbage));
+
+            // Lägger till items i Skrot
+            ((DropItem)Menus.SlpMenu.equipment.Items[8]).AddRange(Garbage.Garbages, new RoutedEventHandler(Menus.SlpMenu.SetArtifactOrGarbage));
 
             targetBtn.ContextMenu =
                 Menus.SlpMenu.equipment;
