@@ -1,0 +1,1395 @@
+﻿<Window x:Class="SlpGenerator.SlpWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SlpGenerator"
+        mc:Ignorable="d"
+        Title="SLP-Generator" Height="865" Width="620">
+
+    <Window.Background>
+        <ImageBrush ImageSource="Images\slp.png" />
+    </Window.Background>
+    <Window.CommandBindings>
+        <CommandBinding Command="New" CanExecute="CommonCommandBinding_CanExecute" />
+        <CommandBinding Command="Open" CanExecute="CommonCommandBinding_CanExecute" />
+        <CommandBinding Command="Save" CanExecute="CommonCommandBinding_CanExecute" />
+        <CommandBinding Command="SaveAs" CanExecute="CommonCommandBinding_CanExecute" />
+        <CommandBinding Command="Print" CanExecute="CommonCommandBinding_CanExecute" />
+    </Window.CommandBindings>
+    <Grid Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="31*"/>
+            <RowDefinition Height="118*"/>
+            <RowDefinition Height="653*"/>
+            <RowDefinition Height="17*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="21*"/>
+            <ColumnDefinition Width="208*"/>
+            <ColumnDefinition Width="13*"/>
+            <ColumnDefinition Width="208*"/>
+            <ColumnDefinition Width="13*"/>
+            <ColumnDefinition Width="208*"/>
+            <ColumnDefinition Width="21*"/>
+        </Grid.ColumnDefinitions>
+        <DockPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="7">
+            <ToolBarTray Name="tbTray">
+                <ToolBar>
+                    <Menu>
+                        <MenuItem Header="Arkiv">
+                            <MenuItem Header="Nytt ark" Click="EmptyAll_Click">
+                            </MenuItem>
+                            <MenuItem Header="Öppna">
+                                <MenuItem Header="SLP 1" Click="LoadSLP1Btn" />
+                                <MenuItem Header="SLP 2" Click="LoadSLP2Btn" />
+                                <MenuItem Header="SLP 3" Click="LoadSLP3Btn"/>
+                            </MenuItem>
+                            <MenuItem Header="Spara">
+                                <MenuItem Header="SLP 1" Click="SaveSLP1Btn"/>
+                                <MenuItem Header="SLP 2" Click="SaveSLP2Btn"/>
+                                <MenuItem Header="SLP 3" Click="SaveSLP3Btn"/>
+                            </MenuItem>
+                            <MenuItem Header="Exportera ark som bild"  Click="button_save_window_Click"/>
+                            <MenuItem Header="Skriv ut ark" Click="PrinBtn"/>
+                            <Separator/>
+                            <MenuItem Header="Hantera sysslor" Click="OpenOccupationWindow"/>
+                            <Separator/>
+                            <MenuItem Header="Avsluta" Click="ExitBtn"/>
+                        </MenuItem>
+                    </Menu>
+                </ToolBar>
+            </ToolBarTray>
+            <ToolBarTray Name="slumpTray">
+                <ToolBar>
+                    <Menu>
+                    <MenuItem Header="Syssla" Margin="3">
+                            <StackPanel Orientation="Horizontal">
+                                <RadioButton Name="rbOccupationIsRandom" GroupName="groupRandomOccupation" 
+                                             Checked="rbOccupationIsRandom_Checked" 
+                                             Unchecked="rbOccupationIsRandom_Unchecked" 
+                                             IsChecked="True" Content="Slumpvalt"/>
+                                <RadioButton Name="rbOccupationIsNotRandom" GroupName="groupRandomOccupation" 
+                                             Content="Välj" Margin="5,0,0,0"/>
+                            </StackPanel>
+                            <Separator/>
+                            <ComboBox Name="cbOccupation" SelectionChanged="cbOccupation_SelectionChanged" IsEnabledChanged="cbOccupation_IsEnabledChanged" IsEnabled="False">
+                            <!--<ComboBoxItem Content="Slumpvalt" IsSelected="True" />
+                            <ComboBoxItem Content="Krossare" />
+                            <ComboBoxItem Content="Skrotskalle" />
+                            <ComboBoxItem Content="Zonstrykare" />
+                            <ComboBoxItem Content="Fixare" />
+                            <ComboBoxItem Content="Mutant med hund" />
+                            <ComboBoxItem Content="Krönikör" />
+                            <ComboBoxItem Content="Boss" />
+                            <ComboBoxItem Content="Slav" />-->
+                        </ComboBox>
+                    </MenuItem>
+                    </Menu>
+                    <Separator/>
+                    <ComboBox Name="cbTargetSLP" Width="46">
+                        <ComboBoxItem Content="Slp 1" IsSelected="True"/>
+                        <ComboBoxItem Content="Slp 2" />
+                        <ComboBoxItem Content="Slp 3" />
+                        <ComboBoxItem Content="Alla" />
+                    </ComboBox>
+                    <Separator />
+                    <Menu Background="Transparent">
+                        <MenuItem Header="Grundegenskaper" Margin="3">
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Poäng"/>
+                                <ComboBox x:Name="cbBasicPropertyPoints" Margin="29,0,0,0">
+                                    <ComboBoxItem Content="12"  />
+                                    <ComboBoxItem Content="13" />
+                                    <ComboBoxItem Content="14" IsSelected="True"/>
+                                    <ComboBoxItem Content="15" />
+                                </ComboBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Special GE"/>
+                                <ComboBox x:Name="cbBasicProperties" Margin="7,0,0,0">
+                                    <ComboBoxItem Content="Enligt syssla"  IsSelected="True"/>
+                                    <ComboBoxItem Content="Sty"  />
+                                    <ComboBoxItem Content="Kyl" />
+                                    <ComboBoxItem Content="Skp"/>
+                                    <ComboBoxItem Content="Kns" />
+                                </ComboBox>
+                            </StackPanel>
+                        </MenuItem>
+                    </Menu>
+                    <Separator />
+                    <Menu>
+                        <MenuItem Header="Färdigheter" Focusable="False" Margin="3">
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Antal" Grid.Column="0" Grid.Row="0"/>
+                                <ComboBox Name="cbSkillCount" SelectionChanged="cbSkillCount_SelectionChanged" Grid.Column="1" Grid.Row="0" Margin="34,0,0,0">
+                                    <ComboBoxItem Content="0" />
+                                    <ComboBoxItem Content="1" />
+                                    <ComboBoxItem Content="2" />
+                                    <ComboBoxItem Content="3" IsSelected="True" />
+                                    <ComboBoxItem Content="4" />
+                                    <ComboBoxItem Content="5" />
+                                    <ComboBoxItem Content="6" />
+                                </ComboBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Poäng" Grid.Column="0" Grid.Row="1" Focusable="False"/>
+                                <ComboBox Name="cbSkillPoints" SelectionChanged="cbSkillCount_SelectionChanged" Grid.Column="1" Grid.Row="1" Focusable="False" Margin="29,0,0,0">
+                                    <ComboBoxItem Content="0" />
+                                    <ComboBoxItem Content="1" />
+                                    <ComboBoxItem Content="2" />
+                                    <ComboBoxItem Content="3" />
+                                    <ComboBoxItem Content="4" />
+                                    <ComboBoxItem Content="5" />
+                                    <ComboBoxItem Content="6" IsSelected="True"/>
+                                    <ComboBoxItem Content="7" />
+                                    <ComboBoxItem Content="8" />
+                                    <ComboBoxItem Content="9" />
+                                    <ComboBoxItem Content="10" />
+                                    <ComboBoxItem Content="11" />
+                                    <ComboBoxItem Content="12" />
+                                </ComboBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Min" Grid.Column="0" Grid.Row="2" Focusable="False" />
+                                <ComboBox Name="cbMinimumSkillPoint" SelectionChanged="cbSkillCount_SelectionChanged" Grid.Column="1" Grid.Row="2" Focusable="False" Margin="42,0,0,0">
+                                    <ComboBoxItem Content="1" IsSelected="True"/>
+                                    <ComboBoxItem Content="2" />
+                                    <ComboBoxItem Content="3" />
+                                    <ComboBoxItem Content="4" />
+                                    <ComboBoxItem Content="5" />
+                                    <ComboBoxItem Content="6" />
+                                    <ComboBoxItem Content="7" />
+                                    <ComboBoxItem Content="8" />
+                                    <ComboBoxItem Content="9" />
+                                    <ComboBoxItem Content="10" />
+                                    <ComboBoxItem Content="11" />
+                                    <ComboBoxItem Content="12" />
+                                </ComboBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Max" Grid.Column="0" Grid.Row="3" Focusable="False" />
+                                <ComboBox Name="cbMaximumSkillPoint" SelectionChanged="cbSkillCount_SelectionChanged" Grid.Column="1" Grid.Row="3" Focusable="False" Margin="40,0,0,0">
+                                    <ComboBoxItem Content="1" />
+                                    <ComboBoxItem Content="2" IsSelected="True"/>
+                                    <ComboBoxItem Content="3" />
+                                    <ComboBoxItem Content="4" />
+                                    <ComboBoxItem Content="5" />
+                                    <ComboBoxItem Content="6" />
+                                    <ComboBoxItem Content="7" />
+                                    <ComboBoxItem Content="8" />
+                                    <ComboBoxItem Content="9" />
+                                    <ComboBoxItem Content="10" />
+                                    <ComboBoxItem Content="11" />
+                                    <ComboBoxItem Content="12" />
+                                </ComboBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Max special" Grid.Column="0" Grid.Row="4" Focusable="False" />
+                                <ComboBox Name="cbMaximumSpecialSkillPoint" SelectionChanged="cbSkillCount_SelectionChanged" Grid.Column="1" Grid.Row="4" Focusable="False">
+                                    <ComboBoxItem Content="1" />
+                                    <ComboBoxItem Content="2" />
+                                    <ComboBoxItem Content="3" IsSelected="True"/>
+                                    <ComboBoxItem Content="4" />
+                                    <ComboBoxItem Content="5" />
+                                    <ComboBoxItem Content="6" />
+                                    <ComboBoxItem Content="7" />
+                                    <ComboBoxItem Content="8" />
+                                    <ComboBoxItem Content="9" />
+                                    <ComboBoxItem Content="10" />
+                                    <ComboBoxItem Content="11" />
+                                    <ComboBoxItem Content="12" />
+                                </ComboBox>
+                            </StackPanel>
+                            <!--</Grid>-->
+                        </MenuItem>
+                    </Menu>
+                    <Separator />
+                    <Menu>
+                        <MenuItem Header="Mutationer" Margin="3">
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Antal"/>
+                                <ComboBox Name="cbMutationCount" Margin="34,0,0,0">
+                                    <ComboBoxItem Content="0" />
+                                    <ComboBoxItem Content="1" IsSelected="True"/>
+                                    <ComboBoxItem Content="2" />
+                                    <ComboBoxItem Content="3" />
+                                </ComboBox>
+                            </StackPanel>
+                        </MenuItem>
+                    </Menu>
+                    <Separator />
+                    <Menu>
+                        <MenuItem Header="Prylar" Margin="3">
+                            <StackPanel Orientation="Horizontal">
+                                <RadioButton Name="rbEquipmentIsFixed" GroupName="groupEquipmentFixed" 
+                                             Checked="rbEquipmentIsFixed_Checked"
+                                             Unchecked="rbEquipmentIsFixed_Unchecked"
+                                             IsChecked="True" Content="Enligt Syssla"/>
+                                <RadioButton Name="rbEquipmentIsNotFixed" GroupName="groupEquipmentFixed" 
+                                             Content="Välj" Margin="5,0,0,0"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Plats 1"/>
+                                <ComboBox Name="cbEquipment1" Margin="34,0,0,0" Width="90" IsEnabled="False">
+                                    <ComboBoxItem Content="Utrustning" IsSelected="True"/>
+                                    <ComboBoxItem Content="Vapen"/>
+                                    <ComboBoxItem Content="Artefakt" />
+                                    <ComboBoxItem Content="Skrot" />
+                                </ComboBox>
+                                <CheckBox Name="CheckBoxEquipment1" Margin="6" 
+                                          IsChecked="True" 
+                                          Checked="CheckBoxEquipment1_Checked" 
+                                          Unchecked="CheckBoxEquipment1_Unchecked"
+                                          IsEnabled="False"
+                                          IsEnabledChanged="CheckBoxEquipment1_IsEnabledChanged"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Plats 2"/>
+                                <ComboBox Name="cbEquipment2" Margin="34,0,0,0" Width="90" IsEnabled="False">
+                                    <ComboBoxItem Content="Utrustning" />
+                                    <ComboBoxItem Content="Vapen" IsSelected="True"/>
+                                    <ComboBoxItem Content="Artefakt" />
+                                    <ComboBoxItem Content="Skrot" />
+                                </ComboBox>
+                                <CheckBox Name="CheckBoxEquipment2" Margin="6" 
+                                          IsChecked="True" 
+                                          Checked="CheckBoxEquipment2_Checked" 
+                                          Unchecked="CheckBoxEquipment2_Unchecked"
+                                          IsEnabled="False"
+                                          IsEnabledChanged="CheckBoxEquipment2_IsEnabledChanged"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Plats 3"/>
+                                <ComboBox Name="cbEquipment3" Margin="34,0,0,0" IsEnabled="False" Width="90">
+                                    <ComboBoxItem Content="Utrustning" />
+                                    <ComboBoxItem Content="Vapen"/>
+                                    <ComboBoxItem Content="Artefakt" IsSelected="True"/>
+                                    <ComboBoxItem Content="Skrot" />
+                                </ComboBox>
+                                <CheckBox Name="CheckBoxEquipment3" Margin="6" 
+                                          IsChecked="False" 
+                                          Checked="CheckBoxEquipment3_Checked" 
+                                          Unchecked="CheckBoxEquipment3_Unchecked"
+                                          IsEnabled="False"
+                                          IsEnabledChanged="CheckBoxEquipment3_IsEnabledChanged"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Plats 4"/>
+                                <ComboBox Name="cbEquipment4" Margin="34,0,0,0" Width="90" IsEnabled="False">
+                                    <ComboBoxItem Content="Utrustning" />
+                                    <ComboBoxItem Content="Vapen"/>
+                                    <ComboBoxItem Content="Artefakt" />
+                                    <ComboBoxItem Content="Skrot" IsSelected="True"/>
+                                </ComboBox>
+                                <CheckBox Name="CheckBoxEquipment4" Margin="6" 
+                                          IsChecked="False" 
+                                          Checked="CheckBoxEquipment4_Checked" 
+                                          Unchecked="CheckBoxEquipment4_Unchecked"
+                                          IsEnabled="False"
+                                          IsEnabledChanged="CheckBoxEquipment4_IsEnabledChanged"/>
+                            </StackPanel>
+                        </MenuItem>
+                    </Menu>
+                    <Separator />
+                    <Button Content="Slumpa!" Click="Slumpa_Click" Margin="3,3,3,3"/>
+                </ToolBar>
+            </ToolBarTray>
+
+        </DockPanel>
+        <Grid Grid.RowSpan="2" />
+
+        <Grid Name="Grid1" Grid.Column="1" Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="26*"/>
+                <RowDefinition Height="25*"/>
+                <RowDefinition Height="26*"/>
+                <RowDefinition Height="25*"/>
+                <RowDefinition Height="28*"/>
+                <RowDefinition Height="25*"/>
+                <RowDefinition Height="25*"/>
+                <RowDefinition Height="24*"/>
+                <RowDefinition Height="24*"/>
+                <RowDefinition Height="29*"/>
+                <RowDefinition Height="26*"/>
+                <RowDefinition Height="26*"/>
+                <RowDefinition Height="26*"/>
+                <RowDefinition Height="26*"/>
+                <RowDefinition Height="26*"/>
+                <RowDefinition Height="25*"/>
+                <RowDefinition Height="30*"/>
+                <RowDefinition Height="24*"/>
+                <RowDefinition Height="29*"/>
+                <RowDefinition Height="22*"/>
+                <RowDefinition Height="22*"/>
+                <RowDefinition Height="21*"/>
+                <RowDefinition Height="29*"/>
+                <RowDefinition Height="23*"/>
+                <RowDefinition Height="30*"/>
+                <RowDefinition Height="23*"/>
+                <RowDefinition Height="23*"/>
+                <RowDefinition Height="23*"/>
+                <RowDefinition Height="23*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="61*"/>
+                <ColumnDefinition Width="112*"/>
+                <ColumnDefinition Width="32*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Name="NameBtn1" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4"
+                    ContextMenuService.IsEnabled="False" FontSize="18"
+                    Panel.ZIndex="1">
+                <Viewbox Margin="10,0,0,0" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" Panel.ZIndex="2">
+                    <Label Name="NameTxt1"  Uid="name"/>
+                </Viewbox>
+            </Button>
+
+            <Button
+                Name="OccuBtn1"
+                Background="Transparent" 
+                BorderBrush="Transparent"
+                Grid.Column="0"   
+                Grid.ColumnSpan="4"
+        Click="Btn_Click"
+        ContextMenuService.IsEnabled="False" FontSize="18" Margin="0" Grid.Row="1">
+                <Viewbox Margin="15,0,0,0" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2">
+                    <Label Name="OccuTxt" Uid="occu" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+
+            <Button 
+                Name="TraitBtn1" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="4"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Margin="50,0,0,0" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2">
+                    <Label Name="TraitTxt" Uid="trait" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="GoalBtn1" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0"
+                    Grid.Row="3"
+                    Grid.ColumnSpan="4"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Margin="20,0,0,0">
+                    <Label Name="GoalTxt" Uid="goal" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="StyBtn1" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="2"
+                    Grid.Row="5"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="2" Grid.Row="5">
+                    <Label Name="StyTxt1" Uid="sty" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+            <Button Name="KylBtn1" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="2"
+                    Grid.Row="6"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="2" Grid.Row="5">
+                    <Label Name="KylTxt1" Uid="kyl" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+            <Button Name="SkpBtn1" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="2"
+                    Grid.Row="7"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="2" Grid.Row="5">
+                    <Label Name="SkpTxt1" Uid="skp" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+            <Button Name="KnsBtn1" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="2"
+                    Grid.Row="8"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="2" Grid.Row="5">
+                    <Label Name="KnsTxt1" Uid="kns" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="Skill1Btn1" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2">
+                    <Label Name="Skill1Txt1" Uid="skill1" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="SkillPoint1Btn1" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="2" Grid.Row="10"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2">
+                    <Label Name="SkillPoint1Txt1" Uid="skillp1" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="Skill2Btn1" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="2"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="2" >
+                    <Label Name="Skill2Txt1" Uid="skill2" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="SkillPoint2Btn1" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="2" Grid.Row="11"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2">
+                    <Label Name="SkillPoint2Txt1" Uid="skillp2" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="Skill3Btn1" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="2"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="2">
+                    <Label Name="Skill3Txt1" Uid="skill3" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="SkillPoint3Btn1" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="2" Grid.Row="12"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2">
+                    <Label Name="SkillPoint3Txt1" Uid="skillp3" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="Skill4Btn1" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="2"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="2">
+                    <Label Name="Skill4Txt1" Uid="skill4" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="SkillPoint4Btn1" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="2" Grid.Row="13"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2">
+                    <Label Name="SkillPoint4Txt1" Uid="skillp4" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="Skill5Btn1" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0" Grid.Row="14" Grid.ColumnSpan="2"
+                    ContextMenuService.IsEnabled="False" FontSize="18" Margin="0,1,0,21" Grid.RowSpan="2">
+                <Viewbox Grid.Column="0" Grid.Row="14" Grid.ColumnSpan="2">
+                    <Label Name="Skill5Txt1" Uid="skill5" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="SkillPoint5Btn1" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="2" Grid.Row="14"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2">
+                    <Label Name="SkillPoint5Txt1" Uid="skillp5" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="Skill6Btn1" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0" Grid.Row="15" Grid.ColumnSpan="2"
+                    ContextMenuService.IsEnabled="False" FontSize="18" Margin="0,2,0,24" Grid.RowSpan="2">
+                <Viewbox Grid.Column="0" Grid.Row="15" Grid.ColumnSpan="2">
+                    <Label Name="Skill6Txt1" Uid="skill6" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="SkillPoint6Btn1" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="2" Grid.Row="15"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2">
+                    <Label Name="SkillPoint6Txt1" Uid="skillp6" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="TalentsBtn1" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0" Grid.Row="17" Grid.ColumnSpan="4"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="0" Grid.Row="17" Grid.ColumnSpan="3">
+                    <Label Name="TalentsTxt1" Uid="talent" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="MutationsBtn1" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0" Grid.Row="19" Grid.ColumnSpan="4"
+                    ContextMenuService.IsEnabled="False" FontSize="18"
+                    Panel.ZIndex="1">
+                <Viewbox Grid.Column="0" Grid.Row="19" Grid.ColumnSpan="3" Panel.ZIndex="2">
+                    <Label Name="Mutation1Txt1" Uid="mutat1" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="Mutations2Btn1" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0" Grid.Row="20" Grid.ColumnSpan="4"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="0" Grid.Row="20" Grid.ColumnSpan="3">
+                    <Label Name="Mutation2Txt1" Uid="mutat2" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="Mutations3Btn1" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0" Grid.Row="21" Grid.ColumnSpan="4"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="0" Grid.Row="21" Grid.ColumnSpan="3">
+                    <Label Name="Mutation3Txt1" Uid="mutat3" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+
+            <Button Name="Equipment1Btn1" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0" Grid.Row="25" Grid.ColumnSpan="4"
+                    ContextMenuService.IsEnabled="False" FontSize="18" Margin="0,3,0,18" Grid.RowSpan="2">
+                <Viewbox Grid.Column="0" Grid.Row="25" Grid.ColumnSpan="3">
+                    <Label Name="Equipment1Txt1" Uid="equip1" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+
+            <Button Name="Equipment2Btn1" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0" Grid.Row="26" Grid.ColumnSpan="4"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="0" Grid.Row="26" Grid.ColumnSpan="3">
+                    <Label Name="Equipment2Txt1" Uid="equip2" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+
+            <Button Name="Equipment3Btn1" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0" Grid.Row="27" Grid.ColumnSpan="4"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="0" Grid.Row="27" Grid.ColumnSpan="3">
+                    <Label Name="Equipment3Txt1" Uid="equip3" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+
+            <Button Name="Equipment4Btn1" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0" Grid.Row="28" Grid.ColumnSpan="4"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="0" Grid.Row="28" Grid.ColumnSpan="3">
+                    <Label Name="Equipment4Txt1" Uid="equip4" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+
+        </Grid>
+
+
+        <Grid Name="Grid2" Grid.Column="3" Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="26*"/>
+                <RowDefinition Height="25*"/>
+                <RowDefinition Height="26*"/>
+                <RowDefinition Height="25*"/>
+                <RowDefinition Height="28*"/>
+                <RowDefinition Height="25*"/>
+                <RowDefinition Height="25*"/>
+                <RowDefinition Height="24*"/>
+                <RowDefinition Height="24*"/>
+                <RowDefinition Height="29*"/>
+                <RowDefinition Height="26*"/>
+                <RowDefinition Height="26*"/>
+                <RowDefinition Height="26*"/>
+                <RowDefinition Height="26*"/>
+                <RowDefinition Height="26*"/>
+                <RowDefinition Height="25*"/>
+                <RowDefinition Height="30*"/>
+                <RowDefinition Height="24*"/>
+                <RowDefinition Height="29*"/>
+                <RowDefinition Height="22*"/>
+                <RowDefinition Height="22*"/>
+                <RowDefinition Height="21*"/>
+                <RowDefinition Height="29*"/>
+                <RowDefinition Height="23*"/>
+                <RowDefinition Height="30*"/>
+                <RowDefinition Height="23*"/>
+                <RowDefinition Height="23*"/>
+                <RowDefinition Height="23*"/>
+                <RowDefinition Height="23*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="61*"/>
+                <ColumnDefinition Width="112*"/>
+                <ColumnDefinition Width="32*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Name="NameBtn2" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4"
+                    ContextMenuService.IsEnabled="False" FontSize="18"
+                    Panel.ZIndex="1">
+                <Viewbox Margin="10,0,0,0" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" Panel.ZIndex="2">
+                    <Label Name="NameTxt2"  Uid="name"/>
+                </Viewbox>
+            </Button>
+
+            <Button
+                Name="OccuBtn2"
+                Background="Transparent" 
+                BorderBrush="Transparent"
+                Grid.Column="0"   
+                Grid.ColumnSpan="4"
+        Click="Btn_Click"
+        ContextMenuService.IsEnabled="False" FontSize="18" Margin="0" Grid.Row="1">
+                <Viewbox Margin="15,0,0,0" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2">
+                    <Label Name="OccuTxt2" Uid="occu" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+
+            <Button 
+                Name="TraitBtn2" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="4"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Margin="50,0,0,0" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2">
+                    <Label Name="TraitTxt2" Uid="trait" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="GoalBtn2" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0"
+                    Grid.Row="3"
+                    Grid.ColumnSpan="4"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Margin="20,0,0,0">
+                    <Label Name="GoalTxt2" Uid="goal" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="StyBtn2" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="2"
+                    Grid.Row="5"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="2" Grid.Row="5">
+                    <Label Name="StyTxt2" Uid="sty" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+            <Button Name="KylBtn2" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="2"
+                    Grid.Row="6"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="2" Grid.Row="5">
+                    <Label Name="KylTxt2" Uid="kyl" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+            <Button Name="SkpBtn2" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="2"
+                    Grid.Row="7"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="2" Grid.Row="5">
+                    <Label Name="SkpTxt2" Uid="skp" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+            <Button Name="KnsBtn2" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="2"
+                    Grid.Row="8"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="2" Grid.Row="5">
+                    <Label Name="KnsTxt2" Uid="kns" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="Skill1Btn2" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2">
+                    <Label Name="Skill1Txt2" Uid="skill1" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="SkillPoint1Btn2" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="2" Grid.Row="10"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2">
+                    <Label Name="SkillPoint1Txt2" Uid="skillp1" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="Skill2Btn2" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="2"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="2" >
+                    <Label Name="Skill2Txt2" Uid="skill2" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="SkillPoint2Btn2" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="2" Grid.Row="11"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2">
+                    <Label Name="SkillPoint2Txt2" Uid="skillp2" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="Skill3Btn2" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="2"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="2">
+                    <Label Name="Skill3Txt2" Uid="skill3" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="SkillPoint3Btn2" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="2" Grid.Row="12"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2">
+                    <Label Name="SkillPoint3Txt2" Uid="skillp3" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="Skill4Btn2" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="2"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="2">
+                    <Label Name="Skill4Txt2" Uid="skill4" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="SkillPoint4Btn2" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="2" Grid.Row="13"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2">
+                    <Label Name="SkillPoint4Txt2" Uid="skillp4" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="Skill5Btn2" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0" Grid.Row="14" Grid.ColumnSpan="2"
+                    ContextMenuService.IsEnabled="False" FontSize="18" Margin="0,1,0,21" Grid.RowSpan="2">
+                <Viewbox Grid.Column="0" Grid.Row="14" Grid.ColumnSpan="2">
+                    <Label Name="Skill5Txt2" Uid="skill5" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="SkillPoint5Btn2" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="2" Grid.Row="14"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2">
+                    <Label Name="SkillPoint5Txt2" Uid="skillp5" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="Skill6Btn2" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0" Grid.Row="15" Grid.ColumnSpan="2"
+                    ContextMenuService.IsEnabled="False" FontSize="18" Margin="0,2,0,24" Grid.RowSpan="2">
+                <Viewbox Grid.Column="0" Grid.Row="15" Grid.ColumnSpan="2">
+                    <Label Name="Skill6Txt2" Uid="skill6" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="SkillPoint6Btn2" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="2" Grid.Row="15"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2">
+                    <Label Name="SkillPoint6Txt2" Uid="skillp6" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="TalentsBtn2" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0" Grid.Row="17" Grid.ColumnSpan="4"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="0" Grid.Row="17" Grid.ColumnSpan="3">
+                    <Label Name="TalentsTxt2" Uid="talent" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="MutationsBtn2" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0" Grid.Row="19" Grid.ColumnSpan="4"
+                    ContextMenuService.IsEnabled="False" FontSize="18"
+                    Panel.ZIndex="1">
+                <Viewbox Grid.Column="0" Grid.Row="19" Grid.ColumnSpan="3" Panel.ZIndex="2">
+                    <Label Name="Mutation1Txt2" Uid="mutat1" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="Mutations2Btn2" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0" Grid.Row="20" Grid.ColumnSpan="4"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="0" Grid.Row="20" Grid.ColumnSpan="3">
+                    <Label Name="Mutation2Txt2" Uid="mutat2" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="Mutations3Btn2" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0" Grid.Row="21" Grid.ColumnSpan="4"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="0" Grid.Row="21" Grid.ColumnSpan="3">
+                    <Label Name="Mutation3Txt2" Uid="mutat3" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+
+            <Button Name="Equipment1Btn2" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0" Grid.Row="25" Grid.ColumnSpan="4"
+                    ContextMenuService.IsEnabled="False" FontSize="18" Margin="0,3,0,18" Grid.RowSpan="2">
+                <Viewbox Grid.Column="0" Grid.Row="25" Grid.ColumnSpan="3">
+                    <Label Name="Equipment1Txt2" Uid="equip1" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+
+            <Button Name="Equipment2Btn2" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0" Grid.Row="26" Grid.ColumnSpan="4"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="0" Grid.Row="26" Grid.ColumnSpan="3">
+                    <Label Name="Equipment2Txt2" Uid="equip2" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+
+            <Button Name="Equipment3Btn2" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0" Grid.Row="27" Grid.ColumnSpan="4"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="0" Grid.Row="27" Grid.ColumnSpan="3">
+                    <Label Name="Equipment3Txt2" Uid="equip3" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+
+            <Button Name="Equipment4Btn2" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0" Grid.Row="28" Grid.ColumnSpan="4"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="0" Grid.Row="28" Grid.ColumnSpan="3">
+                    <Label Name="Equipment4Txt2" Uid="equip4" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+
+        </Grid>
+
+
+        <Grid Name="Grid3" Grid.Column="5" Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="26*"/>
+                <RowDefinition Height="25*"/>
+                <RowDefinition Height="26*"/>
+                <RowDefinition Height="25*"/>
+                <RowDefinition Height="28*"/>
+                <RowDefinition Height="25*"/>
+                <RowDefinition Height="25*"/>
+                <RowDefinition Height="24*"/>
+                <RowDefinition Height="24*"/>
+                <RowDefinition Height="29*"/>
+                <RowDefinition Height="26*"/>
+                <RowDefinition Height="26*"/>
+                <RowDefinition Height="26*"/>
+                <RowDefinition Height="26*"/>
+                <RowDefinition Height="26*"/>
+                <RowDefinition Height="25*"/>
+                <RowDefinition Height="30*"/>
+                <RowDefinition Height="24*"/>
+                <RowDefinition Height="29*"/>
+                <RowDefinition Height="22*"/>
+                <RowDefinition Height="22*"/>
+                <RowDefinition Height="21*"/>
+                <RowDefinition Height="29*"/>
+                <RowDefinition Height="23*"/>
+                <RowDefinition Height="30*"/>
+                <RowDefinition Height="23*"/>
+                <RowDefinition Height="23*"/>
+                <RowDefinition Height="23*"/>
+                <RowDefinition Height="23*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="61*"/>
+                <ColumnDefinition Width="112*"/>
+                <ColumnDefinition Width="32*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Name="NameBtn3" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4"
+                    ContextMenuService.IsEnabled="False" FontSize="18"
+                    Panel.ZIndex="1">
+                <Viewbox Margin="10,0,0,0" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" Panel.ZIndex="2">
+                    <Label Name="NameTxt3"  Uid="name"/>
+                </Viewbox>
+            </Button>
+
+            <Button
+                Name="OccuBtn3"
+                Background="Transparent" 
+                BorderBrush="Transparent"
+                Grid.Column="0"   
+                Grid.ColumnSpan="4"
+        Click="Btn_Click"
+        ContextMenuService.IsEnabled="False" FontSize="18" Margin="0" Grid.Row="1">
+                <Viewbox Margin="15,0,0,0" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2">
+                    <Label Name="OccuTxt3" Uid="occu" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+
+            <Button 
+                Name="TraitBtn3" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="4"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Margin="50,0,0,0" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2">
+                    <Label Name="TraitTxt3" Uid="trait" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="GoalBtn3" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0"
+                    Grid.Row="3"
+                    Grid.ColumnSpan="4"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Margin="20,0,0,0">
+                    <Label Name="GoalTxt3" Uid="goal" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="StyBtn3" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="2"
+                    Grid.Row="5"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="2" Grid.Row="5">
+                    <Label Name="StyTxt3" Uid="sty" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+            <Button Name="KylBtn3" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="2"
+                    Grid.Row="6"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="2" Grid.Row="5">
+                    <Label Name="KylTxt3" Uid="kyl" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+            <Button Name="SkpBtn3" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="2"
+                    Grid.Row="7"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="2" Grid.Row="5">
+                    <Label Name="SkpTxt3" Uid="skp" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+            <Button Name="KnsBtn3" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="2"
+                    Grid.Row="8"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="2" Grid.Row="5">
+                    <Label Name="KnsTxt3" Uid="kns" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="Skill1Btn3" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2">
+                    <Label Name="Skill1Txt3" Uid="skill1" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="SkillPoint1Btn3" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="2" Grid.Row="10"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2">
+                    <Label Name="SkillPoint1Txt3" Uid="skillp1" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="Skill2Btn3" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="2"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="2" >
+                    <Label Name="Skill2Txt3" Uid="skill2" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="SkillPoint2Btn3" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="2" Grid.Row="11"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2">
+                    <Label Name="SkillPoint2Txt3" Uid="skillp2" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="Skill3Btn3" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="2"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="2">
+                    <Label Name="Skill3Txt3" Uid="skill3" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="SkillPoint3Btn3" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="2" Grid.Row="12"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2">
+                    <Label Name="SkillPoint3Txt3" Uid="skillp3" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="Skill4Btn3" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="2"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="2">
+                    <Label Name="Skill4Txt3" Uid="skill4" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="SkillPoint4Btn3" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="2" Grid.Row="13"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2">
+                    <Label Name="SkillPoint4Txt3" Uid="skillp4" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="Skill5Btn3" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0" Grid.Row="14" Grid.ColumnSpan="2"
+                    ContextMenuService.IsEnabled="False" FontSize="18" Margin="0,1,0,21" Grid.RowSpan="2">
+                <Viewbox Grid.Column="0" Grid.Row="14" Grid.ColumnSpan="2">
+                    <Label Name="Skill5Txt3" Uid="skill5" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="SkillPoint5Btn3" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="2" Grid.Row="14"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2">
+                    <Label Name="SkillPoint5Txt3" Uid="skillp5" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="Skill6Btn3" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0" Grid.Row="15" Grid.ColumnSpan="2"
+                    ContextMenuService.IsEnabled="False" FontSize="18" Margin="0,2,0,24" Grid.RowSpan="2">
+                <Viewbox Grid.Column="0" Grid.Row="15" Grid.ColumnSpan="2">
+                    <Label Name="Skill6Txt3" Uid="skill6" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="SkillPoint6Btn3" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="2" Grid.Row="15"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2">
+                    <Label Name="SkillPoint6Txt3" Uid="skillp6" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="TalentsBtn3" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0" Grid.Row="17" Grid.ColumnSpan="4"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="0" Grid.Row="17" Grid.ColumnSpan="3">
+                    <Label Name="TalentsTxt3" Uid="talent" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="MutationsBtn3" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0" Grid.Row="19" Grid.ColumnSpan="4"
+                    ContextMenuService.IsEnabled="False" FontSize="18"
+                    Panel.ZIndex="1">
+                <Viewbox Grid.Column="0" Grid.Row="19" Grid.ColumnSpan="3" Panel.ZIndex="2">
+                    <Label Name="Mutation1Txt3" Uid="mutat1" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="Mutations2Btn3" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0" Grid.Row="20" Grid.ColumnSpan="4"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="0" Grid.Row="20" Grid.ColumnSpan="3">
+                    <Label Name="Mutation2Txt3" Uid="mutat2" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+            <Button Name="Mutations3Btn3" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0" Grid.Row="21" Grid.ColumnSpan="4"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="0" Grid.Row="21" Grid.ColumnSpan="3">
+                    <Label Name="Mutation3Txt3" Uid="mutat3" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+
+            <Button Name="Equipment1Btn3" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0" Grid.Row="25" Grid.ColumnSpan="4"
+                    ContextMenuService.IsEnabled="False" FontSize="18" Margin="0,3,0,18" Grid.RowSpan="2">
+                <Viewbox Grid.Column="0" Grid.Row="25" Grid.ColumnSpan="3">
+                    <Label Name="Equipment1Txt3" Uid="equip1" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+
+            <Button Name="Equipment2Btn3" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0" Grid.Row="26" Grid.ColumnSpan="4"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="0" Grid.Row="26" Grid.ColumnSpan="3">
+                    <Label Name="Equipment2Txt3" Uid="equip2" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+
+            <Button Name="Equipment3Btn3" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0" Grid.Row="27" Grid.ColumnSpan="4"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="0" Grid.Row="27" Grid.ColumnSpan="3">
+                    <Label Name="Equipment3Txt3" Uid="equip3" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+
+            <Button Name="Equipment4Btn3" 
+                    Click="Btn_Click" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Grid.Column="0" Grid.Row="28" Grid.ColumnSpan="4"
+                    ContextMenuService.IsEnabled="False" FontSize="18">
+                <Viewbox Grid.Column="0" Grid.Row="28" Grid.ColumnSpan="3">
+                    <Label Name="Equipment4Txt3" Uid="equip4" Background="Transparent" BorderBrush="Transparent" />
+                </Viewbox>
+            </Button>
+
+
+        </Grid>
+
+
+    </Grid>
+</Window>

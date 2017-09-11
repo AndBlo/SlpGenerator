@@ -20,6 +20,22 @@ namespace SlpGenerator.TextFields.Menus.DropItem
             return list[rnd.Next(0, list.Count)];
         }
 
+        public Menus.DropItem.DropItem GetItem(string headerName)
+        {
+                var collection = this.Items.SourceCollection;
+
+            //var diCollection = collection.Cast<object>().Where(p => (p is DropItem));
+
+            //DropItem di = diCollection.First(p => (p as DropItem).Header.ToString() == headerName) as DropItem;
+
+            DropItem di = 
+                collection.Cast<object>().
+                Where(p => (p is DropItem)).
+                First(p => (p as DropItem).Header.ToString() == headerName) as DropItem;
+
+            return di;
+            }
+
 
         public static List<DropItem> GetList(DropItem di)
         {
@@ -115,6 +131,14 @@ namespace SlpGenerator.TextFields.Menus.DropItem
                 di.Header = item;
                 di.Click += textSetter;
                 this.Items.Add(di);
+
+        }
+
+        public void AddItem(string item)
+        {
+            DropItem di = new DropItem();
+            di.Header = item;
+            this.Items.Add(di);
 
         }
 

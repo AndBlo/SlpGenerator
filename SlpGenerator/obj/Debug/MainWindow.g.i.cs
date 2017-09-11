@@ -38,7 +38,7 @@ namespace SlpGenerator {
     /// <summary>
     /// MainWindow
     /// </summary>
-    public partial class MainWindow : System.Windows.Window, System.Windows.Markup.IComponentConnector {
+    public partial class SlpWindow : System.Windows.Window, System.Windows.Markup.IComponentConnector {
         
         
         #line 20 "..\..\MainWindow.xaml"

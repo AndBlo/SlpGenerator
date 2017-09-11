@@ -1,0 +1,160 @@
+﻿<Window x:Class="SlpGenerator.OccupationPopup"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SlpGenerator"
+        mc:Ignorable="d"
+        Title="Hantera sysslor" Height="430" Width="500"
+        Background="LightGray">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="143*"/>
+            <ColumnDefinition Width="112*"/>
+            <ColumnDefinition Width="50*"/>
+            <ColumnDefinition Width="124*"/>
+            <ColumnDefinition Width="50*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="22*"/>
+                <RowDefinition Height="9*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="40*"/>
+                <ColumnDefinition Width="40*"/>
+                <ColumnDefinition Width="40*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Name="btnNewOccupation" Content="Nytt" Click="btnNewOccupation_Click" Grid.Column="0" Grid.Row="0"/>
+            <!--<Button Name="btnAddOccupation" Content="Lägg till syssla" Click="btnAddOccupation_Click" Grid.Column="1" Grid.Row="0"/>-->
+            <Button Name="btnSaveOccupation" Content="Spara" Click="btnSaveOccupation_Click" Grid.Column="1" Grid.Row="0"/>
+            <Button Name="btnOpenOccupation" Content="Öppna" Click="btnOpenOccupation_Click" Grid.Column="3" Grid.Row="0"/>
+
+        </Grid>
+
+        <Label Content="Namn" Grid.Column="0" Grid.Row="1" BorderBrush="Gray"/>
+        <TextBox Name="tbName" TextChanged="tbName_TextChanged" LostFocus="tbName_LostFocus" Grid.Column="1" Grid.Row="1"/>
+
+        <Label Content="Kännetecken" Grid.Column="0" Grid.Row="2"/>
+        <TextBox Name="tbTraits"  Grid.Column="1" Grid.Row="2"/>
+        <ComboBox Name="cbTraits" Grid.Column="3" Grid.Row="2"/>
+        <Button Name="btnAddTrait" Content="Lägg till" Click="btnAddTrait_Click" Grid.Column="2" Grid.Row="2"/>
+        <Button Name="btnRemoveTrait" Content="Ta Bort" Click="btnRemoveTrait_Click"  Grid.Column="4" Grid.Row="2"/>
+
+        <Label Content="Mål" Grid.Column="0" Grid.Row="3"/>
+        <TextBox Name="tbGoals" Grid.Column="1" Grid.Row="3"/>
+        <ComboBox Name="cbGoals" Grid.Column="3" Grid.Row="3"/>
+        <Button Name="btnAddGoal" Content="Lägg till" Click="btnAddGoal_Click" Grid.Column="2" Grid.Row="3"/>
+        <Button Name="btnRemoveGoal" Content="Ta Bort" Click="btnRemoveGoal_Click" Grid.Column="4" Grid.Row="3"/>
+
+        <Label Content="Speciell Grundegenskap" Grid.Column="0" Grid.Row="4"/>
+        <ComboBox Name="cbSpecialBP" SelectionChanged="cbSpecialBP_SelectionChanged" Grid.Column="1" Grid.Row="4">
+            <ComboBoxItem Content="Styrka" Uid="0"/>
+            <ComboBoxItem Content="Kyla" Uid="1"/>
+            <ComboBoxItem Content="Skärpa" Uid="2"/>
+            <ComboBoxItem Content="Känsla" Uid="3"/>
+        </ComboBox>
+
+        <Label Content="Speciell Färdighet" Grid.Column="0" Grid.Row="5"/>
+        <TextBox Name="tbSpecialSkills" Grid.Column="1" Grid.Row="5"/>
+        <ComboBox Name="cbSpecialSkills" Grid.Column="3" Grid.Row="5"/>
+        <Button Name="btnAddSkill" Content="Lägg till" Click="btnAddSkill_Click" Grid.Column="2" Grid.Row="5"/>
+        <Button Name="btnRemoveSkill" Content="Ta Bort" Click="btnRemoveSkill_Click" Grid.Column="4" Grid.Row="5"/>
+
+        <Label Content="Talang(er)" Grid.Column="0" Grid.Row="6"/>
+        <TextBox Name="tbTalents" Grid.Column="1" Grid.Row="6"/>
+        <ComboBox Name="cbTalents" Grid.Column="3" Grid.Row="6"/>
+        <Button Name="btnAddTalent" Content="Lägg till" Click="btnAddTalent_Click" Grid.Column="2" Grid.Row="6"/>
+        <Button Name="btnRemoveTalent" Content="Ta Bort" Click="btnRemoveTalent_Click" Grid.Column="4" Grid.Row="6"/>
+
+        <Label Content="Vapen" Grid.Column="0" Grid.Row="7"/>
+        <TextBox Name="tbWeapons" Grid.Column="1" Grid.Row="7"/>
+        <ComboBox Name="cbWeapons" Grid.Column="3" Grid.Row="7"/>
+        <Button Name="btnAddWeapon" Content="Lägg till" Click="btnAddWeapon_Click" Grid.Column="2" Grid.Row="7"/>
+        <Button Name="btnRemoveWeapon" Content="Ta Bort" Click="btnRemoveWeapon_Click" Grid.Column="4" Grid.Row="7"/>
+
+        <Label Content="Patroner" Grid.Column="0" Grid.Row="8"/>
+        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="8">
+            <Label Content="Antal T6"/>
+            <ComboBox Name="cbT6Ammo" SelectionChanged="cbT6Ammo_SelectionChanged">
+                <ComboBoxItem Content="0" IsSelected="True"/>
+                <ComboBoxItem Content="1"/>
+                <ComboBoxItem Content="2"/>
+                <ComboBoxItem Content="3"/>
+                <ComboBoxItem Content="4"/>
+                <ComboBoxItem Content="5"/>
+                <ComboBoxItem Content="6"/>
+                <ComboBoxItem Content="7"/>
+                <ComboBoxItem Content="8"/>
+                <ComboBoxItem Content="9"/>
+                <ComboBoxItem Content="10"/>
+            </ComboBox>
+        </StackPanel>
+
+        <Label Content="Krubb" Grid.Column="0" Grid.Row="9"/>
+        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="9">
+            <Label Content="Antal T6"/>
+            <ComboBox Name="cbT6Food" SelectionChanged="cbT6Food_SelectionChanged">
+                <ComboBoxItem Content="0" IsSelected="True"/>
+                <ComboBoxItem Content="1"/>
+                <ComboBoxItem Content="2"/>
+                <ComboBoxItem Content="3"/>
+                <ComboBoxItem Content="4"/>
+                <ComboBoxItem Content="5"/>
+                <ComboBoxItem Content="6"/>
+                <ComboBoxItem Content="7"/>
+                <ComboBoxItem Content="8"/>
+                <ComboBoxItem Content="9"/>
+                <ComboBoxItem Content="10"/>
+            </ComboBox>
+        </StackPanel>
+
+        <Label Content="Vatten" Grid.Column="0" Grid.Row="10"/>
+        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="10">
+            <Label Content="Antal T6"/>
+            <ComboBox Name="cbT6Water" SelectionChanged="cbT6Water_SelectionChanged">
+                <ComboBoxItem Content="0" IsSelected="True"/>
+                <ComboBoxItem Content="1"/>
+                <ComboBoxItem Content="2"/>
+                <ComboBoxItem Content="3"/>
+                <ComboBoxItem Content="4"/>
+                <ComboBoxItem Content="5"/>
+                <ComboBoxItem Content="6"/>
+                <ComboBoxItem Content="7"/>
+                <ComboBoxItem Content="8"/>
+                <ComboBoxItem Content="9"/>
+                <ComboBoxItem Content="10"/>
+            </ComboBox>
+        </StackPanel>
+
+        <Label Content="Artefakt" Grid.Column="0" Grid.Row="11"/>
+        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="11">
+            <RadioButton Name="rbArtifactYes" GroupName="artefact" Content="Ja" Checked="rbArtifactYes_Checked" Unchecked="rbArtifactYes_Unchecked" VerticalContentAlignment="Center" Margin="5"/>
+            <RadioButton Name="rbArtifactNo" GroupName="artefact" Content="Nej" VerticalContentAlignment="Center" Margin="5" IsChecked="True"/>
+        </StackPanel>
+
+        <Label Content="Skrot" Grid.Column="0" Grid.Row="12"/>
+        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="12">
+            <RadioButton Name="rbGarbageYes" GroupName="garbage" Content="Ja" Checked="rbGarbageYes_Checked" Unchecked="rbGarbageYes_Unchecked" VerticalContentAlignment="Center" Margin="5"/>
+            <RadioButton Name="rbGarbageNo" GroupName="garbage" Content="Nej" VerticalContentAlignment="Center" Margin="5" IsChecked="True"/>
+        </StackPanel>
+
+    </Grid>
+</Window>

@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using SlpGenerator.TextFields;
 using System.Windows;
 using SlpGenerator.TextFields.Menus.DropItem;
+using System.Windows.Controls.Primitives;
 
 namespace SlpGenerator.Menus
 {
@@ -30,11 +31,11 @@ namespace SlpGenerator.Menus
             Label lbl;
             GetLabel(sender, out sent, out lbl);
 
-            SetTextField(Occupation.GetEquipment(ExtractIntegersFromEquipment(sent.Header as string)), lbl);
-
+            //SetTextField(Occupation.GetEquipment(ExtractIntegersFromEquipment(sent.Header as string)), lbl);
+            SetTextField(ThrowDice(sent.Header as string), lbl);
         }
 
-        static public void SetArtifactOrGarbage(object sender, RoutedEventArgs e)
+        static public void SetStuff(object sender, RoutedEventArgs e)
         {
             DropItem sent;
             Label lbl;
@@ -44,24 +45,85 @@ namespace SlpGenerator.Menus
 
         }
 
-        static public List<string> ExtractIntegersFromEquipment(string str)
-        {
-            List<string> returnList = new List<string>();
-            char[] arr = str.ToCharArray();
-            foreach (char item in arr)
-            {
-                int i = -1;
-                bool isInt =
-                int.TryParse(item.ToString(), out i);
+        //static public List<string> ExtractIntegersFromEquipment(string str)
+        //{
+        //    List<string> returnList = new List<string>();
+        //    char[] arr = str.ToCharArray();
+        //    foreach (char item in arr)
+        //    {
+        //        int i = -1;
+        //        bool isInt =
+        //        int.TryParse(item.ToString(), out i);
 
-                if (isInt && i != -1 && i != 6)
-                {
-                    returnList.Add(i.ToString());
-                }
-            }
-            return returnList;
+        //        if (isInt && i != -1 && i != 6)
+        //        {
+        //            returnList.Add(i.ToString());
+        //        }
+        //    }
+        //    return returnList;
             
-        }
+        //}
+
+
+        //static public string ThrowDice(string str)
+        //{
+        //    if (str.Contains("T6"))
+        //    {
+        //        Random rnd = new Random();
+        //        List<string> list = new List<string>();
+        //        list.AddRange(str.Split(' '));
+
+        //        for (int i = 0; i < list.Count; i++)
+        //        {
+        //            if (list[i].Contains("T6") && !(list[i].Contains("T66")))
+        //            {
+        //                int diceMax = 1;
+
+        //                var die = list[i].Split('T')[0].ToCharArray().Where(p => Char.IsNumber(p)).ToArray<char>();
+        //                if (die.Length != 0)
+        //                {
+        //                    diceMax = Convert.ToInt32(string.Join("", die));
+        //                }
+        //                else
+        //                {
+        //                    diceMax *= 6;
+        //                }
+        //                list[i] = rnd.Next(1, diceMax + 1).ToString();
+
+
+        //            }
+        //            else if (list[i] == "T66")
+        //            {
+        //                if (list.Contains("ST"))
+        //                {
+        //                    list[i] = rnd.Next(1, 67).ToString();
+        //                }
+        //                else
+        //                {
+        //                    list[i] = rnd.Next(1, 67).ToString() + " ST";
+        //                }
+        //            }
+
+        //        }
+
+
+        //        string returnString = "";
+
+        //        foreach (string item in list)
+        //        {
+        //            returnString += item + " ";
+        //        }
+
+        //        return returnString;
+        //    }
+        //    else
+        //    {
+        //        return str;
+        //    }
+
+
+        //}
+
 
         static public string ThrowDice(string str)
         {
@@ -70,44 +132,39 @@ namespace SlpGenerator.Menus
                 Random rnd = new Random();
                 List<string> list = new List<string>();
                 list.AddRange(str.Split(' '));
+
                 for (int i = 0; i < list.Count; i++)
                 {
-                    if (list[i] == "T6")
+                    if (list[i].Contains("T6"))
                     {
-                        if (list.Contains("ST"))
-                        {
-                            list[i] = rnd.Next(1, 7).ToString();
-                        }
-                        else
-                        {
-                            list[i] = rnd.Next(1, 7).ToString() + " ST";
-                        }
+                        //int diceMax = 1;
 
-                    }
-                    else if (list[i] == "T66")
-                    {
-                        if (list.Contains("ST"))
+                        //var die = list[i].Split('T')[0].ToCharArray().Where(p => Char.IsNumber(p)).ToArray<char>();
+                        //if (die.Length != 0)
+                        //{
+                        //    diceMax = Convert.ToInt32(string.Join("", die));
+                        //}
+                        //else
+                        //{
+                        //    diceMax *= 6;
+                        //}
+                        //list[i] = rnd.Next(1, diceMax + 1).ToString();
+
+                        int left = GetDiceLeftSide(list[i]);
+
+                        int right = GetDiceRightSide(list[i]);
+
+                        if (left == 0 || right == 0)
                         {
-                            list[i] = rnd.Next(1, 67).ToString();
+                            list[i] = "0";
                         }
                         else
                         {
-                            list[i] = rnd.Next(1, 67).ToString() + " ST";
+                            list[i] = rnd.Next(1, left * right).ToString();
                         }
-                    }
-                    else if (list[i] == "2T6")
-                    {
-                        if (list.Contains("ST"))
-                        {
-                            list[i] = rnd.Next(1, 13).ToString();
-                        }
-                        else
-                        {
-                            list[i] = rnd.Next(1, 13).ToString() + " ST";
-                        }
+                        
                     }
                 }
-                
 
                 string returnString = "";
 
@@ -122,9 +179,104 @@ namespace SlpGenerator.Menus
             {
                 return str;
             }
-            
+
 
         }
+
+
+        public static int GetDiceLeftSide(string str)
+        {
+            var left = str.Split('T')[0].ToCharArray().Where(p => Char.IsNumber(p)).ToArray<char>();
+
+            int returnInt = 0;
+            if (int.TryParse(string.Join("", left), out returnInt))
+            {
+                return returnInt;
+            }
+            else
+            {
+                return 1;
+            }
+        }
+
+        public static int GetDiceRightSide(string str)
+        {
+            var right = str.Split('T')[1].ToCharArray().Where(p => Char.IsNumber(p)).ToArray<char>();
+
+            int returnInt = 0;
+            if (int.TryParse(string.Join("", right), out returnInt))
+            {
+                return returnInt;
+            }
+            else
+            {
+                return 1;
+            }
+        }
+
+        //static public string ThrowDice(string str)
+        //{
+        //    if (str.Contains("T6"))
+        //    {
+        //        Random rnd = new Random();
+        //        List<string> list = new List<string>();
+        //        list.AddRange(str.Split(' '));
+
+        //        for (int i = 0; i < list.Count; i++)
+        //        {
+        //            if (list[i] == "T6")
+        //            {
+        //                if (list.Contains("ST"))
+        //                {
+        //                    list[i] = rnd.Next(1, 7).ToString();
+        //                }
+        //                else
+        //                {
+        //                    list[i] = rnd.Next(1, 7).ToString() + " ST";
+        //                }
+
+        //            }
+        //            else if (list[i] == "T66")
+        //            {
+        //                if (list.Contains("ST"))
+        //                {
+        //                    list[i] = rnd.Next(1, 67).ToString();
+        //                }
+        //                else
+        //                {
+        //                    list[i] = rnd.Next(1, 67).ToString() + " ST";
+        //                }
+        //            }
+        //            else if (list[i] == "2T6")
+        //            {
+        //                if (list.Contains("ST"))
+        //                {
+        //                    list[i] = rnd.Next(1, 13).ToString();
+        //                }
+        //                else
+        //                {
+        //                    list[i] = rnd.Next(1, 13).ToString() + " ST";
+        //                }
+        //            }
+        //        }
+
+
+        //        string returnString = "";
+
+        //        foreach (string item in list)
+        //        {
+        //            returnString += item + " ";
+        //        }
+
+        //        return returnString;
+        //    }
+        //    else
+        //    {
+        //        return str;
+        //    }
+
+
+        //}
 
         static public void SetTextFromContext(object sender, RoutedEventArgs e)
         {
@@ -140,24 +292,7 @@ namespace SlpGenerator.Menus
         {
             sent = sender as DropItem;
 
-            ContextMenu cm = new ContextMenu();
-
-            if (sent.Parent.GetType() == typeof(DropMenu))
-            {
-                cm = sent.Parent as ContextMenu;
-            }
-            else if (((DropItem)sent.Parent).Parent.GetType() == typeof(DropMenu))
-            {
-                cm = ((DropItem)sent.Parent).Parent as ContextMenu;
-            }
-            else if (((DropItem)((DropItem)sent.Parent).Parent).Parent.GetType() == typeof(DropMenu))
-            {
-                cm = ((DropItem)((DropItem)sent.Parent).Parent).Parent as ContextMenu;
-            }
-            else if (((DropItem)((DropItem)((DropItem)sent.Parent).Parent).Parent).Parent.GetType() == typeof(DropMenu))
-            {
-                cm = ((DropItem)((DropItem)((DropItem)sent.Parent).Parent).Parent).Parent as ContextMenu;
-            }
+            ContextMenu cm = FindContextMenu(sent);
 
             Button btn = cm.PlacementTarget as Button;
             Viewbox vb = btn.Content as Viewbox;
@@ -168,26 +303,22 @@ namespace SlpGenerator.Menus
         {
             sent = sender as DropItem;
 
-            ContextMenu cm = new ContextMenu();
-
-            if (sent.Parent.GetType() == typeof(DropMenu))
-            {
-                cm = sent.Parent as ContextMenu;
-            }
-            else if (((DropItem)sent.Parent).Parent.GetType() == typeof(DropMenu))
-            {
-                cm = ((DropItem)sent.Parent).Parent as ContextMenu;
-            }
-            else if (((DropItem)((DropItem)sent.Parent).Parent).Parent.GetType() == typeof(DropMenu))
-            {
-                cm = ((DropItem)((DropItem)sent.Parent).Parent).Parent as ContextMenu;
-            }
-            else if (((DropItem)((DropItem)((DropItem)sent.Parent).Parent).Parent).Parent.GetType() == typeof(DropMenu))
-            {
-                cm = ((DropItem)((DropItem)((DropItem)sent.Parent).Parent).Parent).Parent as ContextMenu;
-            }
+            ContextMenu cm = FindContextMenu(sent);
 
             btn = cm.PlacementTarget as Button;
+        }
+
+        private static ContextMenu FindContextMenu(DropItem sent)
+        {
+            Control item = (Control)sent.Parent;
+
+            while (!(item is DropMenu))
+            {
+                item = (Control)item.Parent;
+            }
+
+            ContextMenu cm = item as ContextMenu;
+            return cm;
         }
 
         static public void SetTextField(DropItem mi, Label field)
@@ -212,19 +343,17 @@ namespace SlpGenerator.Menus
             Label lbl;
             GetLabel(sender, out sent, out lbl);
 
-            //DropItem mi = new DropItem();
-            //mi = sent.Parent as DropItem;
-
             DropMenu dm;
             dm = sent.Parent as DropMenu;
 
             DropItem di = dm.GetRandom();
 
-            if (((string)di.Header).Contains("PATRONER"))
+            if (di.Header.ToString().Contains("T6") && di.Header.ToString().Contains("KRUBB"))
             {
-                SetTextField(Occupation.GetEquipment(ExtractIntegersFromEquipment(di.Header as string)), lbl);
+                //SetTextField(Occupation.GetEquipment(ExtractIntegersFromEquipment(di.Header as string)), lbl);
+                SetTextField(ThrowDice(di.Header as string), lbl);
             }
-            else if ((((DropItem)di.Parent).Header as string).ToUpper().Contains("SKROT"))
+            else if(di.Header.ToString().Contains("T6") && !(di.Header.ToString().Contains("KRUBB")))
             {
                 SetTextField(ThrowDice(di.Header as string), lbl);
             }
@@ -232,6 +361,7 @@ namespace SlpGenerator.Menus
             {
                 SetTextField(di, lbl);
             }
+            
         }
 
         private static int GetIndex(object sender, DropMenu dm)

@@ -8,20 +8,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("mof/boss.mof")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("mof/fixare.mof")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("mof/krossare.mof")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("mof/kr%c3%96nik%c3%96r.mof")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("mof/mutant%20med%20hund.mof")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("mof/skrotskalle.mof")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("mof/slav.mof")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("mof/zonstrykare.mof")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("textfiles/artefakter.txt")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("textfiles/mutanter.txt")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("textfiles/skills.txt")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("textfiles/spec_drom.txt")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("textfiles/spec_fardigheter.txt")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("textfiles/spec_bp.txt")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("textfiles/spec_utseende.txt")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("textfiles/spec_utseende_ansikte.txt")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("textfiles/spec_utseende_kl%c3%84dsel.txt")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("textfiles/syssla.txt")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("textfiles/spec_talanger.txt")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("textfiles/spec_utrustning.txt")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("textfiles/spec_vapen.txt")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("textfiles/skrot.txt")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("textfiles/mutationer.txt")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("textfiles/spec_utseende_kropp.txt")]
 
 
